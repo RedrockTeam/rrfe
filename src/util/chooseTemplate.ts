@@ -12,19 +12,19 @@ export function chooseTemplate(
 ) {
   const { framework, isUseTs, isUseTailwind, isUseLint, template } = result;
   let templateType = framework;
-  if (isUseTs) {
-    templateType += "-ts";
-  } else {
-    templateType += "-js";
-  }
+  // if (isUseTs) {
+  //   templateType += "-ts";
+  // } else {
+  //   templateType += "";
+  // }
 
-  if (isUseTailwind) {
-    templateType += "-tw";
-  } else {
-    templateType += "-css";
-  }
+  // if (isUseTailwind) {
+  //   templateType += "-tw";
+  // } else {
+  //   templateType += "";
+  // }
 
-  templateType += "-" + template;
+  // templateType += "-" + template;
   console.log(templateType);
   return `${templateType}`;
 }

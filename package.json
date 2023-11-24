@@ -8,7 +8,7 @@
     "build": "tsup --minify"
   },
   "bin": {
-    "redRockLint": "./bin/index.js"
+    "rrfe": "./bin/index.js"
   },
   "keywords": [],
   "author": "",
