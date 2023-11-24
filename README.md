@@ -1,27 +1,30 @@
-# redRockLint-cli
+# RedRockFE-cli
 
 ## 开发测试指南
 
-
-现在最外层输入命令
+输入命令进入开发模式
 
 ```shell
 pnpm start
-```
-
-
-开始 watch 编译
-
-目前我创建了一个 test 文件夹,就是用于测试的你可以在 test 文件夹里测试
-
-```shell
-redRockLint create [project]
-```
-当然也可以link到全局使用
-
-```shell
 pnpm link --global
 ```
+
+脚手架启动
+
+```shell
+rrfe create [project]
+```
+
+## Done
+
+包括但不仅限于以下功能：
+
+- 使用 Vite 作为打包工具(未来可能有变化)
+- 一键配置 tailwind，typescript，eslint，prettier
+- 初始化 git 以及配置 husky
+- 初始模板(目前只有 React)
+
+> 以上内容均可以自己修改
 
 ## TODO
 

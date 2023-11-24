@@ -15,42 +15,42 @@ const questions: prompt.PromptObject<string>[] = [
         title: blue("react"),
         value: "react",
       },
-      { title: green("vue"), value: "vue" },
+      { title: green("vue(选了也是react，希望大佬增加vue模板)"), value: "vue" },
       {
-        title: red("svelte"),
+        title: red("svelte(选了也是react，希望大佬增加svelte模板)"),
         value: "svelte",
       },
     ],
   },
-  {
-    type: "toggle",
-    name: "isUseTs",
-    message: `Do you want use ${blue("Typescript")}?`,
-    initial: true,
-    active: "yes",
-    inactive: "no",
-  },
-  {
-    type: "toggle",
-    name: "isUseTailwind",
-    message: `Do you want use ${cyan("Tailwind")}?`,
-    initial: true,
-    active: "yes",
-    inactive: "no",
-  },
-  {
-    type: "select",
-    name: "template",
-    message: "Select a template:",
-    choices: [
-      {
-        title: `${cyan("backstage")}`,
-        value: "backstage",
-      },
-      { title: `${green("h5")}`, value: "h5" },
-      { title: `${yellow("base")}`, value: "base" },
-    ],
-  },
+  // {
+  //   type: "toggle",
+  //   name: "isUseTs",
+  //   message: `Do you want use ${blue("Typescript")}?`,
+  //   initial: true,
+  //   active: "yes",
+  //   inactive: "no",
+  // },
+  // {
+  //   type: "toggle",
+  //   name: "isUseTailwind",
+  //   message: `Do you want use ${cyan("Tailwind")}?`,
+  //   initial: true,
+  //   active: "yes",
+  //   inactive: "no",
+  // },
+  // {
+  //   type: "select",
+  //   name: "template",
+  //   message: "Select a template:",
+  //   choices: [
+  //     {
+  //       title: `${cyan("backstage")}`,
+  //       value: "backstage",
+  //     },
+  //     { title: `${green("h5")}`, value: "h5" },
+  //     { title: `${yellow("base")}`, value: "base" },
+  //   ],
+  // },
 ];
 
 const cli = cac();

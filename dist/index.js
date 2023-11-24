@@ -5741,14 +5741,13 @@ function chooseTemplate(result2) {
   if (isUseTs) {
     templateType += "-ts";
   } else {
-    templateType += "-js";
+    templateType += "";
   }
   if (isUseTailwind) {
     templateType += "-tw";
   } else {
-    templateType += "-css";
+    templateType += "";
   }
-  templateType += "-" + template;
   console.log(templateType);
   return `${templateType}`;
 }
@@ -5764,42 +5763,42 @@ var questions = [
         title: (0, import_picocolors.blue)("react"),
         value: "react"
       },
-      { title: (0, import_picocolors.green)("vue"), value: "vue" },
+      { title: (0, import_picocolors.green)("vue(\u9009\u4E86\u4E5F\u662Freact\uFF0C\u5E0C\u671B\u5927\u4F6C\u589E\u52A0vue\u6A21\u677F)"), value: "vue" },
       {
-        title: (0, import_picocolors.red)("svelte"),
+        title: (0, import_picocolors.red)("svelte(\u9009\u4E86\u4E5F\u662Freact\uFF0C\u5E0C\u671B\u5927\u4F6C\u589E\u52A0svelte\u6A21\u677F)"),
         value: "svelte"
       }
     ]
-  },
-  {
-    type: "toggle",
-    name: "isUseTs",
-    message: `Do you want use ${(0, import_picocolors.blue)("Typescript")}?`,
-    initial: true,
-    active: "yes",
-    inactive: "no"
-  },
-  {
-    type: "toggle",
-    name: "isUseTailwind",
-    message: `Do you want use ${(0, import_picocolors.cyan)("Tailwind")}?`,
-    initial: true,
-    active: "yes",
-    inactive: "no"
-  },
-  {
-    type: "select",
-    name: "template",
-    message: "Select a template:",
-    choices: [
-      {
-        title: `${(0, import_picocolors.cyan)("backstage")}`,
-        value: "backstage"
-      },
-      { title: `${(0, import_picocolors.green)("h5")}`, value: "h5" },
-      { title: `${(0, import_picocolors.yellow)("base")}`, value: "base" }
-    ]
   }
+  // {
+  //   type: "toggle",
+  //   name: "isUseTs",
+  //   message: `Do you want use ${blue("Typescript")}?`,
+  //   initial: true,
+  //   active: "yes",
+  //   inactive: "no",
+  // },
+  // {
+  //   type: "toggle",
+  //   name: "isUseTailwind",
+  //   message: `Do you want use ${cyan("Tailwind")}?`,
+  //   initial: true,
+  //   active: "yes",
+  //   inactive: "no",
+  // },
+  // {
+  //   type: "select",
+  //   name: "template",
+  //   message: "Select a template:",
+  //   choices: [
+  //     {
+  //       title: `${cyan("backstage")}`,
+  //       value: "backstage",
+  //     },
+  //     { title: `${green("h5")}`, value: "h5" },
+  //     { title: `${yellow("base")}`, value: "base" },
+  //   ],
+  // },
 ];
 var cli = dist_default();
 var cwd = process.cwd();
