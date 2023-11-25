@@ -1,5 +1,5 @@
 {
-  "name": "vite-project",
+  "name": "RedRockFE-init-project",
   "private": true,
   "version": "0.0.0",
   "scripts": {
@@ -8,7 +8,7 @@
     "start": "vite start",
     "lint": "eslint src --ext .vue,.js,.ts,.jsx,.tsx --fix",
     "prettier": "prettier --write .",
-    "prepare": "git init & husky install"
+    "prepare": "git init && husky install && rename gitignore .gitignore"
   },
   "dependencies": {
     "@typescript-eslint/eslint-plugin": "^6.10.0",
