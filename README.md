@@ -9,6 +9,16 @@ pnpm start
 pnpm link --global
 ```
 
+## 使用指南
+
+脚手架下载
+
+> 建议 pnpm 下载
+
+```shell
+pnpm i rrfe-cli -g
+```
+
 脚手架启动
 
 ```shell
@@ -24,7 +34,7 @@ rrfe create [project]
 - 初始化 git 以及配置 husky
 - 初始模板(目前只有 React)
 
-> 以上内容均可以自己修改
+> 以上内容均可以自定义
 
 ## TODO
 
