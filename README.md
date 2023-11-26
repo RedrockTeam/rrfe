@@ -16,7 +16,7 @@ pnpm link --global
 > 建议 pnpm 下载
 
 ```shell
-pnpm i rrfe-cli -g
+pnpm i @redrockfe/rrfe-cli -g
 ```
 
 脚手架启动
