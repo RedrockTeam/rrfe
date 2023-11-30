@@ -5729,135 +5729,26 @@ var cac = (name = "") => new CAC(name);
 var dist_default = cac;
 
 // src/node/cli.ts
-var import_picocolors = __toESM(require_picocolors());
+var import_picocolors2 = __toESM(require_picocolors());
+
+// src/util/init.ts
 var import_prompts = __toESM(require_prompts3());
-var import_path = __toESM(require("path"));
-var import_fs = __toESM(require("fs"));
 
 // src/util/chooseTemplate.ts
 function chooseTemplate(result2) {
-  const { framework, language, styles, template } = result2;
-  let templateType = framework + "-" + language + "-" + styles;
+  const { framework, language, styles } = result2;
+  const templateType = framework + "-" + language + "-" + styles;
   console.log(templateType);
   return `${templateType}`;
 }
 
-// src/node/cli.ts
-var questions = [
-  {
-    type: "select",
-    name: "framework",
-    message: "Select a framework:",
-    choices: [
-      {
-        title: (0, import_picocolors.blue)("react"),
-        value: "react"
-      },
-      { title: (0, import_picocolors.green)("vue(\u9009\u4E86\u4E5F\u662Freact\uFF0C\u5E0C\u671B\u5927\u4F6C\u589E\u52A0vue\u6A21\u677F)"), value: "vue" },
-      {
-        title: (0, import_picocolors.red)("svelte(\u9009\u4E86\u4E5F\u662Freact\uFF0C\u5E0C\u671B\u5927\u4F6C\u589E\u52A0svelte\u6A21\u677F)"),
-        value: "svelte"
-      }
-    ]
-  },
-  {
-    type: "select",
-    name: "language",
-    message: `Select a Language:`,
-    choices: [
-      {
-        title: (0, import_picocolors.blue)("TS"),
-        value: "ts"
-      },
-      { title: (0, import_picocolors.yellow)("JS"), value: "js" }
-    ]
-  },
-  {
-    type: "select",
-    name: "styles",
-    message: `Select a Styles Frameworks`,
-    choices: [
-      {
-        title: (0, import_picocolors.blue)("Tailwind"),
-        value: "tailwind"
-      },
-      { title: (0, import_picocolors.green)("less"), value: "less" },
-      {
-        title: (0, import_picocolors.yellow)("css"),
-        value: "css"
-      }
-    ]
-  }
-  // {
-  //   type: "select",
-  //   name: "template",
-  //   message: "Select a template:",
-  //   choices: [
-  //     {
-  //       title: `${cyan("backstage")}`,
-  //       value: "backstage",
-  //     },
-  //     { title: `${green("h5")}`, value: "h5" },
-  //     { title: `${yellow("base")}`, value: "base" },
-  //   ],
-  // },
-];
-var cli = dist_default();
-var cwd = process.cwd();
-var defaultTargetDir = "redrock-project";
-var result;
-async function init(project) {
-  try {
-    result = await (0, import_prompts.default)(
-      [
-        {
-          type: "text",
-          name: "projectName",
-          message: "Project name:",
-          initial: project || defaultTargetDir
-        },
-        ...questions
-      ],
-      {
-        onCancel: () => {
-          throw new Error("Operation cancelled");
-        }
-      }
-    );
-  } catch (cancelled) {
-    console.log(cancelled.message);
-    return;
-  }
-  const { projectName } = result;
-  const root = import_path.default.join(cwd, projectName);
-  import_fs.default.mkdirSync(root, { recursive: true });
-  const templateType = chooseTemplate(result);
-  const templateDir = import_path.default.resolve(__dirname, `../template/${templateType}`);
-  const files = import_fs.default.readdirSync(templateDir);
-  const write = (file, content) => {
-    const targetPath = import_path.default.join(root, file);
-    if (content) {
-      import_fs.default.writeFileSync(targetPath, content);
-    } else {
-      copy(import_path.default.join(templateDir, file), targetPath);
-    }
-  };
-  const pkg = JSON.parse(
-    import_fs.default.readFileSync(import_path.default.join(templateDir, `package.json`), "utf-8")
-  );
-  pkg.name = toValidPackageName(projectName);
-  write("package.json", JSON.stringify(pkg, null, 2) + "\n");
-  for (const file of files.filter((f) => f !== "package.json")) {
-    write(file);
-  }
-  console.log(`\u26A1 ${(0, import_picocolors.green)("complete work")} \u{1F680}`);
-  console.log(`Your project ${(0, import_picocolors.cyan)(projectName)}`);
-}
-cli.command("create [project]", "create the new project").action(async (project) => {
-  if (project)
-    console.log(`Your project name is ${(0, import_picocolors.cyan)(project)}`);
-  await init(project);
-});
+// src/util/init.ts
+var import_path2 = __toESM(require("path"));
+var import_fs2 = __toESM(require("fs"));
+
+// src/util/fs.ts
+var import_fs = __toESM(require("fs"));
+var import_path = __toESM(require("path"));
 function copy(src, dest) {
   const stat = import_fs.default.statSync(src);
   if (stat.isDirectory()) {
@@ -5877,9 +5768,136 @@ function copyDir(srcDir, destDir) {
 function toValidPackageName(projectName) {
   return projectName.trim().toLowerCase().replace(/\s+/g, "-").replace(/^[._]/, "").replace(/[^a-z\d\-~]+/g, "-");
 }
-cli.command("[...files]", "help").action((files) => {
-  console.log(`can't find ${(0, import_picocolors.yellow)(files)} command `);
+
+// src/util/init.ts
+var import_picocolors = __toESM(require_picocolors());
+var result;
+var cwd = process.cwd();
+var defaultTargetDir = "redrock-project";
+async function init(project, questions2) {
+  try {
+    result = await (0, import_prompts.default)(
+      [
+        {
+          type: "text",
+          name: "projectName",
+          message: "Project name:",
+          initial: project || defaultTargetDir
+        },
+        ...questions2
+      ],
+      {
+        onCancel: () => {
+          throw new Error("Operation cancelled");
+        }
+      }
+    );
+  } catch (cancelled) {
+    console.log(cancelled.message);
+    return;
+  }
+  const { projectName } = result;
+  const root = import_path2.default.join(cwd, projectName);
+  import_fs2.default.mkdirSync(root, { recursive: true });
+  const templateType = chooseTemplate(result);
+  const templateDir = import_path2.default.resolve(__dirname, `../template/${templateType}`);
+  const files = import_fs2.default.readdirSync(templateDir);
+  const write = (file, content) => {
+    const targetPath = import_path2.default.join(root, file);
+    if (content) {
+      import_fs2.default.writeFileSync(targetPath, content);
+    } else {
+      copy(import_path2.default.join(templateDir, file), targetPath);
+    }
+  };
+  const pkg = JSON.parse(
+    import_fs2.default.readFileSync(import_path2.default.join(templateDir, `package.json`), "utf-8")
+  );
+  pkg.name = toValidPackageName(projectName);
+  write("package.json", JSON.stringify(pkg, null, 2) + "\n");
+  for (const file of files.filter((f) => f !== "package.json")) {
+    write(file);
+  }
+  console.log(`\u26A1 ${(0, import_picocolors.green)("complete work")} \u{1F680}`);
+  console.log(`Your project ${(0, import_picocolors.cyan)(projectName)}`);
+}
+
+// src/util/test.ts
+var import_child_process = require("child_process");
+var import_path3 = __toESM(require("path"));
+async function test(targetFolder) {
+  const absolutePath = import_path3.default.resolve(targetFolder);
+  try {
+    process.chdir(absolutePath);
+    (0, import_child_process.execSync)("pnpm i", { stdio: "inherit" });
+    (0, import_child_process.execSync)("pnpm dev", { stdio: "inherit" });
+  } catch (error) {
+    console.error(`error: ${error.message}`);
+    process.exit(1);
+  }
+}
+
+// src/node/cli.ts
+var questions = [
+  {
+    type: "select",
+    name: "framework",
+    message: "Select a framework:",
+    choices: [
+      {
+        title: (0, import_picocolors2.blue)("react"),
+        value: "react"
+      },
+      { title: (0, import_picocolors2.green)("vue(\u9009\u4E86\u4E5F\u662Freact\uFF0C\u5E0C\u671B\u5927\u4F6C\u589E\u52A0vue\u6A21\u677F)"), value: "vue" },
+      {
+        title: (0, import_picocolors2.red)("svelte(\u9009\u4E86\u4E5F\u662Freact\uFF0C\u5E0C\u671B\u5927\u4F6C\u589E\u52A0svelte\u6A21\u677F)"),
+        value: "svelte"
+      }
+    ]
+  },
+  {
+    type: "select",
+    name: "language",
+    message: `Select a Language:`,
+    choices: [
+      {
+        title: (0, import_picocolors2.blue)("TS"),
+        value: "ts"
+      },
+      { title: (0, import_picocolors2.yellow)("JS"), value: "js" }
+    ]
+  },
+  {
+    type: "select",
+    name: "styles",
+    message: `Select a Styles Frameworks`,
+    choices: [
+      {
+        title: (0, import_picocolors2.blue)("Tailwind"),
+        value: "tailwind"
+      },
+      { title: (0, import_picocolors2.green)("less"), value: "less" },
+      {
+        title: (0, import_picocolors2.yellow)("css"),
+        value: "css"
+      }
+    ]
+  }
+];
+var cli = dist_default();
+cli.command("create [project]", "create the new project").action(async (project) => {
+  if (project)
+    console.log(`Your project name is ${(0, import_picocolors2.cyan)(project)}`);
+  await init(project, questions);
+});
+cli.command("test [folder]", "test the new template").action(async (folder) => {
+  if (folder)
+    console.log(`Waiting....`);
+  await test(folder);
+});
+cli.command("[...files]", "error").action((files) => {
+  console.log(`can't find ${(0, import_picocolors2.yellow)(files)} command `);
 });
 cli.help();
-cli.version("0.1.1");
+cli.version("0.3.0");
 cli.parse();

@@ -10,8 +10,8 @@ export function chooseTemplate(
     | "template"
   >
 ) {
-  const { framework, language, styles, template } = result;
-  let templateType = framework + "-" + language + "-" + styles;
+  const { framework, language, styles } = result;
+  const templateType = framework + "-" + language + "-" + styles;
 
   // if (isUseTailwind) {
   //   templateType += "-tw";

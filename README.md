@@ -9,6 +9,15 @@ pnpm start
 pnpm link --global
 ```
 
+### 新增模板测试
+
+```shell
+rrfe create [name]
+rrfe test [name]
+```
+
+test command 测试模板是否正常启动
+
 ## 使用指南
 
 脚手架下载
