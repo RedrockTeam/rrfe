@@ -39,6 +39,10 @@ export async function init(
   const root = path.join(cwd, projectName);
   fs.mkdirSync(root, { recursive: true });
 
+  const renameFiles: Record<string, string> = {
+    _gitignore: ".gitignore",
+  };
+
   // 处理模板
   const templateType = chooseTemplate(result);
   const templateDir = path.resolve(__dirname, `../template/${templateType}`);
@@ -46,7 +50,7 @@ export async function init(
 
   //写入操作
   const write = (file: string, content?: string) => {
-    const targetPath = path.join(root, file);
+    const targetPath = path.join(root, renameFiles[file] ?? file);
     if (content) {
       fs.writeFileSync(targetPath, content);
     } else {

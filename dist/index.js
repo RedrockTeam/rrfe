@@ -5799,11 +5799,14 @@ async function init(project, questions2) {
   const { projectName } = result;
   const root = import_path2.default.join(cwd, projectName);
   import_fs2.default.mkdirSync(root, { recursive: true });
+  const renameFiles = {
+    _gitignore: ".gitignore"
+  };
   const templateType = chooseTemplate(result);
   const templateDir = import_path2.default.resolve(__dirname, `../template/${templateType}`);
   const files = import_fs2.default.readdirSync(templateDir);
   const write = (file, content) => {
-    const targetPath = import_path2.default.join(root, file);
+    const targetPath = import_path2.default.join(root, renameFiles[file] ?? file);
     if (content) {
       import_fs2.default.writeFileSync(targetPath, content);
     } else {
