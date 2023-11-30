@@ -5736,18 +5736,8 @@ var import_fs = __toESM(require("fs"));
 
 // src/util/chooseTemplate.ts
 function chooseTemplate(result2) {
-  const { framework, isUseTs, isUseTailwind, isUseLint, template } = result2;
-  let templateType = framework;
-  if (isUseTs) {
-    templateType += "-ts";
-  } else {
-    templateType += "";
-  }
-  if (isUseTailwind) {
-    templateType += "-tw";
-  } else {
-    templateType += "";
-  }
+  const { framework, language, styles, template } = result2;
+  let templateType = framework + "-" + language + "-" + styles;
   console.log(templateType);
   return `${templateType}`;
 }
@@ -5769,23 +5759,35 @@ var questions = [
         value: "svelte"
       }
     ]
+  },
+  {
+    type: "select",
+    name: "language",
+    message: `Select a Language:`,
+    choices: [
+      {
+        title: (0, import_picocolors.blue)("TS"),
+        value: "ts"
+      },
+      { title: (0, import_picocolors.yellow)("JS"), value: "js" }
+    ]
+  },
+  {
+    type: "select",
+    name: "styles",
+    message: `Select a Styles Frameworks`,
+    choices: [
+      {
+        title: (0, import_picocolors.blue)("Tailwind"),
+        value: "tailwind"
+      },
+      { title: (0, import_picocolors.green)("less"), value: "less" },
+      {
+        title: (0, import_picocolors.yellow)("css"),
+        value: "css"
+      }
+    ]
   }
-  // {
-  //   type: "toggle",
-  //   name: "isUseTs",
-  //   message: `Do you want use ${blue("Typescript")}?`,
-  //   initial: true,
-  //   active: "yes",
-  //   inactive: "no",
-  // },
-  // {
-  //   type: "toggle",
-  //   name: "isUseTailwind",
-  //   message: `Do you want use ${cyan("Tailwind")}?`,
-  //   initial: true,
-  //   active: "yes",
-  //   inactive: "no",
-  // },
   // {
   //   type: "select",
   //   name: "template",
@@ -5879,5 +5881,5 @@ cli.command("[...files]", "help").action((files) => {
   console.log(`can't find ${(0, import_picocolors.yellow)(files)} command `);
 });
 cli.help();
-cli.version("0.0.1");
+cli.version("0.1.1");
 cli.parse();

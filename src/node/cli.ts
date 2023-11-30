@@ -22,22 +22,34 @@ const questions: prompt.PromptObject<string>[] = [
       },
     ],
   },
-  // {
-  //   type: "toggle",
-  //   name: "isUseTs",
-  //   message: `Do you want use ${blue("Typescript")}?`,
-  //   initial: true,
-  //   active: "yes",
-  //   inactive: "no",
-  // },
-  // {
-  //   type: "toggle",
-  //   name: "isUseTailwind",
-  //   message: `Do you want use ${cyan("Tailwind")}?`,
-  //   initial: true,
-  //   active: "yes",
-  //   inactive: "no",
-  // },
+  {
+    type: "select",
+    name: "language",
+    message: `Select a Language:`,
+    choices: [
+      {
+        title: blue("TS"),
+        value: "ts",
+      },
+      { title: yellow("JS"), value: "js" },
+    ],
+  },
+  {
+    type: "select",
+    name: "styles",
+    message: `Select a Styles Frameworks`,
+    choices: [
+      {
+        title: blue("Tailwind"),
+        value: "tailwind",
+      },
+      { title: green("less"), value: "less" },
+      {
+        title: yellow("css"),
+        value: "css",
+      },
+    ],
+  },
   // {
   //   type: "select",
   //   name: "template",
@@ -58,12 +70,7 @@ const cwd = process.cwd();
 const defaultTargetDir = "redrock-project";
 
 let result: prompt.Answers<
-  | "projectName"
-  | "framework"
-  | "isUseTs"
-  | "isUseTailwind"
-  | "isUseLint"
-  | "template"
+  "projectName" | "framework" | "language" | "styles" | "isUseLint" | "template"
 >;
 async function init(project: string) {
   try {

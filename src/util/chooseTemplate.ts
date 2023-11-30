@@ -4,19 +4,14 @@ export function chooseTemplate(
   result: prompt.Answers<
     | "projectName"
     | "framework"
-    | "isUseTs"
-    | "isUseTailwind"
+    | "language"
+    | "styles"
     | "isUseLint"
     | "template"
   >
 ) {
-  const { framework, isUseTs, isUseTailwind, isUseLint, template } = result;
-  let templateType = framework;
-  // if (isUseTs) {
-  //   templateType += "-ts";
-  // } else {
-  //   templateType += "";
-  // }
+  const { framework, language, styles, template } = result;
+  let templateType = framework + "-" + language + "-" + styles;
 
   // if (isUseTailwind) {
   //   templateType += "-tw";

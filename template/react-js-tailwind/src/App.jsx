@@ -1,4 +1,4 @@
-import RRLogo from '../public/favicon.ico';
+import RRLogo from './assets/favicon.ico';
 
 function App() {
   return (
