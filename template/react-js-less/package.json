@@ -1,0 +1,38 @@
+{
+  "name": "RedRockFE-init-project",
+  "private": true,
+  "version": "0.0.0",
+  "scripts": {
+    "dev": "vite dev",
+    "build": "prettier --write .&& vite build",
+    "start": "vite start",
+    "lint": "eslint src --ext .vue,.js,.ts,.jsx,.tsx --fix",
+    "prettier": "prettier --write .",
+    "prepare": "git init && husky install && rename gitignore .gitignore"
+  },
+  "dependencies": {
+    "@vitejs/plugin-react": "^4.1.1",
+    "prettier": "^3.0.3",
+    "react": "^18",
+    "react-dom": "^18",
+    "react-router-dom": "^6.18.0",
+    "vite": "^4.5.0",
+    "vite-plugin-eslint": "^1.8.1",
+    "less": "^4.2.0"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^18.2.0",
+    "@commitlint/config-conventional": "^18.1.0",
+    "@types/node": "20.9.0",
+    "@types/react": "18.2.37",
+    "@types/react-dom": "^18",
+    "autoprefixer": "^10.0.1",
+    "eslint": "^8",
+    "eslint-config-prettier": "^9.0.0",
+    "eslint-plugin-prettier": "^5.0.1",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-react-refresh": "^0.4.4",
+    "husky": "^8.0.3",
+    "tailwindcss": "^3.3.0"
+  }
+}
