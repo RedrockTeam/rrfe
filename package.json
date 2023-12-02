@@ -1,6 +1,6 @@
 {
   "name": "@redrockfe/rrfe-cli",
-  "version": "0.3.11",
+  "version": "0.3.12",
   "description": "command create to begin a project",
   "main": "index.js",
   "scripts": {
@@ -13,9 +13,12 @@
     "rrfe": "bin/index.js"
   },
   "keywords": [],
-  "author": "YYGod",
+  "contributors": [
+    {"name":"YYGod","url":"https://github.com/johanjordaan"},
+    {"name":"sunsunmonkey","url":"https://github.com/sunsunmonkey"}
+  ],
   "private": false,
-  "license": "ISC",
+  "license": "MIT",
   "devDependencies": {
     "@types/prompts": "^2.4.8",
     "@typescript-eslint/eslint-plugin": "^6.13.1",
@@ -36,4 +39,5 @@
     "url": "https://github.com/RedrockTeam/RedRockFE-cli/issues"
   },
   "homepage": "https://github.com/RedrockTeam/RedRockFE-cli#readme"
+  
 }
