@@ -71,6 +71,6 @@ cli
 
 cli.help();
 
-cli.version("0.3.0");
+cli.version("0.3.1");
 
 cli.parse();

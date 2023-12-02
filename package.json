@@ -1,7 +1,7 @@
 {
   "name": "@redrockfe/rrfe-cli",
-  "version": "0.3.0",
-  "description": "输入命令进入开发模式",
+  "version": "0.3.1",
+  "description": "command create to begin a project",
   "main": "index.js",
   "scripts": {
     "start": "tsup --watch",
