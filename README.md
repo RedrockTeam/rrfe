@@ -1,13 +1,16 @@
-# RedRockFE-cli
+# RedRockFE
 
 ## 开发测试指南
 
 输入命令进入开发模式
 
 ```shell
-pnpm start
 pnpm link --global
+pnpm start
 ```
+
+start 用于打包
+link 用于给你全局加一个软连接
 
 ### 新增模板测试
 
@@ -17,6 +20,17 @@ rrfe test [name]
 ```
 
 test command 测试模板是否正常启动
+
+### tinypng
+
+进行压缩图片
+
+```shell
+rrfe tinypng [root]
+```
+
+会照 ./assets/imgs 或 ./assets/img 或 ./assets/imges 或 ./assets/imge 寻找文件位置
+
 
 ## 使用指南
 
@@ -28,10 +42,15 @@ test command 测试模板是否正常启动
 pnpm i @redrockfe/rrfe-cli -g
 ```
 
-脚手架启动
+### 创建新项目
 
 ```shell
 rrfe create [project]
+```
+### 压缩图片
+
+```shell
+rrfe tinypng [root]
 ```
 
 ## Done
@@ -42,7 +61,7 @@ rrfe create [project]
 - 一键配置 tailwind，typescript，eslint，prettier
 - 初始化 git 以及配置 husky
 - 初始模板(目前只有 React)
-
+- 压缩图片
 > 以上内容均可以自定义
 
 ## TODO

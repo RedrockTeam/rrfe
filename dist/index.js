@@ -5729,7 +5729,7 @@ var cac = (name = "") => new CAC(name);
 var dist_default = cac;
 
 // src/node/cli.ts
-var import_picocolors2 = __toESM(require_picocolors());
+var import_picocolors3 = __toESM(require_picocolors());
 
 // src/util/init.ts
 var import_prompts = __toESM(require_prompts3());
@@ -5738,7 +5738,6 @@ var import_prompts = __toESM(require_prompts3());
 function chooseTemplate(result2) {
   const { framework, language, styles } = result2;
   const templateType = framework + "-" + language + "-" + styles;
-  console.log(templateType);
   return `${templateType}`;
 }
 
@@ -5840,6 +5839,56 @@ async function test(targetFolder) {
   }
 }
 
+// src/util/tinypng.ts
+var import_path4 = __toESM(require("path"));
+var import_fs4 = __toESM(require("fs"));
+var import_tinify = __toESM(require("tinify"));
+var import_picocolors2 = __toESM(require_picocolors());
+function entryTinyPng(root) {
+  const cwd2 = root || process.cwd();
+  const assetsPaths = ["image", "images", "img", "imgs"];
+  let resolvedPath;
+  for (const assetsPath of assetsPaths) {
+    resolvedPath = import_path4.default.resolve(cwd2, `./assets/${assetsPath}`);
+    if (import_fs4.default.existsSync(resolvedPath)) {
+      return resolvedPath;
+    }
+  }
+}
+function getFileList(filePath, filesList) {
+  readFile(filePath, filesList);
+  return filesList;
+}
+function readFile(filePath, filesList) {
+  const imgsInclude = [".png", ".jpg", ".webp"];
+  const files = import_fs4.default.readdirSync(filePath);
+  files.forEach((file) => {
+    const fPath = import_path4.default.join(filePath, file);
+    const states = import_fs4.default.statSync(fPath);
+    if (states.isFile()) {
+      const extname = import_path4.default.extname(file);
+      if (imgsInclude.includes(extname)) {
+        filesList.push({ path: fPath, name: file });
+      }
+    } else {
+      readFile(fPath, filesList);
+    }
+  });
+}
+function tinifyImgs(filePath) {
+  const keys = "n7ghJ9cdwTdCqw2ZCckW1jSbfVY31gkB";
+  import_tinify.default.key = keys;
+  const filesList = [];
+  getFileList(filePath, filesList);
+  filesList.map(async (item) => {
+    console.log(`deal with ${(0, import_picocolors2.cyan)(item.name)}`);
+    console.time(`\u2705 complete with ${(0, import_picocolors2.green)(item.name)}`);
+    const source = import_tinify.default.fromFile(item.path);
+    await source.toFile(item.path);
+    console.timeEnd(`\u2705 complete with ${(0, import_picocolors2.green)(item.name)}`);
+  });
+}
+
 // src/node/cli.ts
 var questions = [
   {
@@ -5848,12 +5897,12 @@ var questions = [
     message: "Select a framework:",
     choices: [
       {
-        title: (0, import_picocolors2.blue)("react"),
+        title: (0, import_picocolors3.blue)("react"),
         value: "react"
       },
-      { title: (0, import_picocolors2.green)("vue(\u9009\u4E86\u4E5F\u662Freact\uFF0C\u5E0C\u671B\u5927\u4F6C\u589E\u52A0vue\u6A21\u677F)"), value: "vue" },
+      { title: (0, import_picocolors3.green)("vue(\u9009\u4E86\u4E5F\u662Freact\uFF0C\u5E0C\u671B\u5927\u4F6C\u589E\u52A0vue\u6A21\u677F)"), value: "vue" },
       {
-        title: (0, import_picocolors2.red)("svelte(\u9009\u4E86\u4E5F\u662Freact\uFF0C\u5E0C\u671B\u5927\u4F6C\u589E\u52A0svelte\u6A21\u677F)"),
+        title: (0, import_picocolors3.red)("svelte(\u9009\u4E86\u4E5F\u662Freact\uFF0C\u5E0C\u671B\u5927\u4F6C\u589E\u52A0svelte\u6A21\u677F)"),
         value: "svelte"
       }
     ]
@@ -5864,10 +5913,10 @@ var questions = [
     message: `Select a Language:`,
     choices: [
       {
-        title: (0, import_picocolors2.blue)("TS"),
+        title: (0, import_picocolors3.blue)("TS"),
         value: "ts"
       },
-      { title: (0, import_picocolors2.yellow)("JS"), value: "js" }
+      { title: (0, import_picocolors3.yellow)("JS"), value: "js" }
     ]
   },
   {
@@ -5876,12 +5925,12 @@ var questions = [
     message: `Select a Styles Frameworks`,
     choices: [
       {
-        title: (0, import_picocolors2.blue)("Tailwind"),
+        title: (0, import_picocolors3.blue)("Tailwind"),
         value: "tailwind"
       },
-      { title: (0, import_picocolors2.green)("less"), value: "less" },
+      { title: (0, import_picocolors3.green)("less"), value: "less" },
       {
-        title: (0, import_picocolors2.yellow)("css"),
+        title: (0, import_picocolors3.yellow)("css"),
         value: "css"
       }
     ]
@@ -5890,8 +5939,16 @@ var questions = [
 var cli = dist_default();
 cli.command("create [project]", "create the new project").action(async (project) => {
   if (project)
-    console.log(`Your project name is ${(0, import_picocolors2.cyan)(project)}`);
+    console.log(`Your project name is ${(0, import_picocolors3.cyan)(project)}`);
   await init(project, questions);
+});
+cli.command("tinypng [root]", "tiny your png").action(async (root) => {
+  const entry = entryTinyPng(root);
+  if (!entry) {
+    console.log(`${(0, import_picocolors3.red)("cann't find the ./assets/img folder")}`);
+    return;
+  }
+  tinifyImgs(entry);
 });
 cli.command("test [folder]", "test the new template").action(async (folder) => {
   if (folder)
@@ -5899,8 +5956,8 @@ cli.command("test [folder]", "test the new template").action(async (folder) => {
   await test(folder);
 });
 cli.command("[...files]", "error").action((files) => {
-  console.log(`can't find ${(0, import_picocolors2.yellow)(files)} command `);
+  console.log(`can't find ${(0, import_picocolors3.yellow)(files)} command `);
 });
 cli.help();
-cli.version("0.3.0");
+cli.version("0.3.1");
 cli.parse();

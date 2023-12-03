@@ -4,7 +4,32 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+dependencies:
+  tinify:
+    specifier: ^1.7.1
+    version: 1.7.1
+
 devDependencies:
-  redRockLint:
+  '@redrockfe/rrfe-cli':
     specifier: ../
     version: link:..
+
+packages:
+
+  /promise-nodeify@3.0.1:
+    resolution: {integrity: sha512-ghsSuzZXJX8iO7WVec2z7GI+Xk/EyiD+JZK7AZKhUqYfpLa/Zs4ylUD+CwwnKlG6G3HnkUPMAi6PO7zeqGKssg==}
+    engines: {node: '>=6', npm: '>=1.3.7'}
+    dev: false
+
+  /proxying-agent@2.4.0:
+    resolution: {integrity: sha512-b9vDqIcViJZVsWPpQlp9Py74u+Wqd0a+kMkkg7zX58mwNtrNbOChNlRTM7lUrlpiwNzyJCV8+5D8rnZYLDFh7Q==}
+    engines: {node: '>=0.8.0'}
+    dev: false
+
+  /tinify@1.7.1:
+    resolution: {integrity: sha512-IbZwiVG0iN/BwZB0XTA45uNyv3DxDByL9TK0jI++hyWtnV68BgNKl0r+iNLsIEDasN3IntHaeaQbiVfaQVnLdQ==}
+    engines: {node: '>= 6.0'}
+    dependencies:
+      promise-nodeify: 3.0.1
+      proxying-agent: 2.4.0
+    dev: false
