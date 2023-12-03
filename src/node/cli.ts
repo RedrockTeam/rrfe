@@ -3,6 +3,8 @@ import { cyan, yellow, green, blue, red } from "picocolors";
 import prompt from "prompts";
 import { init } from "../util/init";
 import { test } from "../util/test";
+import { entryTinyPng, tinifyImgs } from "../util/tinypng";
+
 const questions: prompt.PromptObject<string>[] = [
   {
     type: "select",
@@ -58,10 +60,21 @@ cli
     if (project) console.log(`Your project name is ${cyan(project)}`);
     await init(project, questions);
   });
+
+cli.command("tinypng [root]", "tiny your png").action(async (root) => {
+  const entry = entryTinyPng(root);
+  if (!entry) {
+    console.log(`${red("cann't find the ./assets/img folder")}`);
+    return;
+  }
+  tinifyImgs(entry);
+});
+
 cli.command("test [folder]", "test the new template").action(async (folder) => {
   if (folder) console.log(`Waiting....`);
   await test(folder);
 });
+
 cli
   // Simply omit the command name, just brackets
   .command("[...files]", "error")
@@ -70,7 +83,6 @@ cli
   });
 
 cli.help();
-
-cli.version("0.3.1");
+cli.version("0.5.0");
 
 cli.parse();
