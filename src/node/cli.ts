@@ -3,6 +3,7 @@ import { cyan, yellow, green, blue, red } from "picocolors";
 import prompt from "prompts";
 import { init } from "../util/init";
 import { test } from "../util/test";
+
 const questions: prompt.PromptObject<string>[] = [
   {
     type: "select",
@@ -58,10 +59,12 @@ cli
     if (project) console.log(`Your project name is ${cyan(project)}`);
     await init(project, questions);
   });
+
 cli.command("test [folder]", "test the new template").action(async (folder) => {
   if (folder) console.log(`Waiting....`);
   await test(folder);
 });
+
 cli
   // Simply omit the command name, just brackets
   .command("[...files]", "error")
@@ -70,7 +73,6 @@ cli
   });
 
 cli.help();
-
-cli.version("0.3.0");
+cli.version("0.4.0");
 
 cli.parse();

@@ -12,14 +12,5 @@ export function chooseTemplate(
 ) {
   const { framework, language, styles } = result;
   const templateType = framework + "-" + language + "-" + styles;
-
-  // if (isUseTailwind) {
-  //   templateType += "-tw";
-  // } else {
-  //   templateType += "";
-  // }
-
-  // templateType += "-" + template;
-  console.log(templateType);
   return `${templateType}`;
 }
