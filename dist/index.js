@@ -5932,5 +5932,5 @@ cli.command("[...files]", "error").action((files) => {
   console.log(`can't find ${(0, import_picocolors2.yellow)(files)} command `);
 });
 cli.help();
-cli.version("0.5.0");
+cli.version("0.4.0");
 cli.parse();

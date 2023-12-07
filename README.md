@@ -1,4 +1,4 @@
-# RedRockFE
+# RedRockFE-CLI
 
 ## 开发测试指南
 

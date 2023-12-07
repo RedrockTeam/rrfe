@@ -73,6 +73,6 @@ cli
   });
 
 cli.help();
-cli.version("0.5.0");
+cli.version("0.4.0");
 
 cli.parse();
