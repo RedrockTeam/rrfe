@@ -6913,24 +6913,24 @@ function copyDir(srcDir, destDir) {
 function toValidPackageName(projectName) {
   return projectName.trim().toLowerCase().replace(/\s+/g, "-").replace(/^[._]/, "").replace(/[^a-z\d\-~]+/g, "-");
 }
-function updateCI(path4, REPO_NAME) {
+function updateCI(path5, REPO_NAME) {
   try {
-    let fileContent = import_fs.default.readFileSync(path4, "utf8");
+    let fileContent = import_fs.default.readFileSync(path5, "utf8");
     fileContent = fileContent.replace(
       /REPO_NAME: \[\]/g,
       `REPO_NAME: ${REPO_NAME}`
     );
-    import_fs.default.writeFileSync(path4, fileContent, "utf8");
+    import_fs.default.writeFileSync(path5, fileContent, "utf8");
     console.log("CI/CD\u6587\u4EF6\u5DF2\u6210\u529F\u66F4\u65B0\u3002");
   } catch (e) {
     console.error("\u8BFB\u53D6\u6216\u66F4\u65B0CI/CD\u6587\u4EF6\u65F6\u51FA\u9519\uFF1A", e.message);
   }
 }
-function updateBaseUrl(path4, REPO_NAME) {
+function updateBaseUrl(path5, REPO_NAME) {
   try {
-    let fileContent = import_fs.default.readFileSync(path4, "utf8");
+    let fileContent = import_fs.default.readFileSync(path5, "utf8");
     fileContent = fileContent.replace(/base: \[\]/g, `base: '/${REPO_NAME}/'`);
-    import_fs.default.writeFileSync(path4, fileContent, "utf8");
+    import_fs.default.writeFileSync(path5, fileContent, "utf8");
     console.log("BASEURL\u6587\u4EF6\u5DF2\u6210\u529F\u66F4\u65B0\u3002");
   } catch (e) {
     console.error("\u8BFB\u53D6\u6216\u66F4\u65B0CI/CD\u6587\u4EF6\u65F6\u51FA\u9519\uFF1A", e.message);
