@@ -12,11 +12,11 @@ pnpm link --global
 ### 新增模板测试
 
 ```shell
-rrfe create [name]
-rrfe test [name]
+rrfe-cli create [name]
+rrfe-cli test [name]
 ```
 
-test command 测试模板是否正常启动
+> 写完一个模板可以测试一下是否正常
 
 ## 使用指南
 
@@ -31,7 +31,7 @@ pnpm i @redrockfe/rrfe-cli -g
 脚手架启动
 
 ```shell
-rrfe create [project]
+rrfe-cli create [project]
 ```
 
 ## Done

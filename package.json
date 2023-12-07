@@ -10,7 +10,7 @@
     "prepare": "husky install"
   },
   "bin": {
-    "rrfe": "bin/index.js"
+    "rrfe-cli": "bin/index.js"
   },
   "keywords": [],
   "author": "YYGod",
