@@ -21,17 +21,6 @@ rrfe-cli test [name]
 
 > 写完一个模板可以测试一下是否正常
 
-### tinypng
-
-进行压缩图片
-
-```shell
-rrfe tinypng [root]
-```
-
-会照 ./assets/imgs 或 ./assets/img 或 ./assets/imges 或 ./assets/imge 寻找文件位置
-
-
 ## 使用指南
 
 脚手架下载
@@ -47,11 +36,6 @@ pnpm i @redrockfe/rrfe-cli -g
 ```shell
 rrfe-cli create [project]
 ```
-### 压缩图片
-
-```shell
-rrfe tinypng [root]
-```
 
 ## Done
 
@@ -61,8 +45,7 @@ rrfe tinypng [root]
 - 一键配置 tailwind，typescript，eslint，prettier
 - 初始化 git 以及配置 husky
 - 初始模板(目前只有 React)
-- 压缩图片
-> 以上内容均可以自定义
+  > 以上内容均可以自定义
 
 ## TODO
 

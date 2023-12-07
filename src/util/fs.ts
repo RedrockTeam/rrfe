@@ -43,8 +43,6 @@ export function updateCI(path: string, REPO_NAME: string) {
 
     // 将更新后的内容写回文件
     fs.writeFileSync(path, fileContent, "utf8");
-
-    console.log("CI/CD文件已成功更新。");
   } catch (e) {
     console.error("读取或更新CI/CD文件时出错：", e.message);
   }
@@ -59,8 +57,6 @@ export function updateBaseUrl(path: string, REPO_NAME: string) {
 
     // 将更新后的内容写回文件
     fs.writeFileSync(path, fileContent, "utf8");
-
-    console.log("BASEURL文件已成功更新。");
   } catch (e) {
     console.error("读取或更新CI/CD文件时出错：", e.message);
   }
