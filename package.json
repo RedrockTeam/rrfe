@@ -30,10 +30,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/RedrockTeam/RedRockFE-cli.git"
+    "url": "git+https://github.com/RedrockTeam/rrfe-cli"
   },
   "bugs": {
-    "url": "https://github.com/RedrockTeam/RedRockFE-cli/issues"
+    "url": "https://github.com/RedrockTeam/rrfe-cli/issues"
   },
-  "homepage": "https://github.com/RedrockTeam/RedRockFE-cli#readme"
+  "homepage": "https://github.com/RedrockTeam/rrfe-cli#readme"
 }
