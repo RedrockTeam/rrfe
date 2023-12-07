@@ -1,7 +1,7 @@
 {
-  "name": "@redrockfe/rrfe",
-  "version": "0.5.0",
-  "description": "command create to begin a project",
+  "name": "@redrockfe/rrfe-cli",
+  "version": "0.3.1",
+  "description": "输入命令进入开发模式",
   "main": "index.js",
   "scripts": {
     "start": "tsup --watch",
@@ -39,13 +39,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/RedrockTeam/RedRockFE.git"
+    "url": "git+https://github.com/RedrockTeam/rrfe-cli"
   },
   "bugs": {
-    "url": "https://github.com/RedrockTeam/RedRockFE/issues"
+    "url": "https://github.com/RedrockTeam/rrfe-cli/issues"
   },
-  "homepage": "https://github.com/RedrockTeam/RedRockFE#readme",
-  "dependencies": {
-    "tinify": "^1.7.1"
-  }
+  "homepage": "https://github.com/RedrockTeam/rrfe-cli#readme"
 }
