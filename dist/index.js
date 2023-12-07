@@ -6913,6 +6913,29 @@ function copyDir(srcDir, destDir) {
 function toValidPackageName(projectName) {
   return projectName.trim().toLowerCase().replace(/\s+/g, "-").replace(/^[._]/, "").replace(/[^a-z\d\-~]+/g, "-");
 }
+function updateCI(path4, REPO_NAME) {
+  try {
+    let fileContent = import_fs.default.readFileSync(path4, "utf8");
+    fileContent = fileContent.replace(
+      /REPO_NAME: \[\]/g,
+      `REPO_NAME: ${REPO_NAME}`
+    );
+    import_fs.default.writeFileSync(path4, fileContent, "utf8");
+    console.log("CI/CD\u6587\u4EF6\u5DF2\u6210\u529F\u66F4\u65B0\u3002");
+  } catch (e) {
+    console.error("\u8BFB\u53D6\u6216\u66F4\u65B0CI/CD\u6587\u4EF6\u65F6\u51FA\u9519\uFF1A", e.message);
+  }
+}
+function updateBaseUrl(path4, REPO_NAME) {
+  try {
+    let fileContent = import_fs.default.readFileSync(path4, "utf8");
+    fileContent = fileContent.replace(/base: \[\]/g, `base: '/${REPO_NAME}/'`);
+    import_fs.default.writeFileSync(path4, fileContent, "utf8");
+    console.log("BASEURL\u6587\u4EF6\u5DF2\u6210\u529F\u66F4\u65B0\u3002");
+  } catch (e) {
+    console.error("\u8BFB\u53D6\u6216\u66F4\u65B0CI/CD\u6587\u4EF6\u65F6\u51FA\u9519\uFF1A", e.message);
+  }
+}
 
 // src/util/init.ts
 var import_picocolors = __toESM(require_picocolors());
@@ -6929,6 +6952,11 @@ async function init(project, questions2) {
           message: "Project name:",
           initial: project || defaultTargetDir
         },
+        {
+          type: "text",
+          name: "REPO_NAME",
+          message: "REPO_NAME:"
+        },
         ...questions2
       ],
       {
@@ -6942,6 +6970,7 @@ async function init(project, questions2) {
     return;
   }
   const { projectName } = result;
+  const { REPO_NAME } = result;
   const root = import_path2.default.join(cwd, projectName);
   import_fs2.default.mkdirSync(root, { recursive: true });
   const renameFiles = {
@@ -6966,6 +6995,10 @@ async function init(project, questions2) {
   for (const file of files.filter((f) => f !== "package.json")) {
     write(file);
   }
+  const ciPath = import_path2.default.resolve(__dirname, `../${projectName}/.gitlab-ci.yml`);
+  updateCI(ciPath, REPO_NAME);
+  const vitePath = import_path2.default.resolve(__dirname, `../${projectName}/vite.config.ts`);
+  updateBaseUrl(vitePath, REPO_NAME);
   console.log(`\u26A1 ${(0, import_picocolors.green)("complete work")} \u{1F680}`);
   console.log(`Your project ${(0, import_picocolors.cyan)(projectName)}`);
 }
