@@ -11,7 +11,7 @@ pnpm start
 
 start 用于打包
 link 用于给你全局加一个软连接
-
+然进入test文件夹n
 ### 新增模板测试
 
 ```shell

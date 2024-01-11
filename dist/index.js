@@ -5883,7 +5883,7 @@ var package_default = {
     prepare: "husky install",
     changeset: "changeset",
     publish: "changeset publish",
-    version: "changeset version"
+    "version:changeset": "changeset version"
   },
   bin: {
     "rrfe-cli": "bin/index.js"
