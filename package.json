@@ -1,18 +1,26 @@
 {
   "name": "@redrockfe/rrfe-cli",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "description": "输入命令进入开发模式",
   "main": "index.js",
   "scripts": {
     "start": "tsup --watch",
     "build": "tsup --minify",
     "lint": "eslint src --ext .js,.ts --fix",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "changeset": "changeset",
+    "publish": "changeset publish",
+    "version": "changeset version"
   },
   "bin": {
     "rrfe-cli": "bin/index.js"
   },
-  "keywords": [],
+  "keywords": [
+    "redrockfe",
+    "cli",
+    "template",
+    "frontend"
+  ],
   "contributors": [
     {
       "name": "YYGod",
@@ -26,6 +34,7 @@
   "private": false,
   "license": "MIT",
   "devDependencies": {
+    "@changesets/cli": "^2.27.1",
     "@types/prompts": "^2.4.8",
     "@typescript-eslint/eslint-plugin": "^6.13.1",
     "@typescript-eslint/parser": "^6.13.1",

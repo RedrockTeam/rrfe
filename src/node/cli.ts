@@ -3,6 +3,7 @@ import { cyan, yellow, green, blue, red } from "picocolors";
 import prompt from "prompts";
 import { init } from "../util/init";
 import { test } from "../util/test";
+import getVersion from "../util/getVesion";
 
 const questions: prompt.PromptObject<string>[] = [
   {
@@ -73,6 +74,7 @@ cli
   });
 
 cli.help();
-cli.version("0.4.0");
+
+cli.version(getVersion());
 
 cli.parse();
