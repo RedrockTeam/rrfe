@@ -53,5 +53,11 @@
   "bugs": {
     "url": "https://github.com/RedrockTeam/rrfe-cli/issues"
   },
-  "homepage": "https://github.com/RedrockTeam/rrfe-cli#readme"
+  "homepage": "https://github.com/RedrockTeam/rrfe-cli#readme",
+  "files": [
+    "package.json",
+    "dist",
+    "bin",
+    "template"
+  ]
 }
