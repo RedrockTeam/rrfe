@@ -10,6 +10,15 @@
     "prettier": "prettier --write .",
     "prepare": "git init && husky install"
   },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx}": [
+      "eslint --cache --fix",
+      "prettier --write --list-different"
+    ],
+    "*.{json,md,html,css,scss,sass,less,styl}": [
+      "prettier --write --list-different"
+    ]
+  },
   "dependencies": {
     "@vitejs/plugin-react": "^4.1.1",
     "react": "^18",
@@ -28,8 +37,10 @@
     "eslint": "^8",
     "eslint-config-prettier": "^9.0.0",
     "eslint-plugin-prettier": "^5.0.1",
+    "eslint-plugin-react": "^7.33.2",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.4",
+    "lint-staged": "^15.2.0",
     "husky": "^8.0.3",
     "prettier": "^3.1.0",
     "prettier-plugin-tailwindcss": "^0.5.7",
