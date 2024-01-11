@@ -1,6 +1,7 @@
 import path from 'path';
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
+import tailwindcss from 'tailwindcss';
 
 //确定路径重命名
 const pathSrc = path.resolve(__dirname, 'src');
@@ -21,6 +22,11 @@ export default defineConfig({
     react(),
     
   ],
+  css: {
+    postcss: {
+      plugins: [tailwindcss],
+    },
+  },
   server: {
     hmr: { overlay: false },
     host: '0.0.0.0',
@@ -31,7 +37,7 @@ export default defineConfig({
       '/api': {
         target: 'https://be-dev.redrock.cqupt.edu.cn',
         changeOrigin: true,
-        rewrite: (path: string): string => path.replace(/^\/api/, ''),
+        rewrite: (path) => path.replace(/^\/api/, ''),
       },
     },
   },

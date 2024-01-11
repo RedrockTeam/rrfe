@@ -5748,6 +5748,18 @@ var import_fs2 = __toESM(require("fs"));
 // src/util/fs.ts
 var import_fs = __toESM(require("fs"));
 var import_path = __toESM(require("path"));
+
+// src/node/constant.ts
+var DEFAULT_CONFIG_FILES = [
+  "vite.config.js",
+  "vite.config.mjs",
+  "vite.config.ts",
+  "vite.config.cjs",
+  "vite.config.mts",
+  "vite.config.cts"
+];
+
+// src/util/fs.ts
 function copy(src, dest) {
   const stat = import_fs.default.statSync(src);
   if (stat.isDirectory()) {
@@ -5767,25 +5779,34 @@ function copyDir(srcDir, destDir) {
 function toValidPackageName(projectName) {
   return projectName.trim().toLowerCase().replace(/\s+/g, "-").replace(/^[._]/, "").replace(/[^a-z\d\-~]+/g, "-");
 }
-function updateCI(path4, REPO_NAME) {
+function updateCI(templateDir, REPO_NAME) {
   try {
-    let fileContent = import_fs.default.readFileSync(path4, "utf8");
+    const yamlPath = import_path.default.join(templateDir, `.gitlab-ci.yml`);
+    let fileContent = import_fs.default.readFileSync(yamlPath, "utf8");
     fileContent = fileContent.replace(
       /REPO_NAME: \[\]/g,
       `REPO_NAME: ${REPO_NAME}`
     );
-    import_fs.default.writeFileSync(path4, fileContent, "utf8");
+    import_fs.default.writeFileSync(yamlPath, fileContent, "utf8");
   } catch (e) {
     console.error("\u8BFB\u53D6\u6216\u66F4\u65B0CI/CD\u6587\u4EF6\u65F6\u51FA\u9519\uFF1A", e.message);
   }
 }
-function updateBaseUrl(path4, REPO_NAME) {
+function updateBaseUrl(templateDir, REPO_NAME) {
   try {
-    let fileContent = import_fs.default.readFileSync(path4, "utf8");
+    let vitePath = "";
+    for (const filename of DEFAULT_CONFIG_FILES) {
+      const filePath = import_path.default.resolve(templateDir, filename);
+      if (!import_fs.default.existsSync(filePath))
+        continue;
+      vitePath = filePath;
+      break;
+    }
+    let fileContent = import_fs.default.readFileSync(vitePath, "utf8");
     fileContent = fileContent.replace(/base: \[\]/g, `base: '/${REPO_NAME}/'`);
-    import_fs.default.writeFileSync(path4, fileContent, "utf8");
+    import_fs.default.writeFileSync(vitePath, fileContent, "utf8");
   } catch (e) {
-    console.error("\u8BFB\u53D6\u6216\u66F4\u65B0CI/CD\u6587\u4EF6\u65F6\u51FA\u9519\uFF1A", e.message);
+    console.error("\u8BFB\u53D6\u6216\u66F4\u65B0vite.config\u6587\u4EF6\u65F6\u51FA\u9519\uFF1A", e.message);
   }
 }
 
@@ -5807,7 +5828,8 @@ async function init(project, questions2) {
         {
           type: "text",
           name: "REPO_NAME",
-          message: "REPO_NAME:"
+          message: "REPO_NAME:",
+          initial: (prev) => prev
         },
         ...questions2
       ],
@@ -5847,10 +5869,8 @@ async function init(project, questions2) {
   for (const file of files.filter((f) => f !== "package.json")) {
     write(file);
   }
-  const ciPath = import_path2.default.resolve(__dirname, `../${projectName}/.gitlab-ci.yml`);
-  updateCI(ciPath, REPO_NAME);
-  const vitePath = import_path2.default.resolve(__dirname, `../${projectName}/vite.config.ts`);
-  updateBaseUrl(vitePath, REPO_NAME);
+  updateCI(templateDir, REPO_NAME);
+  updateBaseUrl(templateDir, REPO_NAME);
   console.log(`\u26A1 ${(0, import_picocolors.green)("complete work")} \u{1F680}`);
   console.log(`Your project ${(0, import_picocolors.cyan)(projectName)}`);
 }
@@ -5873,7 +5893,7 @@ async function test(targetFolder) {
 // package.json
 var package_default = {
   name: "@redrockfe/rrfe-cli",
-  version: "0.5.0",
+  version: "0.6.0",
   description: "\u8F93\u5165\u547D\u4EE4\u8FDB\u5165\u5F00\u53D1\u6A21\u5F0F",
   main: "index.js",
   scripts: {
@@ -5886,7 +5906,7 @@ var package_default = {
     "version:changeset": "changeset version"
   },
   bin: {
-    "rrfe-cli": "bin/index.js"
+    rrfe: "bin/index.js"
   },
   keywords: [
     "redrockfe",
@@ -5908,6 +5928,7 @@ var package_default = {
   license: "MIT",
   devDependencies: {
     "@changesets/cli": "^2.27.1",
+    "@types/node": "^20.11.0",
     "@types/prompts": "^2.4.8",
     "@typescript-eslint/eslint-plugin": "^6.13.1",
     "@typescript-eslint/parser": "^6.13.1",
@@ -5934,11 +5955,6 @@ var package_default = {
     "template"
   ]
 };
-
-// src/util/getVesion.ts
-function getVersion() {
-  return package_default.version;
-}
 
 // src/node/cli.ts
 var questions = [
@@ -6002,5 +6018,5 @@ cli.command("[...files]", "error").action((files) => {
   console.log(`can't find ${(0, import_picocolors2.yellow)(files)} command `);
 });
 cli.help();
-cli.version(getVersion());
+cli.version(package_default.version);
 cli.parse();

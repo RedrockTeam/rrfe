@@ -8,6 +8,9 @@ devDependencies:
   '@changesets/cli':
     specifier: ^2.27.1
     version: 2.27.1
+  '@types/node':
+    specifier: ^20.11.0
+    version: 20.11.0
   '@types/prompts':
     specifier: ^2.4.8
     version: registry.npmmirror.com/@types/prompts@2.4.8
@@ -660,6 +663,12 @@ packages:
 
   /@types/node@12.20.55:
     resolution: {integrity: sha512-J8xLz7q2OFulZ2cyGTLE1TbbZcjpno7FaN6zdJNrgAdrJ+DZzh/uFR6YrTb4C+nXakvud8Q4+rbhoIWlYQbUFQ==}
+    dev: true
+
+  /@types/node@20.11.0:
+    resolution: {integrity: sha512-o9bjXmDNcF7GbM4CNQpmi+TutCgap/K3w1JyKgxAjqx41zp9qlIAVFi0IhCNsJcXolEqLWhbFbEeL0PvYm4pcQ==}
+    dependencies:
+      undici-types: 5.26.5
     dev: true
 
   /@types/normalize-package-data@2.4.4:
@@ -2684,6 +2693,10 @@ packages:
       which-boxed-primitive: 1.0.2
     dev: true
 
+  /undici-types@5.26.5:
+    resolution: {integrity: sha512-JlCMO+ehdEIKqlFxk6IfVoAUVmgz7cU7zD/h9XZ0qzeosSHmUJVOzSQvvYSYWXkFXC+IfLKSIffhv0sVZup6pA==}
+    dev: true
+
   /universalify@0.1.2:
     resolution: {integrity: sha512-rBJeI5CXAlmy1pV+617WB9J63U6XcazHHF2f2dbJix4XzpUF0RS3Zbj0FGIOCAva5P/d/GBOYaACQ1w+0azUkg==}
     engines: {node: '>= 4.0.0'}
@@ -2910,20 +2923,12 @@ packages:
       fastq: registry.npmmirror.com/fastq@1.15.0
     dev: true
 
-  registry.npmmirror.com/@types/node@20.9.1:
-    resolution: {integrity: sha512-HhmzZh5LSJNS5O8jQKpJ/3ZcrrlG6L70hpGqMIAoM9YVD0YBRNWYsfwcXq8VnSjlNpCpgLzMXdiPo+dxcvSmiA==, tarball: https://registry.npmmirror.com/@types/node/-/node-20.9.1.tgz}
-    name: '@types/node'
-    version: 20.9.1
-    dependencies:
-      undici-types: registry.npmmirror.com/undici-types@5.26.5
-    dev: true
-
   registry.npmmirror.com/@types/prompts@2.4.8:
     resolution: {integrity: sha512-fPOEzviubkEVCiLduO45h+zFHB0RZX8tFt3C783sO5cT7fUXf3EEECpD26djtYdh4Isa9Z9tasMQuZnYPtvYzw==, tarball: https://registry.npmmirror.com/@types/prompts/-/prompts-2.4.8.tgz}
     name: '@types/prompts'
     version: 2.4.8
     dependencies:
-      '@types/node': registry.npmmirror.com/@types/node@20.9.1
+      '@types/node': 20.11.0
       kleur: registry.npmmirror.com/kleur@3.0.3
     dev: true
 
@@ -3695,12 +3700,6 @@ packages:
     version: 5.2.2
     engines: {node: '>=14.17'}
     hasBin: true
-    dev: true
-
-  registry.npmmirror.com/undici-types@5.26.5:
-    resolution: {integrity: sha512-JlCMO+ehdEIKqlFxk6IfVoAUVmgz7cU7zD/h9XZ0qzeosSHmUJVOzSQvvYSYWXkFXC+IfLKSIffhv0sVZup6pA==, tarball: https://registry.npmmirror.com/undici-types/-/undici-types-5.26.5.tgz}
-    name: undici-types
-    version: 5.26.5
     dev: true
 
   registry.npmmirror.com/webidl-conversions@4.0.2:

@@ -11,7 +11,33 @@ pnpm start
 
 start 用于打包
 link 用于给你全局加一个软连接
-然进入test文件夹n
+然进入 test 文件夹进行
+
+```shell
+pnpm i
+```
+测试
+
+### changelog
+
+进行一定的记录
+
+```shell
+pnpm changeset
+```
+将changelog消耗掉并生成版本
+
+```shell
+pnpm version:changeset
+```
+发表到npm
+
+```shell
+pnpm publish
+```
+
+
+
 ### 新增模板测试
 
 ```shell

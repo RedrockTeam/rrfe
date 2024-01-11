@@ -1,5 +1,6 @@
 import fs from "fs";
 import path from "path";
+import { DEFAULT_CONFIG_FILES } from "../node/constant";
 
 export function isEmpty(path: string) {
   const files = fs.readdirSync(path);
@@ -30,10 +31,11 @@ export function toValidPackageName(projectName: string) {
     .replace(/^[._]/, "")
     .replace(/[^a-z\d\-~]+/g, "-");
 }
-export function updateCI(path: string, REPO_NAME: string) {
+export function updateCI(templateDir: string, REPO_NAME: string) {
   // 读取YAML文件
   try {
-    let fileContent = fs.readFileSync(path, "utf8");
+    const yamlPath = path.join(templateDir, `.gitlab-ci.yml`);
+    let fileContent = fs.readFileSync(yamlPath, "utf8");
 
     // 使用正则表达式进行替换
     fileContent = fileContent.replace(
@@ -42,22 +44,29 @@ export function updateCI(path: string, REPO_NAME: string) {
     );
 
     // 将更新后的内容写回文件
-    fs.writeFileSync(path, fileContent, "utf8");
+    fs.writeFileSync(yamlPath, fileContent, "utf8");
   } catch (e) {
     console.error("读取或更新CI/CD文件时出错：", e.message);
   }
 }
 
-export function updateBaseUrl(path: string, REPO_NAME: string) {
+export function updateBaseUrl(templateDir: string, REPO_NAME: string) {
   try {
-    let fileContent = fs.readFileSync(path, "utf8");
+    let vitePath: string = "";
+    for (const filename of DEFAULT_CONFIG_FILES) {
+      const filePath = path.resolve(templateDir, filename);
+      if (!fs.existsSync(filePath)) continue;
+
+      vitePath = filePath;
+      break;
+    }
+    let fileContent = fs.readFileSync(vitePath, "utf8");
 
     // 使用正则表达式进行替换
     fileContent = fileContent.replace(/base: \[\]/g, `base: '/${REPO_NAME}/'`);
-
     // 将更新后的内容写回文件
-    fs.writeFileSync(path, fileContent, "utf8");
+    fs.writeFileSync(vitePath, fileContent, "utf8");
   } catch (e) {
-    console.error("读取或更新CI/CD文件时出错：", e.message);
+    console.error("读取或更新vite.config文件时出错：", e.message);
   }
 }

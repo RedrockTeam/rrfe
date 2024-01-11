@@ -33,6 +33,7 @@ export async function init(
           type: "text",
           name: "REPO_NAME",
           message: "REPO_NAME:",
+          initial: (prev) => prev,
         },
         ...questions,
       ],
@@ -81,11 +82,11 @@ export async function init(
     write(file);
   }
   //处理ci文件
-  const ciPath = path.resolve(__dirname, `../${projectName}/.gitlab-ci.yml`);
-  updateCI(ciPath, REPO_NAME);
+
+  updateCI(templateDir, REPO_NAME);
+
   //处理vite的base-url
-  const vitePath = path.resolve(__dirname, `../${projectName}/vite.config.ts`);
-  updateBaseUrl(vitePath, REPO_NAME);
+  updateBaseUrl(templateDir, REPO_NAME);
   console.log(`⚡ ${green("complete work")} 🚀`);
   console.log(`Your project ${cyan(projectName)}`);
 }
