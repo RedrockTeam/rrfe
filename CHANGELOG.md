@@ -1,5 +1,11 @@
 # @redrockfe/rrfe-cli
 
+## 0.7.0
+
+### Minor Changes
+
+- error for eslint template
+
 ## 0.6.1
 
 ### Patch Changes
