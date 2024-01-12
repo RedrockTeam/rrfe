@@ -9,7 +9,8 @@
     "lint": "eslint src --ext .js,.ts --fix",
     "prepare": "husky install",
     "changeset": "changeset",
-    "publish": "pnpm build && changeset publish",
+    "prepublish": "pnpm build",
+    "publish": "changeset publish",
     "version:changeset": "changeset version"
   },
   "bin": {
@@ -57,7 +58,7 @@
   "homepage": "https://github.com/RedrockTeam/rrfe-cli#readme",
   "files": [
     "package.json",
-    "dist",
+    "bin",
     "build",
     "template"
   ]
