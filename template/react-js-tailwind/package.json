@@ -1,12 +1,12 @@
 {
-  "name": "RedRockFE-init-project",
+  "name": "redrock-project",
   "private": true,
   "version": "0.0.0",
   "scripts": {
     "dev": "vite dev",
     "build": "prettier --write .&& vite build",
     "start": "vite start",
-    "lint": "eslint src --ext .vue,.js,.ts,.jsx,.tsx --fix",
+    "lint": "eslint  --ext .vue,.js,.ts,.jsx,.tsx --fix",
     "prettier": "prettier --write .",
     "prepare": "git init && husky install"
   },
