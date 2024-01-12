@@ -9,7 +9,7 @@
     "lint": "eslint src --ext .js,.ts --fix",
     "prepare": "husky install",
     "changeset": "changeset",
-    "publish": "changeset publish",
+    "publish": "pnpm build && changeset publish",
     "version:changeset": "changeset version"
   },
   "bin": {
@@ -58,7 +58,7 @@
   "files": [
     "package.json",
     "dist",
-    "bin",
+    "build",
     "template"
   ]
 }
