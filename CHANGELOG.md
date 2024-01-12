@@ -1,5 +1,11 @@
 # @redrockfe/rrfe-cli
 
+## 0.8.0
+
+### Minor Changes
+
+- fix major bug
+
 ## 0.7.0
 
 ### Minor Changes
