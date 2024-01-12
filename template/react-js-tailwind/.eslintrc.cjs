@@ -1,9 +1,6 @@
 module.exports = {
-  env: {
-    browser: true,
-    es2021: true,
-    node: true,
-  },
+  root: true,
+  env: { browser: true, es2020: true, node: true },
   extends: [
     'eslint:recommended',
     'plugin:react/recommended',
@@ -11,18 +8,15 @@ module.exports = {
     'plugin:react-hooks/recommended',
     'plugin:prettier/recommended',
   ],
-  overrides: [],
-  parser: 'babel-eslint', 
-  parserOptions: {
-    ecmaVersion: 2023, 
-    sourceType: 'module', 
-},
-  plugins: ['react', 'react-refresh'],
+  ignorePatterns: ['dist', '.eslintrc.cjs', 'tailwind.config.ts'],
+  parserOptions: { ecmaVersion: 'latest', sourceType: 'module' },
+  settings: { react: { version: '18.2' } },
+  plugins: ['react-refresh'],
   rules: {
-    'linebreak-style': [0, 'error', 'windows'],
-    'prettier/prettier': ['error', { endOfLine: 'auto' }],
-  },
-  globals: {
-    React: 'readonly',
+    'react-refresh/only-export-components': [
+      'warn',
+      { allowConstantExport: true },
+    ],
+    'prettier/prettier': ['warn', { endOfLine: 'auto' }],
   },
 };

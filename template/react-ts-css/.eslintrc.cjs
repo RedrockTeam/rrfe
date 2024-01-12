@@ -20,7 +20,7 @@ module.exports = {
   plugins: ['react', '@typescript-eslint', 'react-refresh'],
   rules: {
     'linebreak-style': [0, 'error', 'windows'],
-    'prettier/prettier': ['error', { endOfLine: 'auto' }],
+    'prettier/prettier': ['warn', { endOfLine: 'auto' }],
   },
   globals: {
     React: 'readonly',
