@@ -5,6 +5,7 @@ import fs from "fs";
 import { copy, toValidPackageName, updateBaseUrl, updateCI } from "./fs";
 import { cyan, green } from "picocolors";
 import { red } from "picocolors";
+import { execSync } from "child_process";
 
 let result: prompt.Answers<
   | "projectName"
@@ -99,6 +100,13 @@ export async function init(
   //处理vite的base-url
   updateBaseUrl(root, REPO_NAME);
 
+  //进行一次git提交
+
+  process.chdir(`./${projectName}`);
+  execSync("git init", { stdio: "ignore" });
+  execSync("git add .", { stdio: "ignore" });
+  execSync('git commit -m "feat: redrock-project init"', { stdio: "ignore" });
+  
   console.log(`⚡ ${green("complete work")} 🚀`);
   console.log(`Your project ${cyan(projectName)}`);
 }
