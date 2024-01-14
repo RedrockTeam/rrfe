@@ -1,7 +1,7 @@
 {
   "name": "@redrockfe/rrfe-cli",
-  "version": "0.7.0",
-  "description": "输入命令进入开发模式",
+  "version": "0.8.1",
+  "description": "cli for redrockfe",
   "main": "index.js",
   "scripts": {
     "start": "tsup --watch",
@@ -9,6 +9,7 @@
     "lint": "eslint src --ext .js,.ts --fix",
     "prepare": "husky install",
     "changeset": "changeset",
+    "prepublish": "pnpm build",
     "publish": "changeset publish",
     "version:changeset": "changeset version"
   },
@@ -57,8 +58,8 @@
   "homepage": "https://github.com/RedrockTeam/rrfe-cli#readme",
   "files": [
     "package.json",
-    "dist",
     "bin",
+    "build",
     "template"
   ]
 }

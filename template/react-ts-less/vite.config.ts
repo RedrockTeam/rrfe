@@ -1,13 +1,14 @@
 import path from 'path';
 import { defineConfig } from 'vite';
-import react from '@vitejs/plugin-react';
+import react from '@vitejs/plugin-react-swc';
+import autoprefixer from 'autoprefixer';
 
 //确定路径重命名
 const pathSrc = path.resolve(__dirname, 'src');
 const pathTypes = path.resolve(__dirname, 'types');
 // https://vitejs.dev/config/
 export default defineConfig({
-  base: '/redrock-datahub/',
+  base: '//',
   build: {
     outDir: 'build',
   },
@@ -26,6 +27,9 @@ export default defineConfig({
       less: {
         javascriptEnabled: true,
       },
+    },
+    postcss: {
+      plugins: [autoprefixer({})],
     },
   },
   server: {

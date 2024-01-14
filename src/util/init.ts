@@ -4,6 +4,8 @@ import path from "path";
 import fs from "fs";
 import { copy, toValidPackageName, updateBaseUrl, updateCI } from "./fs";
 import { cyan, green } from "picocolors";
+import { red } from "picocolors";
+import { execSync } from "child_process";
 
 let result: prompt.Answers<
   | "projectName"
@@ -33,7 +35,16 @@ export async function init(
           type: "text",
           name: "REPO_NAME",
           message: "REPO_NAME:",
-          initial: (prev) => prev,
+          initial: (prev) => {
+            if (fs.existsSync(path.join(cwd, prev))) {
+              console.log(
+                `there is a folder name ${red(prev)} ,please delete by yourself`
+              );
+              process.exit(1);
+            }
+
+            return prev;
+          },
         },
         ...questions,
       ],
@@ -50,6 +61,7 @@ export async function init(
   const { projectName } = result;
   const { REPO_NAME } = result;
   const root = path.join(cwd, projectName);
+
   fs.mkdirSync(root, { recursive: true });
   const renameFiles: Record<string, string> = {
     _gitignore: ".gitignore",
@@ -83,10 +95,18 @@ export async function init(
   }
   //处理ci文件
 
-  updateCI(templateDir, REPO_NAME);
+  updateCI(root, REPO_NAME);
 
   //处理vite的base-url
-  updateBaseUrl(templateDir, REPO_NAME);
+  updateBaseUrl(root, REPO_NAME);
+
+  //进行一次git提交
+
+  process.chdir(`./${projectName}`);
+  execSync("git init", { stdio: "ignore" });
+  execSync("git add .", { stdio: "ignore" });
+  execSync('git commit -m "feat: redrock-project init"', { stdio: "ignore" });
+  
   console.log(`⚡ ${green("complete work")} 🚀`);
   console.log(`Your project ${cyan(projectName)}`);
 }

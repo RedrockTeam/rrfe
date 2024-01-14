@@ -8,10 +8,10 @@
     "start": "vite start",
     "lint": "eslint  --ext .vue,.js,.ts,.jsx,.tsx --fix",
     "prettier": "prettier --write .",
-    "prepare": "git init && husky install"
+    "prepare": "husky install"
   },
   "dependencies": {
-    "@vitejs/plugin-react": "^4.1.1",
+    "@vitejs/plugin-react-swc": "^3.5.0",
     "prettier": "^3.0.3",
     "react": "^18",
     "react-dom": "^18",
