@@ -1,6 +1,7 @@
 import path from 'path';
 import { defineConfig } from 'vite';
-import react from '@vitejs/plugin-react';
+import react from '@vitejs/plugin-react-swc';
+import autoprefixer from 'autoprefixer';
 
 //确定路径重命名
 const pathSrc = path.resolve(__dirname, 'src');
@@ -19,9 +20,12 @@ export default defineConfig({
   },
   plugins: [
     react(),
-    
   ],
-
+  css: {
+    postcss: {
+      plugins: [autoprefixer({})],
+    },
+  },
   server: {
     hmr: { overlay: false },
     host: '0.0.0.0',
