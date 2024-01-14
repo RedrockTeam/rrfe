@@ -1,5 +1,11 @@
 # @redrockfe/rrfe-cli
 
+## 0.8.1
+
+### Patch Changes
+
+- fix some bug and adjust template
+
 ## 0.8.0
 
 ### Minor Changes
