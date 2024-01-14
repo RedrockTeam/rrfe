@@ -1,57 +1,22 @@
-# RedRockFE-CLI
+<p align="center">
+    <h1 align="center">@redrockfe/rrfe-cli 🚀</h1>
+</p>
+<p align="center">
+    <img src="https://img.shields.io/badge/cli-redrock-red?labelColor=gray&style=flat" alt="cli" />
+    <img src="https://img.shields.io/badge/template-vite-green?labelColor=gray&style=flat" alt="template" />
+    <a href="https://www.npmjs.com/package/@redrockfe/rrfe-cli"><img src=https://img.shields.io/npm/v/@redrockfe/rrfe-cli.svg  alt="npm package"></a>
+</p>
 
-## 开发测试指南
+## feature
 
-输入命令进入开发模式
-
-```shell
-pnpm link --global
-pnpm start
-```
-
-start 用于打包
-link 用于给你全局加一个软连接
-然进入 test 文件夹进行
-
-```shell
-pnpm i
-```
-测试
-
-### changelog
-
-进行一定的记录
-
-```shell
-pnpm changeset
-```
-将changelog消耗掉并生成版本
-
-```shell
-pnpm version:changeset
-```
-发表到npm
-
-```shell
-pnpm publish
-```
-
-
-
-### 新增模板测试
-
-```shell
-rrfe-cli create [name]
-rrfe-cli test [name]
-```
-
-> 写完一个模板可以测试一下是否正常
+- 💡 实验 vite 构建
+- ⚡️ 快速启动
+- 🛠️ 集成多种工具链 eslint,prettier,husky
+- 📦 开箱即用
 
 ## 使用指南
 
-脚手架下载
-
-> 建议 pnpm 下载
+脚手架下载,任意一个包管理器都可以，个人比较喜欢 pnpm
 
 ```shell
 pnpm i @redrockfe/rrfe-cli -g
@@ -62,18 +27,3 @@ pnpm i @redrockfe/rrfe-cli -g
 ```shell
 rrfe-cli create [project]
 ```
-
-## Done
-
-包括但不仅限于以下功能：
-
-- 使用 Vite 作为打包工具(未来可能有变化)
-- 一键配置 tailwind，typescript，eslint，prettier
-- 初始化 git 以及配置 husky
-- 初始模板(目前只有 React)
-  > 以上内容均可以自定义
-
-## TODO
-
-- 一些错误处理
-- 模板制作
