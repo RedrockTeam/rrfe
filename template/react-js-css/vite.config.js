@@ -7,7 +7,7 @@ const pathSrc = path.resolve(__dirname, 'src');
 const pathTypes = path.resolve(__dirname, 'types');
 // https://vitejs.dev/config/
 export default defineConfig({
-  base: '/redrock-datahub/',
+  base: '/redrock-project/',
   build: {
     outDir: 'build',
   },
