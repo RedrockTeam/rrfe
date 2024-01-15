@@ -16,7 +16,7 @@
 
 ## 使用指南
 
-脚手架下载,任意一个包管理器都可以，个人比较喜欢 pnpm
+脚手架下载，任意一个包管理器都可以，个人比较喜欢 pnpm
 
 ```shell
 pnpm i @redrockfe/rrfe-cli -g
