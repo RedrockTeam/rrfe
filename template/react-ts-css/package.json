@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "scripts": {
     "dev": "vite dev",
-    "build": "prettier --write .&& vite build",
+    "build": "vite build",
     "start": "vite start",
     "lint": "eslint  --ext .vue,.js,.ts,.jsx,.tsx --fix",
     "prettier": "prettier --write .",
