@@ -1,6 +1,6 @@
 {
   "name": "@redrockfe/rrfe-cli",
-  "version": "0.8.2",
+  "version": "0.8.4",
   "description": "cli for redrockfe",
   "main": "index.js",
   "scripts": {
