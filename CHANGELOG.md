@@ -1,5 +1,11 @@
 # @redrockfe/rrfe-cli
 
+## 0.8.5
+
+### Patch Changes
+
+- add the eslint import plugin
+
 ## 0.8.1
 
 ### Patch Changes
