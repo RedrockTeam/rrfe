@@ -31,8 +31,8 @@
   "devDependencies": {
     "@commitlint/cli": "^18.2.0",
     "@commitlint/config-conventional": "^18.1.0",
-    "@types/node": "20.11.5",
-    "@types/react": "18.2.48",
+    "@types/node": "20.11.16",
+    "@types/react": "18.2.54",
     "@types/react-dom": "^18",
     "autoprefixer": "^10.0.1",
     "eslint": "^8",
@@ -43,6 +43,6 @@
     "eslint-plugin-react-refresh": "^0.4.4",
     "eslint-plugin-simple-import-sort": "^10.0.0",
     "lint-staged": "^15.2.0",
-    "husky": "^8.0.3"
+    "husky": "^9.0.10"
   }
 }
