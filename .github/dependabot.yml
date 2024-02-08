@@ -29,3 +29,6 @@ updates:
     directory: "/template/react-ts-tailwind/" # Location of package manifests
     schedule:
       interval: "weekly"
+automerge:
+    # 启用自动合并
+    enabled: true
