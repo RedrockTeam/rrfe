@@ -1,5 +1,5 @@
 import RRLogo from './assets/favicon.ico';
-import './app.css'
+import './app.css';
 function App() {
   return (
     <div className="box">
@@ -13,7 +13,7 @@ function App() {
           <img src={RRLogo} className="" alt="RedRockerLogo" />
         </a>
       </div>
-      <p className='font'>点击图标，了解更多</p>
+      <p className="font">点击图标，了解更多</p>
     </div>
   );
 }

@@ -17,10 +17,17 @@ module.exports = {
     ecmaVersion: 'latest',
     sourceType: 'module',
   },
-  plugins: ['react', '@typescript-eslint', 'react-refresh'],
+  plugins: [
+    'react',
+    '@typescript-eslint',
+    'react-refresh',
+    'simple-import-sort',
+  ],
   rules: {
     'linebreak-style': [0, 'error', 'windows'],
     'prettier/prettier': ['warn', { endOfLine: 'auto' }],
+    'simple-import-sort/imports': 'warn',
+    'simple-import-sort/exports': 'warn',
   },
   globals: {
     React: 'readonly',
