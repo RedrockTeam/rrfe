@@ -32,7 +32,7 @@
     "@commitlint/cli": "^18.2.0",
     "@commitlint/config-conventional": "^18.1.0",
     "@types/node": "20.11.16",
-    "@types/react": "18.2.54",
+    "@types/react": "18.2.55",
     "@types/react-dom": "^18",
     "@types/react-router-dom": "^5.3.3",
     "autoprefixer": "^10.0.1",
