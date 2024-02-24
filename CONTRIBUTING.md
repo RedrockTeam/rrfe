@@ -1,4 +1,4 @@
-# @redrockfe/rrfe-cli Contributing Guide
+# @redrockfe/rrfe Contributing Guide
 
 ## 开发测试指南
 
