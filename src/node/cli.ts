@@ -1,10 +1,11 @@
 import cac from "cac";
-import { cyan, yellow, green, blue, red } from "picocolors";
+import { blue, cyan, green, red, yellow } from "picocolors";
 import prompt from "prompts";
+
+import config from "../../package.json";
 import { init } from "../util/init";
 import { test } from "../util/test";
 import { entryTinyPng, tinifyImgs } from "../util/tinypng";
-import config from "../../package.json";
 
 const questions: prompt.PromptObject<string>[] = [
   {

@@ -1,11 +1,12 @@
-import prompt from "prompts";
-import { chooseTemplate } from "./chooseTemplate";
-import path from "path";
+import { execSync } from "child_process";
 import fs from "fs";
-import { copy, toValidPackageName, updateBaseUrl, updateCI } from "./fs";
+import path from "path";
 import { cyan, green } from "picocolors";
 import { red } from "picocolors";
-import { execSync } from "child_process";
+import prompt from "prompts";
+
+import { chooseTemplate } from "./chooseTemplate";
+import { copy, toValidPackageName, updateBaseUrl, updateCI } from "./fs";
 
 let result: prompt.Answers<
   | "projectName"
@@ -106,7 +107,7 @@ export async function init(
   execSync("git init", { stdio: "ignore" });
   execSync("git add .", { stdio: "ignore" });
   execSync('git commit -m "feat: redrock-project init"', { stdio: "ignore" });
-  
+
   console.log(`⚡ ${green("complete work")} 🚀`);
   console.log(`Your project ${cyan(projectName)}`);
 }

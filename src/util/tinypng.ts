@@ -1,7 +1,7 @@
-import path from "path";
 import fs from "fs";
+import path from "path";
+import { cyan, green } from "picocolors";
 import tinify from "tinify";
-import { green, cyan } from "picocolors";
 
 export function entryTinyPng(root?: string) {
   const cwd = root || process.cwd();
