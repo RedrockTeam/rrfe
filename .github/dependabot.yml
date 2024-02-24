@@ -9,23 +9,41 @@ updates:
     directory: "/template/react-js-css/" # Location of package manifests
     schedule:
       interval: "monthly"
+    allow:
+      - dependency-type: "direct" # 只更新直接依赖项
+      update-types: ["major","patch"] # 只更新大版本   
   - package-ecosystem: "npm" # See documentation for possible values
     directory: "/template/react-js-less/" # Location of package manifests
     schedule:
       interval: "monthly"
+    allow:
+      - dependency-type: "direct" # 只更新直接依赖项
+      update-types: ["major","patch"] # 只更新大版本   
   - package-ecosystem: "npm" # See documentation for possible values
     directory: "/template/react-js-tailwind/" # Location of package manifests
     schedule:
       interval: "monthly"
+    allow:
+      - dependency-type: "direct" # 只更新直接依赖项
+      update-types: ["major","patch"] # 只更新大版本   
   - package-ecosystem: "npm" # See documentation for possible values
     directory: "/template/react-ts-css/" # Location of package manifests
     schedule:
       interval: "monthly"
+    allow:
+      - dependency-type: "direct" # 只更新直接依赖项
+      update-types: ["major","patch"] # 只更新大版本
   - package-ecosystem: "npm" # See documentation for possible values
     directory: "/template/react-ts-less/" # Location of package manifests
     schedule:
       interval: "monthly"
+    allow:
+      - dependency-type: "direct" # 只更新直接依赖项
+      update-types: ["major","patch"] # 只更新大版本
   - package-ecosystem: "npm" # See documentation for possible values
     directory: "/template/react-ts-tailwind/" # Location of package manifests
     schedule:
       interval: "monthly"
+    allow:
+      - dependency-type: "direct" # 只更新直接依赖项
+      update-types: ["major","patch"] # 只更新大版本
