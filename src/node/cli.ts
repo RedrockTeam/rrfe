@@ -3,6 +3,7 @@ import { cyan, yellow, green, blue, red } from "picocolors";
 import prompt from "prompts";
 import { init } from "../util/init";
 import { test } from "../util/test";
+import { entryTinyPng, tinifyImgs } from "../util/tinypng";
 import config from "../../package.json";
 
 const questions: prompt.PromptObject<string>[] = [
@@ -60,6 +61,15 @@ cli
     if (project) console.log(`Your project name is ${cyan(project)}`);
     await init(project, questions);
   });
+
+cli.command("tinypng [root]", "tiny your png").action(async (root) => {
+  const entry = entryTinyPng(root);
+  if (!entry) {
+    console.log(`${red("cann't find the ./assets/img folder")}`);
+    return;
+  }
+  tinifyImgs(entry);
+});
 
 cli.command("test [folder]", "test the new template").action(async (folder) => {
   if (folder) console.log(`Waiting....`);

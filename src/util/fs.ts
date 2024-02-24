@@ -50,7 +50,6 @@ export function updateCI(root: string, REPO_NAME: string) {
 }
 
 export function updateBaseUrl(root: string, REPO_NAME: string) {
-
   try {
     let vitePath: string = "";
     for (const filename of DEFAULT_CONFIG_FILES) {
@@ -63,7 +62,10 @@ export function updateBaseUrl(root: string, REPO_NAME: string) {
     let fileContent = fs.readFileSync(vitePath, "utf8");
 
     // 使用正则表达式进行替换
-    fileContent = fileContent.replace(/base: '\/\/'/g, `base: '/${REPO_NAME}/'`);
+    fileContent = fileContent.replace(
+      /base: '\/\/'/g,
+      `base: '/${REPO_NAME}/'`
+    );
     // 将更新后的内容写回文件
     fs.writeFileSync(vitePath, fileContent, "utf8");
   } catch (e) {

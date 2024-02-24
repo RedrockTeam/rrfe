@@ -1,7 +1,7 @@
 {
-  "name": "@redrockfe/rrfe-cli",
-  "version": "0.8.5",
-  "description": "cli for redrockfe",
+  "name": "@redrockfe/rrfe",
+  "version": "0.1.0",
+  "description": "redrockfe utils",
   "main": "index.js",
   "scripts": {
     "start": "tsup --watch",
@@ -20,7 +20,8 @@
     "redrockfe",
     "cli",
     "template",
-    "frontend"
+    "frontend",
+    "command"
   ],
   "author": {
     "name": "sunsunmonkey"
@@ -64,5 +65,8 @@
     "bin",
     "build",
     "template"
-  ]
+  ],
+  "dependencies": {
+    "tinify": "^1.7.1"
+  }
 }
