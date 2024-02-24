@@ -9,20 +9,11 @@
 
 ## feature
 
-- 💡 实验 vite 构建
+- 💡 由 vite 构建的多种模板
 - ⚡️ 快速启动
-- 🛠️ 集成多种工具链 eslint,prettier,husky
-- 📦 开箱即用
-
-### tinypng
-
-进行压缩图片
-
-```shell
-rrfe tinypng [root]
-```
-
-会照 ./assets/imgs 或 ./assets/img 或 ./assets/imges 或 ./assets/imge 寻找文件位置
+- 📦 开箱即用，集成多种工具链 eslint,prettier,husky
+- 🛠️ 使用tinypng进行批量图片压缩
+  
 
 
 ## 使用指南
@@ -36,7 +27,7 @@ pnpm i @redrockfe/rrfe -g
 ### 创建新项目
 
 ```shell
-rrfe-cli create [project]
+rrfe create [project]
 ```
 ### 压缩图片
 
@@ -44,18 +35,4 @@ rrfe-cli create [project]
 rrfe tinypng [root]
 ```
 
-## Done
-
-包括但不仅限于以下功能：
-
-- 使用 Vite 作为打包工具(未来可能有变化)
-- 一键配置 tailwind，typescript，eslint，prettier
-- 初始化 git 以及配置 husky
-- 初始模板(目前只有 React)
-- 压缩图片
-> 以上内容均可以自定义
-
-## TODO
-
-- 一些错误处理
-- 模板制作
+会按照 ./assets/imgs 或 ./assets/img 或 ./assets/imges 或 ./assets/imge 寻找文件位置
