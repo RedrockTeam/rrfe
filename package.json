@@ -9,9 +9,9 @@
     "lint": "eslint src --ext .js,.ts --fix",
     "prepare": "husky install",
     "changeset": "changeset",
+    "version:changeset": "changeset version",
     "prepublish": "pnpm build",
-    "publish": "changeset publish",
-    "version:changeset": "changeset version"
+    "publish": "changeset publish"
   },
   "bin": {
     "rrfe": "bin/index.js"
