@@ -23,18 +23,10 @@
     "frontend",
     "command"
   ],
-  "author": {
-    "name": "sunsunmonkey"
-  },
+  "author": "sunsunmonkey",
   "contributors": [
-    {
-      "name": "YYGod",
-      "url": "https://github.com/johanjordaan"
-    },
-    {
-      "name": "sunsunmonkey",
-      "url": "https://github.com/sunsunmonkey"
-    }
+    "YYGod (https://github.com/johanjordaan)",
+    "sunsunmonkey (https://github.com/sunsunmonkey)"
   ],
   "private": false,
   "license": "MIT",
@@ -54,7 +46,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/RedrockTeam/rrfe-cli"
+    "url": "git+https://github.com/RedrockTeam/rrfe-cli.git"
   },
   "bugs": {
     "url": "https://github.com/RedrockTeam/rrfe-cli/issues"
@@ -68,5 +60,8 @@
   ],
   "dependencies": {
     "tinify": "^1.7.1"
+  },
+  "directories": {
+    "test": "test"
   }
 }
