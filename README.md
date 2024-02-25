@@ -2,9 +2,10 @@
     <h1 align="center">@redrockfe/rrfe 🚀</h1>
 </p>
 <p align="center">
-    <img src="https://img.shields.io/badge/cli-redrock-red?labelColor=gray&style=flat" alt="cli" />
+    <img src="https://img.shields.io/badge/utils-redrock-red?labelColor=gray&style=flat" alt="cli" />
     <img src="https://img.shields.io/badge/template-vite-green?labelColor=gray&style=flat" alt="template" />
-    <a href="https://www.npmjs.com/package/@redrockfe/rrfe-cli"><img src=https://img.shields.io/npm/v/@redrockfe/rrfe-cli.svg  alt="npm package"></a>
+    <img src="https://img.shields.io/badge/md-apiTransform-blue?labelColor=gray&style=flat" alt="apiTransform" />
+    <a href="https://www.npmjs.com/package/@redrockfe/rrfe"><img src=https://img.shields.io/npm/v/@redrockfe/rrfe.svg  alt="npm package"></a>
 </p>
 
 ## feature
