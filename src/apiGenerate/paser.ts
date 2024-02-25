@@ -1,6 +1,6 @@
 import { transformToCamel } from "./utils";
 
-type IResult = Record<
+export type IResult = Record<
   string,
   Record<
     string,
@@ -88,6 +88,7 @@ export class ApiParser {
 
     return apiRes;
   }
+  
   parse(resource: string) {
     this.dividePage(resource);
 

@@ -8,9 +8,7 @@ export function jsonToTs(
   type: "req" | "res"
 ) {
   const interfaceReg = /interface\s+(\S+?)\s+/g;
-  let res = JsonToTS(JSON.parse(resource.replace(/,\s*([\]}])/g, "$1"))).join(
-    "\n"
-  );
+  let res = JsonToTS(jsonToObject(resource)).join("\n");
 
   let match: RegExpExecArray | null;
   while ((match = interfaceReg.exec(res)) !== null) {
@@ -29,4 +27,8 @@ export function jsonToTs(
   )}
 
 `;
+}
+
+export function jsonToObject(resource: string = "") {
+  return JSON.parse(resource.replace(/,\s*([\]}])/g, "$1"));
 }
