@@ -24,6 +24,7 @@ export function copyDir(srcDir: string, destDir: string) {
     copy(srcFile, destFile);
   }
 }
+
 export function toValidPackageName(projectName: string) {
   return projectName
     .trim()
@@ -32,6 +33,7 @@ export function toValidPackageName(projectName: string) {
     .replace(/^[._]/, "")
     .replace(/[^a-z\d\-~]+/g, "-");
 }
+
 export function updateCI(root: string, REPO_NAME: string) {
   // 读取YAML文件
   try {

@@ -3,9 +3,10 @@ import { blue, cyan, green, red, yellow } from "picocolors";
 import prompt from "prompts";
 
 import config from "../../package.json";
-import { init } from "../util/init";
-import { test } from "../util/test";
-import { entryTinyPng, tinifyImgs } from "../util/tinypng";
+import { init } from "../create/init";
+import { test } from "../create/test";
+import { transformToTs } from "../generate";
+import { entryTinyPng, tinifyImgs } from "../tinypng";
 
 const questions: prompt.PromptObject<string>[] = [
   {
@@ -75,6 +76,21 @@ cli.command("tinypng [root]", "tiny your png").action(async (root) => {
 cli.command("test [folder]", "test the new template").action(async (folder) => {
   if (folder) console.log(`Waiting....`);
   await test(folder);
+});
+
+// 生成api或者
+cli.command("generate [type]").action((type: string) => {
+  type = type.toLocaleLowerCase();
+  switch (type) {
+    case "ts":
+      transformToTs();
+      break;
+    case "api":
+      break;
+    default:
+      console.log(`cannot generate ${yellow(type)}`);
+      break;
+  }
 });
 
 cli

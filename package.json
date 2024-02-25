@@ -60,6 +60,7 @@
     "template"
   ],
   "dependencies": {
+    "json-to-ts": "^1.7.0",
     "tinify": "^1.7.1"
   },
   "directories": {
