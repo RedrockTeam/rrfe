@@ -1,5 +1,3 @@
-import { transformToCamel } from "./utils";
-
 export type IResult = Record<
   string,
   Record<
@@ -88,7 +86,7 @@ export class ApiParser {
 
     return apiRes;
   }
-  
+
   parse(resource: string) {
     this.dividePage(resource);
 
@@ -100,7 +98,10 @@ export class ApiParser {
       for (const api of Object.values(apiRes)) {
         if (api) {
           const url = this.urlReg.exec(api)?.[1].trim();
-          const apiName = (url && transformToCamel(url?.split("/"))) || "";
+          const spiltUrl = url!.split("/")!;
+          const apiName = spiltUrl[spiltUrl?.length - 1];
+
+          // const apiName = (url && transformToCamel(url?.split("/"))) || "";
           const method = this.methodReg
             .exec(api)?.[1]
             .trim()
