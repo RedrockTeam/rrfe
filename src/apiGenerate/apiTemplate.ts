@@ -11,13 +11,15 @@ export const service = axios.create({
 });`;
 }
 
-export function getTSTemplate(
+export function getTemplate(
   req: Record<string, string>,
   apiName: string,
   url: string = ""
 ) {
   let params = "";
-  let resolveUrl = url + "?";
+  const isHaveReq = Object.keys(req).length
+  let resolveUrl = url + (isHaveReq ? "?" : "");
+
   Object.keys(req).map((item) => {
     params = params + item + ",";
     resolveUrl = resolveUrl + item + "=" + "${" + item + "}" + "&";
@@ -28,7 +30,7 @@ export function getTSTemplate(
 
   return `export const get${toCapitalize(
     apiName
-  )} = async ({${params}}:${camelToIName(apiName)}Req): Promise<${camelToIName(
+  )} = async (${isHaveReq?`{ ${params} }: ${camelToIName(apiName)}Req `:""}): Promise<${camelToIName(
     apiName
   )}Res> => {
     const res = await service.get(\`${resolveUrl}\`);
@@ -37,10 +39,10 @@ export function getTSTemplate(
 `;
 }
 
-export function postTSTemplate(apiName: string, url: string = "") {
+export function postTemplate(apiName: string, url: string = "") {
   return `export const post${toCapitalize(
     apiName
-  )} = async (params:${camelToIName(apiName)}Req): Promise<${camelToIName(
+  )} = async ( params: ${camelToIName(apiName)}Req ): Promise<${camelToIName(
     apiName
   )}Res> => {
     const res = await service.post(\`${url}\`,params);

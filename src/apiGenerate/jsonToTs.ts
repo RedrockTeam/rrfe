@@ -16,7 +16,7 @@ export function jsonToTs(
     if (beforeTs !== "RootObject") {
       res = res.replace(
         new RegExp(`\\s+${beforeTs}[;|\\s]{1}`, "g"),
-        " " + toCapitalize(apiName) + beforeTs
+        " " + toCapitalize(apiName) + toCapitalize(type) + beforeTs
       );
     }
   }
@@ -29,6 +29,6 @@ export function jsonToTs(
 `;
 }
 
-export function jsonToObject(resource: string = "") {
+export function jsonToObject(resource: string = "{}") {
   return JSON.parse(resource.replace(/,\s*([\]}])/g, "$1"));
 }

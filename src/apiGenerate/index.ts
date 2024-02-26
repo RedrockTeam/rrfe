@@ -3,7 +3,7 @@ import path from "path";
 import { red, yellow } from "picocolors";
 import { green } from "picocolors";
 
-import { getTSTemplate, indexTemplate, postTSTemplate } from "./apiTemplate";
+import { getTemplate, indexTemplate, postTemplate } from "./apiTemplate";
 import { jsonToObject, jsonToTs } from "./jsonToTs";
 import { ApiParser, IResult } from "./paser";
 import { camelToIName } from "./utils";
@@ -46,11 +46,12 @@ export function transformToTs(result: IResult) {
   Object.keys(result).map((page) => {
     const apis = result[page];
     Object.keys(apis).map((apiName) => {
-      fs.writeFileSync(
-        path.resolve(typePath, `${page}.ts`),
-        jsonToTs(apis[apiName].req, apiName, "req"),
-        { flag: "a" }
-      );
+      apis[apiName].req &&
+        fs.writeFileSync(
+          path.resolve(typePath, `${page}.ts`),
+          jsonToTs(apis[apiName].req, apiName, "req"),
+          { flag: "a" }
+        );
 
       fs.writeFileSync(
         path.resolve(typePath, `${page}.ts`),
@@ -95,23 +96,22 @@ import { service } from "./index.ts";
           }
         );
       }
+      const resolveReq = jsonToObject(req);
+
+      const isHaveReq = !!Object.keys(resolveReq).length;
       if (method === "post") {
-        fs.writeFileSync(pagePath, postTSTemplate(apiName, url), {
+        fs.writeFileSync(pagePath, postTemplate(apiName, url), {
           flag: "a",
         });
       } else {
-        fs.writeFileSync(
-          pagePath,
-          getTSTemplate(jsonToObject(req), apiName, url),
-          {
-            flag: "a",
-          }
-        );
+        fs.writeFileSync(pagePath, getTemplate(resolveReq, apiName, url), {
+          flag: "a",
+        });
       }
 
-      importTs = `${importTs}${importTs && ","}${camelToIName(
-        apiName
-      )}Req,${camelToIName(apiName)}Res`;
+      importTs = `${importTs}${importTs && isHaveReq ? "," : ""}${
+        isHaveReq ? ` ${camelToIName(apiName)}Req ,` : ""
+      } ${camelToIName(apiName)}Res `;
 
       let data = fs.readFileSync(pagePath, "utf-8");
       data = data.replace(/\{[^}]*\}/, `{${importTs}}`);

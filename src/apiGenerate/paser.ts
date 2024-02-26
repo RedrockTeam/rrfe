@@ -5,7 +5,7 @@ export type IResult = Record<
     {
       url: string | undefined;
       method: string | undefined;
-      req: string | undefined;
+      req?: string | undefined;
       res: string | undefined;
     }
   >
@@ -25,7 +25,8 @@ export class ApiParser {
     this.apiReg = /^##\s+(.+)/gm;
     this.urlReg = /###\s+URL[：|:]*\s+([\s\S]*?)(?=###)/;
     this.methodReg = /###\s+请求方式[：|:]*\s+([\s\S]*?)(?=###)/;
-    this.reqReg = /###\s+请求参数[：|:]*[\s\S]*?```\s*json\s+([\s\S]*?)(?=```)/;
+    this.reqReg =
+      /###\s+请求参数[：|:]*\s+[\s\S]*?```\s*json\s+([\s\S]*?)(?=```)/;
     this.resReg = /###\s+返回参数[：|:]*[\s\S]*?```\s*json\s+([\s\S]*?)(?=```)/;
 
     this.pageSource = new Map();
@@ -116,6 +117,10 @@ export class ApiParser {
             req,
             res,
           };
+
+          if (req) {
+            result[page][apiName].req = req;
+          }
         }
       }
     }
