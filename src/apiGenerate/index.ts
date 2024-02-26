@@ -18,6 +18,7 @@ export function transform() {
   const apiDocs = fs.readFileSync(apiPath, "utf-8");
 
   const result = new ApiParser().parse(apiDocs);
+
   console.log(`${green("success:")} parse md`);
   console.log(result);
 
