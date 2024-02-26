@@ -1,5 +1,11 @@
 # @redrockfe/rrfe
 
+## 0.2.1
+
+### Patch Changes
+
+- simplfy the api name
+
 ## 0.2.0
 
 ### Minor Changes
