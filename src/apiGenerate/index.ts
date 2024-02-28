@@ -3,11 +3,16 @@ import path from "path";
 import { red, yellow } from "picocolors";
 import { green } from "picocolors";
 
-import { getTemplate, indexTemplate, postTemplate } from "./apiTemplate";
+import {
+  deleteTemplate,
+  getTemplate,
+  indexTemplate,
+  postTemplate,
+} from "./apiTemplate";
 import { jsonToObject, jsonToTs } from "./jsonToTs";
 import apiFox from "./loader/apiFox";
 import { ApiParser, IResult } from "./paser";
-import { camelToIName } from "./utils";
+import { camelToIName, toCapitalize } from "./utils";
 
 const root = process.cwd();
 
@@ -17,8 +22,8 @@ export async function apiGenerate(options) {
     : path.resolve(root, "api.mdx");
 
   let apiDocs = fs.readFileSync(apiPath, "utf-8");
-
-  if (options.type === "apiFox") {
+  console.log(options);
+  if (options.type.toLocaleLowerCase() === "apifox") {
     apiDocs = apiFox(apiDocs);
   }
 
@@ -54,13 +59,13 @@ export function transformToTs(result: IResult) {
       apis[apiName].req &&
         fs.writeFileSync(
           path.resolve(typePath, `${page}.ts`),
-          jsonToTs(apis[apiName].req, apiName, "req"),
+          jsonToTs(apis[apiName].req, apis[apiName].method, apiName, "req"),
           { flag: "a" }
         );
 
       fs.writeFileSync(
         path.resolve(typePath, `${page}.ts`),
-        jsonToTs(apis[apiName].res, apiName, "res"),
+        jsonToTs(apis[apiName].res, apis[apiName].method, apiName, "res"),
         { flag: "a" }
       );
     });
@@ -94,8 +99,6 @@ export function transformToApi(result: IResult, isUseTs: boolean = true) {
           pagePath,
           `import {  } from "../types/${page}.ts";
 import { service } from "./index.ts";
-import config from '../../template/react-js-less/tailwind.config';
-import apiFox from './plugins/apiFox';
    
 `,
           {
@@ -110,6 +113,10 @@ import apiFox from './plugins/apiFox';
         fs.writeFileSync(pagePath, postTemplate(apiName, url), {
           flag: "a",
         });
+      } else if (method === "delete") {
+        fs.writeFileSync(pagePath, deleteTemplate(apiName, url), {
+          flag: "a",
+        });
       } else {
         fs.writeFileSync(pagePath, getTemplate(resolveReq, apiName, url), {
           flag: "a",
@@ -117,8 +124,8 @@ import apiFox from './plugins/apiFox';
       }
 
       importTs = `${importTs}${importTs && isHaveReq ? "," : ""}${
-        isHaveReq ? ` ${camelToIName(apiName)}Req ,` : ""
-      } ${camelToIName(apiName)}Res `;
+        isHaveReq ? ` ${camelToIName(apiName)}${toCapitalize(method)}Req ,` : ""
+      } ${camelToIName(apiName)}${toCapitalize(method)}Res `;
 
       let data = fs.readFileSync(pagePath, "utf-8");
       data = data.replace(/\{[^}]*\}/, `{${importTs}}`);

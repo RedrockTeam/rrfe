@@ -4,6 +4,7 @@ import { camelToIName, toCapitalize } from "./utils";
 
 export function jsonToTs(
   resource: string = "",
+  method: string = "",
   apiName: string,
   type: "req" | "res"
 ) {
@@ -15,15 +16,17 @@ export function jsonToTs(
     const beforeTs = match[1];
     if (beforeTs !== "RootObject") {
       res = res.replace(
-        new RegExp(`\\s+${beforeTs}[;|\\s]{1}`, "g"),
-        " " + toCapitalize(apiName) + toCapitalize(type) + beforeTs
+        new RegExp(`\\s+${beforeTs}(\\[\\])*(?=(;|\\s))`, "g"),
+        ` ${toCapitalize(apiName) + toCapitalize(type) + beforeTs}$1 `
       );
     }
   }
 
   return `export ${res.replace(
     "RootObject",
-    `${camelToIName(apiName)}${type === "req" ? "Req" : "Res"}`
+    `${camelToIName(apiName)}${toCapitalize(method)}${
+      type === "req" ? "Req" : "Res"
+    }`
   )}
 
 `;

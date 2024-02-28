@@ -17,7 +17,7 @@ export function getTemplate(
   url: string = ""
 ) {
   let params = "";
-  const isHaveReq = Object.keys(req).length
+  const isHaveReq = Object.keys(req).length;
   let resolveUrl = url + (isHaveReq ? "?" : "");
 
   Object.keys(req).map((item) => {
@@ -28,11 +28,11 @@ export function getTemplate(
   resolveUrl.substring(0, resolveUrl.length - 1);
   params.substring(0, resolveUrl.length - 1);
 
-  return `export const get${toCapitalize(
-    apiName
-  )} = async (${isHaveReq?`{ ${params} }: ${camelToIName(apiName)}Req `:""}): Promise<${camelToIName(
-    apiName
-  )}Res> => {
+  return `export const get${toCapitalize(apiName)} = async (${
+    isHaveReq
+      ? `{ ${params} }: ${camelToIName(apiName)}GetReq `
+      : ""
+  }): Promise<${camelToIName(apiName)}GetRes> => {
     const res = await service.get(\`${resolveUrl}\`);
     return res;
 };
@@ -42,10 +42,22 @@ export function getTemplate(
 export function postTemplate(apiName: string, url: string = "") {
   return `export const post${toCapitalize(
     apiName
-  )} = async ( params: ${camelToIName(apiName)}Req ): Promise<${camelToIName(
+  )} = async ( params: ${camelToIName(
     apiName
-  )}Res> => {
+  )}PostReq ): Promise<${camelToIName(apiName)}PostRes> => {
     const res = await service.post(\`${url}\`,params);
+    return res;
+};
+`;
+}
+
+export function deleteTemplate(apiName: string, url: string = "") {
+  return `export const post${toCapitalize(
+    apiName
+  )} = async ( params: ${camelToIName(
+    apiName
+  )}DeleteReq ): Promise<${camelToIName(apiName)}DeleteRes> => {
+    const res = await service.delete(\`${url}\`,params);
     return res;
 };
 `;

@@ -12,6 +12,6 @@ export function camelToIName(camel: string): string {
   return `I${toCapitalize(camel)}`;
 }
 
-export function toCapitalize(resource: string): string {
+export function toCapitalize(resource: string = ""): string {
   return `${resource[0].toUpperCase()}${resource.slice(1)}`;
 }

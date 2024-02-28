@@ -43,7 +43,7 @@ export class ApiParser {
 
     page.reduce((prev, current, index) => {
       const pageBlockReg = new RegExp(
-        `##\\s+page:\\s*${prev}([\\s\\S]*?)^##\\s+page:\\s*${current}`,
+        `##\\s+page[:|：]\\s*${prev}([\\s\\S]*?)^##\\s+page[:|：]\\s*${current}`,
         "gm"
       );
       this.pageSource.set(page[index - 1], pageBlockReg.exec(resource)?.[1]);
@@ -51,8 +51,9 @@ export class ApiParser {
     });
 
     const pageBlockReg = new RegExp(
-      `##\\s+page:\\s*${page[page.length - 1]}([\\s\\S]*)`
+      `##\\s+page[:|：]\\s*${page[page.length - 1]}([\\s\\S]*)`
     );
+
     this.pageSource.set(
       page[page.length - 1],
       pageBlockReg.exec(resource)?.[1]
