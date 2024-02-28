@@ -5,17 +5,22 @@ import { green } from "picocolors";
 
 import { getTemplate, indexTemplate, postTemplate } from "./apiTemplate";
 import { jsonToObject, jsonToTs } from "./jsonToTs";
+import apiFox from "./loader/apiFox";
 import { ApiParser, IResult } from "./paser";
 import { camelToIName } from "./utils";
 
 const root = process.cwd();
 
-export function transform() {
+export async function apiGenerate(options) {
   const apiPath = fs.existsSync(path.resolve(root, "api.md"))
     ? path.resolve(root, "api.md")
     : path.resolve(root, "api.mdx");
 
-  const apiDocs = fs.readFileSync(apiPath, "utf-8");
+  let apiDocs = fs.readFileSync(apiPath, "utf-8");
+
+  if (options.type === "apiFox") {
+    apiDocs = apiFox(apiDocs);
+  }
 
   const result = new ApiParser().parse(apiDocs);
 
@@ -89,6 +94,8 @@ export function transformToApi(result: IResult, isUseTs: boolean = true) {
           pagePath,
           `import {  } from "../types/${page}.ts";
 import { service } from "./index.ts";
+import config from '../../template/react-js-less/tailwind.config';
+import apiFox from './plugins/apiFox';
    
 `,
           {

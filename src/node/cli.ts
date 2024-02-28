@@ -3,7 +3,7 @@ import { blue, cyan, green, red, yellow } from "picocolors";
 import prompt from "prompts";
 
 import config from "../../package.json";
-import { transform } from "../apiGenerate";
+import { apiGenerate } from "../apiGenerate";
 import { init } from "../create/init";
 import { test } from "../create/test";
 import { entryTinyPng, tinifyImgs } from "../tinypng";
@@ -79,9 +79,12 @@ cli.command("test [folder]", "test the new template").action(async (folder) => {
 });
 
 // 生成api和ts
-cli.command("api").action(() => {
-  transform();
-});
+cli
+  .command("api [root]")
+  .option("--type [type]", `文档格式转译`)
+  .action((_, options) => {
+    apiGenerate(options);
+  });
 
 cli
   // Simply omit the command name, just brackets

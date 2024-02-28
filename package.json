@@ -3,6 +3,7 @@
   "version": "0.2.1",
   "description": "redrockfe utils",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "start": "tsup --watch",
     "build": "tsup --minify",
