@@ -82,6 +82,7 @@ cli.command("test [folder]", "test the new template").action(async (folder) => {
 cli
   .command("api [root]")
   .option("--type [type]", `文档格式转译`)
+  .option("--mock [mock]", `是否开启mock`)
   .action((_, options) => {
     apiGenerate(options);
   });

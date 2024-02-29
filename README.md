@@ -41,10 +41,25 @@ rrfe tinypng [root]
 ### 根据模板生成ts和api
 
 ```shell
-rrfe api
+rrfe api 
 ```
 
-需要把 api.md 或者 api.mdx 放在根目录下然后会自动解析生成ts和api请求
+可以自己选择解析格式
+example：
+
+```shell
+rrfe api --type=apifox
+```
+
+不使用mock
+
+``` shell
+rrfe api --mock=false
+```
+
+需要把 api.md 或者 api.mdx 放在根目录下然后会自动解析生成ts和api请求,
+
+同时也会自动生成基于json-server的数据mock的routes.json,db.json
 
 关键参数一定要写对
 
@@ -103,5 +118,10 @@ rrfe api
 
 目前处于mvp版后续会进行继续迭代，提供更加丰富的选项
 
-#### wip
-现在正在写一个loader来支持apifox默认导出的文档
+#### TODO
+
+- 提供更加丰富的配置
+- 可能引入插件系统
+- 完善边界情况
+- 优化生成产物
+- 完善单测

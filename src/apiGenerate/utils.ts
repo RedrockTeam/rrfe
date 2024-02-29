@@ -32,3 +32,13 @@ export function snakeToCamel(snake: string = ""): string {
     });
   }
 }
+
+export function urlToKebab(nameArr: string[] = []): string {
+  if (!nameArr[0]) {
+    nameArr.shift();
+  }
+
+  return nameArr.reduce((prev, current) => {
+    return prev + "-" + current;
+  });
+}

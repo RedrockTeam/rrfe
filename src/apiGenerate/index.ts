@@ -13,7 +13,7 @@ import {
 import { jsonToObject, jsonToTs } from "./jsonToTs";
 import apiFox from "./loader/apiFox";
 import { ApiParser, IResult } from "./paser";
-import { camelToIName } from "./utils";
+import { camelToIName, urlToKebab } from "./utils";
 
 const root = process.cwd();
 
@@ -30,18 +30,30 @@ export async function apiGenerate(options) {
 
   const result = new ApiParser().parse(apiDocs);
 
-  console.log(`${green("success:")} parse md`);
+  console.log(`${green("success:")} parse md
+  `);
   // console.log(result);
 
   transformToTs(result);
 
-  console.log(`${green("success:")} generate ts`);
+  console.log(`${green("success:")} generate ts
+  `);
 
   transformToApi(result);
 
-  console.log(`${green("success:")} generate api`);
+  console.log(`${green("success:")} generate api
+  `);
 
-  transformToMock(result);
+  if (options.mock?.toLocaleLowerCase() !== "false") {
+    transformToMock(result);
+
+    console.log(`${green("success")} for mock by json
+
+    please install  json-server${yellow("@0.17.4")} and run shell
+    
+    ${yellow("json-server db.json --routes routes.json")}
+    `);
+  }
 }
 
 export function transformToTs(result: IResult) {
@@ -149,8 +161,13 @@ export function transformToMock(result: IResult) {
   Object.keys(result).map((page) => {
     const pageResult = result[page];
     Object.keys(pageResult).map((apiName) => {
-      console.log(pageResult[apiName].url);
-      mockRes[apiName] = JSON.parse(
+      const transformName = urlToKebab(pageResult[apiName].url?.split("/"));
+
+      if (mockRes[transformName] && pageResult[apiName].method !== "get") {
+        return;
+      }
+
+      mockRes[transformName] = JSON.parse(
         pageResult[apiName].res || "".replace(/,\s*([\]}])/g, "$1")
       );
     });
@@ -159,5 +176,11 @@ export function transformToMock(result: IResult) {
   fs.writeFileSync(
     path.resolve(process.cwd(), "./db.json"),
     JSON.stringify(mockRes)
+  );
+  fs.writeFileSync(
+    path.resolve(process.cwd(), "./routes.json"),
+    JSON.stringify({
+      "/*/*": "/$1-$2",
+    })
   );
 }
