@@ -1,5 +1,11 @@
 # @redrockfe/rrfe
 
+## 0.3.0
+
+### Minor Changes
+
+- add the mock and the type support for apifox
+
 ## 0.2.1
 
 ### Patch Changes
