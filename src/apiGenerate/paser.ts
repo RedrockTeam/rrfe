@@ -1,4 +1,4 @@
-import { toCapitalize } from "./utils";
+import { snakeToCamel, toCapitalize } from "./utils";
 
 export type IResult = Record<
   string,
@@ -102,6 +102,7 @@ export class ApiParser {
       for (const api of Object.values(apiRes)) {
         if (api) {
           const url = this.urlReg.exec(api)?.[1].trim();
+
           const spiltUrl = url!.split("/")!;
 
           const method = this.methodReg
@@ -109,11 +110,10 @@ export class ApiParser {
             .trim()
             .toLocaleLowerCase();
 
-          const apiName = `${spiltUrl[spiltUrl?.length - 1]}${toCapitalize(
-            method
-          )}`;
-          console.log(apiName);
-          // const apiName = (url && transformToCamel(url?.split("/"))) || "";
+          const apiName = `${snakeToCamel(
+            spiltUrl[spiltUrl?.length - 1]
+          )}${toCapitalize(method)}`;
+
 
           const req = this.reqReg.exec(api)?.[1].trim();
           const res = this.resReg.exec(api)?.[1].trim();

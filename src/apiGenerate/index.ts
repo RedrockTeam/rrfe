@@ -8,6 +8,7 @@ import {
   getTemplate,
   indexTemplate,
   postTemplate,
+  putTemplate,
 } from "./apiTemplate";
 import { jsonToObject, jsonToTs } from "./jsonToTs";
 import apiFox from "./loader/apiFox";
@@ -30,7 +31,7 @@ export async function apiGenerate(options) {
   const result = new ApiParser().parse(apiDocs);
 
   console.log(`${green("success:")} parse md`);
-  console.log(result);
+  // console.log(result);
 
   transformToTs(result);
 
@@ -119,16 +120,22 @@ import { service } from "./index.ts";
         fs.writeFileSync(pagePath, deleteTemplate(apiName, url), {
           flag: "a",
         });
+      } else if (method === "put") {
+        fs.writeFileSync(pagePath, putTemplate(apiName, url), {
+          flag: "a",
+        });
       } else {
         fs.writeFileSync(pagePath, getTemplate(resolveReq, apiName, url), {
           flag: "a",
         });
       }
 
-      importTs = `${importTs}${importTs && isHaveReq ? "," : ""}${
+      importTs = `${importTs}${importTs || isHaveReq ? "," : ""}${
         isHaveReq ? ` ${camelToIName(apiName)}Req ,` : ""
-      } ${camelToIName(apiName)}Res `;
-
+      } ${camelToIName(apiName)}Res`;
+      if (importTs.startsWith(",")) {
+        importTs = importTs.substring(1, importTs.length);
+      }
       let data = fs.readFileSync(pagePath, "utf-8");
       data = data.replace(/\{[^}]*\}/, `{${importTs}}`);
 

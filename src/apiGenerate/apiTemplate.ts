@@ -65,3 +65,16 @@ export function deleteTemplate(apiName: string, url: string = "") {
 
 `;
 }
+
+export function putTemplate(apiName: string, url: string = "") {
+  return `export const put${toCapitalize(
+    apiName
+  )} = async ( params: ${camelToIName(
+    apiName
+  )}Req ): Promise<${camelToIName(apiName)}Res> => {
+    const res = await service.delete(\`${url}\`,params);
+    return res;
+};
+
+`;
+}

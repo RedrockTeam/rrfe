@@ -15,3 +15,20 @@ export function camelToIName(camel: string): string {
 export function toCapitalize(resource: string = ""): string {
   return `${resource[0].toUpperCase()}${resource.slice(1)}`;
 }
+
+export function snakeToCamel(snake: string = ""): string {
+  if (snake.includes("_")) {
+    const snakeResolve = snake.replace(/-/g, "");
+
+    const snakeArr = snakeResolve.split("_");
+    return snakeArr.reduce((prev, current) => {
+      return prev + toCapitalize(current);
+    });
+  } else {
+    const snakeResolve = snake.replace(/(\{|\})/g, "");
+    const snakeArr = snakeResolve.split("-");
+    return snakeArr.reduce((prev, current) => {
+      return prev + toCapitalize(current);
+    });
+  }
+}
