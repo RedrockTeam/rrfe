@@ -30,12 +30,13 @@ export function getTemplate(
 
   return `export const get${toCapitalize(apiName)} = async (${
     isHaveReq
-      ? `{ ${params} }: ${camelToIName(apiName)}GetReq `
+      ? `{ ${params} }: ${camelToIName(apiName)}Req `
       : ""
-  }): Promise<${camelToIName(apiName)}GetRes> => {
+  }): Promise<${camelToIName(apiName)}Res> => {
     const res = await service.get(\`${resolveUrl}\`);
     return res;
 };
+
 `;
 }
 
@@ -44,21 +45,23 @@ export function postTemplate(apiName: string, url: string = "") {
     apiName
   )} = async ( params: ${camelToIName(
     apiName
-  )}PostReq ): Promise<${camelToIName(apiName)}PostRes> => {
+  )}Req ): Promise<${camelToIName(apiName)}Res> => {
     const res = await service.post(\`${url}\`,params);
     return res;
 };
+
 `;
 }
 
 export function deleteTemplate(apiName: string, url: string = "") {
-  return `export const post${toCapitalize(
+  return `export const delete${toCapitalize(
     apiName
   )} = async ( params: ${camelToIName(
     apiName
-  )}DeleteReq ): Promise<${camelToIName(apiName)}DeleteRes> => {
+  )}Req ): Promise<${camelToIName(apiName)}Res> => {
     const res = await service.delete(\`${url}\`,params);
     return res;
 };
+
 `;
 }

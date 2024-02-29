@@ -1,3 +1,5 @@
+import { toCapitalize } from "./utils";
+
 export type IResult = Record<
   string,
   Record<
@@ -101,13 +103,17 @@ export class ApiParser {
         if (api) {
           const url = this.urlReg.exec(api)?.[1].trim();
           const spiltUrl = url!.split("/")!;
-          const apiName = spiltUrl[spiltUrl?.length - 1];
 
-          // const apiName = (url && transformToCamel(url?.split("/"))) || "";
           const method = this.methodReg
             .exec(api)?.[1]
             .trim()
             .toLocaleLowerCase();
+
+          const apiName = `${spiltUrl[spiltUrl?.length - 1]}${toCapitalize(
+            method
+          )}`;
+          console.log(apiName);
+          // const apiName = (url && transformToCamel(url?.split("/"))) || "";
 
           const req = this.reqReg.exec(api)?.[1].trim();
           const res = this.resReg.exec(api)?.[1].trim();

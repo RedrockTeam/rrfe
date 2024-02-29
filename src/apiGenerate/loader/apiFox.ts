@@ -3,7 +3,7 @@ import path from "path";
 export default function apiFox(resource: string): string {
   const re = resource
     .replace(
-      /\n(POST|GET|DELETE)\s+(\S+)\s+/g,
+      /\n(POST|GET|DELETE)\s+(\S+)\s+\n/g,
       `### URL：
 
 $2
@@ -12,6 +12,7 @@ $2
 
 $1
 
+###
 `
     )
     .replace(/> 返回示例/g, "### 返回参数：");

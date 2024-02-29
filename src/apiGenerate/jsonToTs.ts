@@ -4,7 +4,6 @@ import { camelToIName, toCapitalize } from "./utils";
 
 export function jsonToTs(
   resource: string = "",
-  method: string = "",
   apiName: string,
   type: "req" | "res"
 ) {
@@ -24,7 +23,7 @@ export function jsonToTs(
 
   return `export ${res.replace(
     "RootObject",
-    `${camelToIName(apiName)}${toCapitalize(method)}${
+    `${camelToIName(apiName)}${
       type === "req" ? "Req" : "Res"
     }`
   )}

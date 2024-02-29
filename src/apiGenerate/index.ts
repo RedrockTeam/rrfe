@@ -12,7 +12,7 @@ import {
 import { jsonToObject, jsonToTs } from "./jsonToTs";
 import apiFox from "./loader/apiFox";
 import { ApiParser, IResult } from "./paser";
-import { camelToIName, toCapitalize } from "./utils";
+import { camelToIName } from "./utils";
 
 const root = process.cwd();
 
@@ -22,8 +22,8 @@ export async function apiGenerate(options) {
     : path.resolve(root, "api.mdx");
 
   let apiDocs = fs.readFileSync(apiPath, "utf-8");
-  console.log(options);
-  if (options.type.toLocaleLowerCase() === "apifox") {
+
+  if (options.type?.toLocaleLowerCase() === "apifox") {
     apiDocs = apiFox(apiDocs);
   }
 
@@ -39,6 +39,8 @@ export async function apiGenerate(options) {
   transformToApi(result);
 
   console.log(`${green("success:")} generate api`);
+
+  transformToMock(result);
 }
 
 export function transformToTs(result: IResult) {
@@ -59,13 +61,13 @@ export function transformToTs(result: IResult) {
       apis[apiName].req &&
         fs.writeFileSync(
           path.resolve(typePath, `${page}.ts`),
-          jsonToTs(apis[apiName].req, apis[apiName].method, apiName, "req"),
+          jsonToTs(apis[apiName].req, apiName, "req"),
           { flag: "a" }
         );
 
       fs.writeFileSync(
         path.resolve(typePath, `${page}.ts`),
-        jsonToTs(apis[apiName].res, apis[apiName].method, apiName, "res"),
+        jsonToTs(apis[apiName].res, apiName, "res"),
         { flag: "a" }
       );
     });
@@ -124,8 +126,8 @@ import { service } from "./index.ts";
       }
 
       importTs = `${importTs}${importTs && isHaveReq ? "," : ""}${
-        isHaveReq ? ` ${camelToIName(apiName)}${toCapitalize(method)}Req ,` : ""
-      } ${camelToIName(apiName)}${toCapitalize(method)}Res `;
+        isHaveReq ? ` ${camelToIName(apiName)}Req ,` : ""
+      } ${camelToIName(apiName)}Res `;
 
       let data = fs.readFileSync(pagePath, "utf-8");
       data = data.replace(/\{[^}]*\}/, `{${importTs}}`);
@@ -133,4 +135,22 @@ import { service } from "./index.ts";
       fs.writeFileSync(pagePath, data);
     });
   });
+}
+
+export function transformToMock(result: IResult) {
+  const mockRes = {};
+  Object.keys(result).map((page) => {
+    const pageResult = result[page];
+    Object.keys(pageResult).map((apiName) => {
+      console.log(pageResult[apiName].url);
+      mockRes[apiName] = JSON.parse(
+        pageResult[apiName].res || "".replace(/,\s*([\]}])/g, "$1")
+      );
+    });
+  });
+
+  fs.writeFileSync(
+    path.resolve(process.cwd(), "./db.json"),
+    JSON.stringify(mockRes)
+  );
 }
