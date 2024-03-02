@@ -50,12 +50,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/RedrockTeam/rrfe-cli.git"
+    "url": "git+https://github.com/RedrockTeam/rrfe.git"
   },
   "bugs": {
-    "url": "https://github.com/RedrockTeam/rrfe-cli/issues"
+    "url": "https://github.com/RedrockTeam/rrfe/issues"
   },
-  "homepage": "https://github.com/RedrockTeam/rrfe-cli#readme",
+  "homepage": "https://github.com/RedrockTeam/rrfe#readme",
   "files": [
     "package.json",
     "bin",
