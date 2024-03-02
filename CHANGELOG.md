@@ -1,5 +1,11 @@
 # @redrockfe/rrfe
 
+## 0.3.1
+
+### Patch Changes
+
+- the axios type and type too long
+
 ## 0.3.0
 
 ### Minor Changes
