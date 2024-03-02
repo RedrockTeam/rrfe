@@ -23,7 +23,10 @@
     "cli",
     "template",
     "frontend",
-    "command"
+    "command",
+    "mdToApiCode",
+    "mock",
+    "typescript"
   ],
   "author": "sunsunmonkey",
   "contributors": [
