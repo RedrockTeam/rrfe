@@ -1,12 +1,16 @@
 import { execSync } from "child_process";
 import fs from "fs";
 import path from "path";
+import { dirname } from "path";
 import { cyan, green } from "picocolors";
 import { red } from "picocolors";
 import prompt from "prompts";
+import { fileURLToPath } from "url";
 
 import { chooseTemplate } from "./chooseTemplate";
 import { copy, toValidPackageName, updateBaseUrl, updateCI } from "./fs";
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
 let result: prompt.Answers<
   | "projectName"
