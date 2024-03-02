@@ -29,6 +29,7 @@ export async function apiGenerate(options) {
     );
     return;
   }
+
   let apiDocs = fs.readFileSync(apiPath, "utf-8");
 
   if (options.type?.toLocaleLowerCase() === "apifox") {
@@ -191,15 +192,15 @@ export function transformToMock(result: IResult) {
         const parserDB = JSON.parse(
           pageResult[apiName].res || "".replace(/,\s*([\]}])/g, "$1")
         );
-        parserDB.id = 0;
+        // parserDB.id = 0;
         mockRes[transformName] = parserDB;
       }
     });
   });
 
-  Object.keys(mockRes).map((url) => {
-    mockRes[url] = [mockRes[url]];
-  });
+  // Object.keys(mockRes).map((url) => {
+  //   mockRes[url] = [mockRes[url]];
+  // });
 
   fs.writeFileSync(
     path.resolve(process.cwd(), "./db.json"),
