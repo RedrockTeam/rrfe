@@ -22,9 +22,11 @@ export async function apiGenerate(options) {
     ? path.resolve(root, "api.md")
     : path.resolve(root, "api.mdx");
   if (!fs.existsSync(apiPath)) {
-    console.log(`${red("error:")} cannot find the ${yellow(
-      "api.md"
-    )} or ${yellow("api.mdx")} in ${process.cwd()}`);
+    console.log(
+      `${red("error:")} cannot find the ${yellow("api.md")} or ${yellow(
+        "api.mdx"
+      )} in ${process.cwd()}`
+    );
     return;
   }
   let apiDocs = fs.readFileSync(apiPath, "utf-8");
@@ -180,10 +182,11 @@ export function transformToMock(result: IResult) {
       if (mockRes[transformName] && pageResult[apiName].method !== "get") {
         return;
       }
-
-      mockRes[transformName] = JSON.parse(
+      const parserDB = JSON.parse(
         pageResult[apiName].res || "".replace(/,\s*([\]}])/g, "$1")
       );
+      parserDB.id = 0;
+      mockRes[transformName] = [parserDB];
     });
   });
 
