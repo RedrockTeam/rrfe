@@ -1,5 +1,11 @@
 # @redrockfe/rrfe
 
+## 0.3.3
+
+### Patch Changes
+
+- fix: the esm don't have \_\_dirname
+
 ## 0.3.2
 
 ### Patch Changes
