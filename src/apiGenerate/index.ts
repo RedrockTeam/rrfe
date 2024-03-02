@@ -179,15 +179,26 @@ export function transformToMock(result: IResult) {
     Object.keys(pageResult).map((apiName) => {
       const transformName = urlToKebab(pageResult[apiName].url?.split("/"));
 
-      if (mockRes[transformName] && pageResult[apiName].method !== "get") {
-        return;
+      if (mockRes[transformName]) {
+        const newData = JSON.parse(
+          pageResult[apiName].res || "".replace(/,\s*([\]}])/g, "$1")
+        );
+        mockRes[transformName] = {
+          ...mockRes[transformName],
+          ...newData,
+        };
+      } else {
+        const parserDB = JSON.parse(
+          pageResult[apiName].res || "".replace(/,\s*([\]}])/g, "$1")
+        );
+        parserDB.id = 0;
+        mockRes[transformName] = parserDB;
       }
-      const parserDB = JSON.parse(
-        pageResult[apiName].res || "".replace(/,\s*([\]}])/g, "$1")
-      );
-      parserDB.id = 0;
-      mockRes[transformName] = [parserDB];
     });
+  });
+
+  Object.keys(mockRes).map((url) => {
+    mockRes[url] = [mockRes[url]];
   });
 
   fs.writeFileSync(
