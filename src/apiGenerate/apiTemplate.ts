@@ -29,12 +29,10 @@ export function getTemplate(
   params.substring(0, resolveUrl.length - 1);
 
   return `export const get${toCapitalize(apiName)} = async (${
-    isHaveReq
-      ? `{ ${params} }: ${camelToIName(apiName)}Req `
-      : ""
+    isHaveReq ? `{ ${params} }: ${camelToIName(apiName)}Req ` : ""
   }): Promise<${camelToIName(apiName)}Res> => {
     const res = await service.get(\`${resolveUrl}\`);
-    return res;
+    return res.data;
 };
 
 `;
@@ -43,11 +41,11 @@ export function getTemplate(
 export function postTemplate(apiName: string, url: string = "") {
   return `export const post${toCapitalize(
     apiName
-  )} = async ( params: ${camelToIName(
+  )} = async ( payload: ${camelToIName(apiName)}Req ): Promise<${camelToIName(
     apiName
-  )}Req ): Promise<${camelToIName(apiName)}Res> => {
-    const res = await service.post(\`${url}\`,params);
-    return res;
+  )}Res> => {
+    const res = await service.post(\`${url}\`,payload);
+    return res.data;
 };
 
 `;
@@ -56,11 +54,11 @@ export function postTemplate(apiName: string, url: string = "") {
 export function deleteTemplate(apiName: string, url: string = "") {
   return `export const delete${toCapitalize(
     apiName
-  )} = async ( params: ${camelToIName(
+  )} = async ( payload: AxiosRequestConfig<{ data: ${camelToIName(apiName)}Req}> ): Promise<${camelToIName(
     apiName
-  )}Req ): Promise<${camelToIName(apiName)}Res> => {
-    const res = await service.delete(\`${url}\`,params);
-    return res;
+  )}Res> => {
+    const res = await service.delete(\`${url}\`,{data:payload});
+    return res.data;
 };
 
 `;
@@ -69,11 +67,11 @@ export function deleteTemplate(apiName: string, url: string = "") {
 export function putTemplate(apiName: string, url: string = "") {
   return `export const put${toCapitalize(
     apiName
-  )} = async ( params: ${camelToIName(
+  )} = async ( payload: ${camelToIName(apiName)}Req ): Promise<${camelToIName(
     apiName
-  )}Req ): Promise<${camelToIName(apiName)}Res> => {
-    const res = await service.delete(\`${url}\`,params);
-    return res;
+  )}Res> => {
+    const res = await service.put(\`${url}\`, payload);
+    return res.data;
 };
 
 `;

@@ -41,7 +41,7 @@ export async function apiGenerate(options) {
   transformToApi(result);
 
   console.log(`${green("success:")} generate api
-  `);
+`);
 
   if (options.mock?.toLocaleLowerCase() !== "false") {
     transformToMock(result);
@@ -131,6 +131,16 @@ import { service } from "./index.ts";
         fs.writeFileSync(pagePath, deleteTemplate(apiName, url), {
           flag: "a",
         });
+
+        //TODO  improve the code
+        let data = fs.readFileSync(pagePath, "utf-8");
+        data = data.replace(
+          'import { service } from "./index.ts";\n',
+          "import { service } from \"./index.ts\";\nimport { AxiosRequestConfig } from 'axios';\n"
+        );
+
+        fs.writeFileSync(pagePath, data);
+
       } else if (method === "put") {
         fs.writeFileSync(pagePath, putTemplate(apiName, url), {
           flag: "a",
@@ -157,11 +167,10 @@ import { service } from "./index.ts";
 
 export function transformToMock(result: IResult) {
   const mockRes = {};
-  
+
   Object.keys(result).map((page) => {
     const pageResult = result[page];
     Object.keys(pageResult).map((apiName) => {
-      console.log()
       const transformName = urlToKebab(pageResult[apiName].url?.split("/"));
 
       if (mockRes[transformName] && pageResult[apiName].method !== "get") {
@@ -184,7 +193,7 @@ export function transformToMock(result: IResult) {
     JSON.stringify({
       "/*/*/*/*": "/$1-$2-$3-$4",
       "/*/*/*": "/$1-$2-$3",
-      "/*/*": "/$1-$2"
+      "/*/*": "/$1-$2",
     })
   );
 }

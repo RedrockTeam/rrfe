@@ -15,7 +15,7 @@ export function jsonToTs(
     const beforeTs = match[1];
     if (beforeTs !== "RootObject") {
       res = res.replace(
-        new RegExp(`\\s+${beforeTs}(\\[\\])*(?=(;|\\s))`, "g"),
+        new RegExp(`\\s+${beforeTs}(\\[\\])*(?=(;|\\s{))`, "g"),
         ` ${toCapitalize(apiName) + toCapitalize(type) + beforeTs}$1 `
       );
     }
