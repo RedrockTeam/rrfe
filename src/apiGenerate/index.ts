@@ -21,7 +21,12 @@ export async function apiGenerate(options) {
   const apiPath = fs.existsSync(path.resolve(root, "api.md"))
     ? path.resolve(root, "api.md")
     : path.resolve(root, "api.mdx");
-
+  if (!fs.existsSync(apiPath)) {
+    console.log(`${red("error:")} cannot find the ${yellow(
+      "api.md"
+    )} or ${yellow("api.mdx")} in ${process.cwd()}`);
+    return;
+  }
   let apiDocs = fs.readFileSync(apiPath, "utf-8");
 
   if (options.type?.toLocaleLowerCase() === "apifox") {
@@ -111,8 +116,8 @@ export function transformToApi(result: IResult, isUseTs: boolean = true) {
       if (!fs.existsSync(pagePath)) {
         fs.writeFileSync(
           pagePath,
-          `import {  } from "../types/${page}.ts";
-import { service } from "./index.ts";
+          `import {  } from "../types/${page}";
+import { service } from "./index";
    
 `,
           {
@@ -135,12 +140,11 @@ import { service } from "./index.ts";
         //TODO  improve the code
         let data = fs.readFileSync(pagePath, "utf-8");
         data = data.replace(
-          'import { service } from "./index.ts";\n',
-          "import { service } from \"./index.ts\";\nimport { AxiosRequestConfig } from 'axios';\n"
+          'import { service } from "./index";\n',
+          "import { service } from \"./index\";\nimport { AxiosRequestConfig } from 'axios';\n"
         );
 
         fs.writeFileSync(pagePath, data);
-
       } else if (method === "put") {
         fs.writeFileSync(pagePath, putTemplate(apiName, url), {
           flag: "a",

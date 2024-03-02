@@ -3,7 +3,7 @@ import { camelToIName, toCapitalize } from "./utils";
 export function indexTemplate() {
   return `import axios from "axios";
 
-const BASE_URL = "";
+const BASE_URL = "http://localhost:3000/";
   
 export const service = axios.create({
     baseURL: BASE_URL,

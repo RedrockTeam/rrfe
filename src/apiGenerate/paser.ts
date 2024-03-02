@@ -1,3 +1,6 @@
+import { yellow } from "picocolors";
+import { red } from "picocolors";
+
 import { snakeToCamel, toCapitalize } from "./utils";
 
 export type IResult = Record<
@@ -41,6 +44,15 @@ export class ApiParser {
     while ((match = this.pageReg.exec(resource)) !== null) {
       const title = match[1];
       page.push(title);
+    }
+
+    if (page.length === 0) {
+      console.log(
+        `${red("error:")} cannot find split symbol ${yellow(
+          "## page: xxx"
+        )} in your api.md`
+      );
+      process.exit(1);
     }
 
     page.reduce((prev, current, index) => {
@@ -113,7 +125,6 @@ export class ApiParser {
           const apiName = `${snakeToCamel(
             spiltUrl[spiltUrl?.length - 1]
           )}${toCapitalize(method)}`;
-
 
           const req = this.reqReg.exec(api)?.[1].trim();
           const res = this.resReg.exec(api)?.[1].trim();
