@@ -139,15 +139,6 @@ import { service } from "./index";
         fs.writeFileSync(pagePath, deleteTemplate(apiName, url), {
           flag: "a",
         });
-
-        //TODO  improve the code
-        let data = fs.readFileSync(pagePath, "utf-8");
-        data = data.replace(
-          'import { service } from "./index";\n',
-          "import { service } from \"./index\";\nimport { AxiosRequestConfig } from 'axios';\n"
-        );
-
-        fs.writeFileSync(pagePath, data);
       } else if (method === "put") {
         fs.writeFileSync(pagePath, putTemplate(apiName, url), {
           flag: "a",

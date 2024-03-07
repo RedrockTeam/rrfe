@@ -54,7 +54,7 @@ export function postTemplate(apiName: string, url: string = "") {
 export function deleteTemplate(apiName: string, url: string = "") {
   return `export const delete${toCapitalize(
     apiName
-  )} = async ( payload: AxiosRequestConfig<{ data: ${camelToIName(apiName)}Req}> ): Promise<${camelToIName(
+  )} = async ( payload: { data: ${camelToIName(apiName)}Req} ): Promise<${camelToIName(
     apiName
   )}Res> => {
     const res = await service.delete(\`${url}\`,{data:payload});
