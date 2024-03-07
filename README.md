@@ -2,6 +2,7 @@
     <h1 align="center">@redrockfe/rrfe 🚀</h1>
 </p>
 <p align="center">
+    <img src="./assets/logo.png" alt="logo" />
     <img src="https://img.shields.io/badge/utils-redrock-red?labelColor=gray&style=flat" alt="cli" />
     <img src="https://img.shields.io/badge/template-vite-green?labelColor=gray&style=flat" alt="template" />
     <img src="https://img.shields.io/badge/md-apiTransform-blue?labelColor=gray&style=flat" alt="apiTransform" />
