@@ -35,7 +35,7 @@ export async function apiGenerate(options) {
   if (options.type?.toLocaleLowerCase() === "apifox") {
     apiDocs = apiFox(apiDocs);
   }
-
+  
   const result = new ApiParser().parse(apiDocs);
 
   console.log(`${green("success:")} parse md

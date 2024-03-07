@@ -4,11 +4,10 @@ import { ApiParser } from "../paser";
 
 test("parse", () => {
   expect(
-    Object.keys(
-      new ApiParser().parse(
-        `# 接口文档
+    new ApiParser().parse(
+      `# 接口文档
         
-        ## page:  login
+## page:  login
           
 ## 用户注册
           
@@ -80,19 +79,19 @@ test("parse", () => {
         ### 返回参数
           
           \`\`\` json
-            {
-              "error_code": 0,
-              "data": {
-                "uid": "1",
-                "username": "12154545",
-                "name": "吴系挂",
-                "groupid": 2 ,
-                "reg_time": "1436864169",
-                "last_login_time": "0",
-              }
-            }
+{
+    "error_code": 0,
+    "data": {
+        "uid": "1",
+        "username": "12154545",
+        "name": "吴系挂",
+        "groupid": 2,
+        "reg_time": "1436864169",
+        "last_login_time": "0",
+    }
+}
           \`\`\`
-        ## page:acount
+## page:acount
           
 ## 用户注册
           
@@ -123,21 +122,65 @@ test("parse", () => {
         ### 返回参数
           
           \`\`\` json
-            {
-              "error_code": 0,
-              "data": {
+          {
+            "error_code": 0,
+            "data": {
                 "uid": "1",
                 "username": "12154545",
                 "name": "吴系挂",
-                "groupid": 2 ,
+                "groupid": 2,
                 "reg_time": "1436864169",
                 "last_login_time": "0",
-              }
             }
+        }
           \`\`\`
           
         ### 返回参数说明`
-      )
-    ).length
-  ).toBe(2);
+    )
+  ).toStrictEqual({
+    login: {
+      registerPost: {
+        method: 'post',
+        url: '/api/user/register',
+        req: '{\n' +
+          '              "username": "12154545",\n' +
+          '              "name": "吴系挂",\n' +
+          '              "password":"1436864169"\n' +
+          '            }',
+        res: '{\n' +
+          '    "error_code": 0,\n' +
+          '    "data": {\n' +
+          '        "uid": "1",\n' +
+          '        "username": "12154545",\n' +
+          '        "name": "吴系挂",\n' +
+          '        "groupid": 2,\n' +
+          '        "reg_time": "1436864169",\n' +
+          '        "last_login_time": "0",\n' +
+          '    }\n' +
+          '}'
+      }
+    },
+    acount: {
+      registerPost: {
+        method: 'post',
+        url: '/api/user/register',
+        req: '{\n' +
+          '              "username": "12154545",\n' +
+          '              "name": "吴系挂",\n' +
+          '              "password":"1436864169"\n' +
+          '            }',
+        res: '{\n' +
+          '            "error_code": 0,\n' +
+          '            "data": {\n' +
+          '                "uid": "1",\n' +
+          '                "username": "12154545",\n' +
+          '                "name": "吴系挂",\n' +
+          '                "groupid": 2,\n' +
+          '                "reg_time": "1436864169",\n' +
+          '                "last_login_time": "0",\n' +
+          '            }\n' +
+          '        }'
+      }
+    }
+  });
 });
