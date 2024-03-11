@@ -1,5 +1,11 @@
 # @redrockfe/rrfe
 
+## 0.3.4
+
+### Patch Changes
+
+- feat: fix the template and lock the husky version
+
 ## 0.3.3
 
 ### Patch Changes

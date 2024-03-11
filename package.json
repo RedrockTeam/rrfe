@@ -1,6 +1,6 @@
 {
   "name": "@redrockfe/rrfe",
-  "version": "0.3.3",
+  "version": "0.3.4",
   "description": "redrockfe utils",
   "main": "index.js",
   "type": "module",
