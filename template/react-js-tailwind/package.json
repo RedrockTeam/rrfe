@@ -5,7 +5,6 @@
   "scripts": {
     "dev": "vite dev",
     "build": "vite build",
-    "start": "vite start",
     "lint": "eslint --fix --ext  .js,.ts,.jsx,.tsx ./",
     "prettier": "prettier --write .",
     "prepare": "husky install"
