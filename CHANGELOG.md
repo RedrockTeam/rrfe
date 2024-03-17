@@ -1,5 +1,11 @@
 # @redrockfe/rrfe
 
+## 0.3.5
+
+### Patch Changes
+
+- fix: remove useless start
+
 ## 0.3.4
 
 ### Patch Changes
