@@ -12,8 +12,9 @@ compile_dev:
   tags:
     - redrock
   script:
-    - npm i pnpm -g
-    - pnpm install
+    - npm config set registry https://registry.npmmirror.com
+    - npm i pnpm -g 
+    - pnpm install --registry=https://registry.npmmirror.com
     - pnpm run build
   artifacts:
     expire_in: 3 days
@@ -28,8 +29,9 @@ compile_prod:
   tags:
     - redrock
   script:
-    - npm i pnpm -g
-    - pnpm install
+    - npm config set registry https://registry.npmmirror.com
+    - npm i pnpm -g 
+    - pnpm install --registry=https://registry.npmmirror.com
     - pnpm run build
   artifacts:
     expire_in: 1 week
