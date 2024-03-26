@@ -28,6 +28,8 @@ module.exports = {
     'prettier/prettier': ['warn', { endOfLine: 'auto' }],
     'simple-import-sort/imports': 'warn',
     'simple-import-sort/exports': 'warn',
+    'no-unused-vars': 'off',
+    '@typescript-eslint/no-unused-vars': 'error',
   },
   globals: {
     React: 'readonly',
