@@ -1,5 +1,11 @@
 # @redrockfe/rrfe
 
+## 0.3.9
+
+### Patch Changes
+
+- fix: change the eslint config
+
 ## 0.3.8
 
 ### Patch Changes
