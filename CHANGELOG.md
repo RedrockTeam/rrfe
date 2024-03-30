@@ -1,5 +1,11 @@
 # @redrockfe/rrfe
 
+## 0.3.10
+
+### Patch Changes
+
+- fix: tsconfig for this
+
 ## 0.3.9
 
 ### Patch Changes
