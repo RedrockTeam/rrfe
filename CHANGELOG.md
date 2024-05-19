@@ -1,5 +1,11 @@
 # @redrockfe/rrfe
 
+## 0.3.11
+
+### Patch Changes
+
+- husky 8 -> 9
+
 ## 0.3.10
 
 ### Patch Changes
