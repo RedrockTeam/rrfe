@@ -1,6 +1,7 @@
 import cac from "cac";
 import { blue, cyan, green, red, yellow } from "picocolors";
 import prompt from "prompts";
+
 import config from "../../../package.json";
 import { apiGenerate } from "../../apiGenerate";
 import { entryTinyPng, tinifyImgs } from "../../tinypng";
