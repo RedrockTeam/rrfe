@@ -1,5 +1,15 @@
 # @redrockfe/rrfe
 
+## 0.4.0
+
+### Minor Changes
+
+- add the template for biome
+
+### Patch Changes
+
+- add vscode settings.json
+
 ## 0.3.11
 
 ### Patch Changes
