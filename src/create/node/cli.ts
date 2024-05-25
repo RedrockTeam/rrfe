@@ -1,18 +1,18 @@
 import cac from "cac";
 import { blue, cyan, green, red, yellow } from "picocolors";
 import prompt from "prompts";
-
-import config from "../../package.json";
-import { apiGenerate } from "../apiGenerate";
-import { init } from "../create/init";
-import { test } from "../create/test";
-import { entryTinyPng, tinifyImgs } from "../tinypng";
+import config from "../../../package.json";
+import { apiGenerate } from "../../apiGenerate";
+import { entryTinyPng, tinifyImgs } from "../../tinypng";
+import { init } from "../init";
+import { test } from "../test";
 
 const questions: prompt.PromptObject<string>[] = [
   {
     type: "select",
     name: "framework",
     message: "Select a framework:",
+
     choices: [
       {
         title: blue("react"),

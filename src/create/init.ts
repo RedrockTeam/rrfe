@@ -2,7 +2,7 @@ import { execSync } from "child_process";
 import fs from "fs";
 import path from "path";
 import { dirname } from "path";
-import { cyan, green } from "picocolors";
+import { cyan, green, magenta, yellow } from "picocolors";
 import { red } from "picocolors";
 import prompt from "prompts";
 import { fileURLToPath } from "url";
@@ -12,15 +12,24 @@ import { copy, toValidPackageName, updateBaseUrl, updateCI } from "./fs";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
-let result: prompt.Answers<
-  | "projectName"
-  | "framework"
-  | "language"
-  | "styles"
-  | "isUseLint"
-  | "template"
-  | "REPO_NAME"
->;
+export type IResPrompt =
+  | prompt.Answers<
+      | "projectName"
+      | "framework"
+      | "language"
+      | "styles"
+      | "template"
+      | "REPO_NAME"
+      | "toolChain"
+    >
+  | prompt.Answers<"projectName" | "REPO_NAME" | "toolChain">;
+
+let result: IResPrompt;
+
+let toolChain: prompt.Answers<"toolChain">;
+let projectNamePrompt: prompt.Answers<"projectName" | "REPO_NAME">;
+let frameWork: prompt.Answers<"framework" | "language" | "styles" | "template">;
+
 const cwd = process.cwd();
 const defaultTargetDir = "redrock-project";
 export async function init(
@@ -28,7 +37,7 @@ export async function init(
   questions: prompt.PromptObject<string>[]
 ) {
   try {
-    result = await prompt(
+    projectNamePrompt = await prompt(
       [
         {
           type: "text",
@@ -51,7 +60,6 @@ export async function init(
             return prev;
           },
         },
-        ...questions,
       ],
       {
         onCancel: () => {
@@ -59,6 +67,38 @@ export async function init(
         },
       }
     );
+
+    toolChain = await prompt(
+      {
+        type: "select",
+        name: "toolChain",
+        message: "Select a framework:",
+        choices: [
+          {
+            title: yellow("biome(尝鲜版)"),
+            value: "biome",
+          },
+          { title: magenta("eslint + prettier"), value: "eslint + prettier" },
+        ],
+      },
+      {
+        onCancel: () => {
+          throw new Error("Operation cancelled");
+        },
+      }
+    );
+
+    if (toolChain.toolChain !== "biome") {
+      frameWork = await prompt([...questions], {
+        onCancel: () => {
+          throw new Error("Operation cancelled");
+        },
+      });
+
+      result = { ...frameWork, ...projectNamePrompt, ...toolChain };
+    } else {
+      result = { ...projectNamePrompt, ...toolChain };
+    }
   } catch (cancelled) {
     console.log(cancelled.message);
     return;

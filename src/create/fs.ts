@@ -1,7 +1,7 @@
 import fs from "fs";
 import path from "path";
 
-import { DEFAULT_CONFIG_FILES } from "../node/constant";
+import { DEFAULT_CONFIG_FILES } from "./node/constant";
 
 export function isEmpty(path: string) {
   const files = fs.readdirSync(path);
