@@ -1,0 +1,13 @@
+pre-commit:
+  parallel: true
+  commands:
+    biome:
+      glob: "*.{js,ts,jsx,tsx}"
+      run: pnpm biome check --apply --no-errors-on-unmatched {staged_files} && git add .
+    biomeOther:
+      glob: "*.{json,md,html,css,scss,sass,less,styl}"
+      run: pnpm biome check --apply --no-errors-on-unmatched --files-ignore-unknown=true {staged_files} && git add .
+commit-msg:
+  commands:
+    "message-check":
+      run: npx --no -- commitlint --edit 
