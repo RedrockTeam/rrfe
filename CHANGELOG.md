@@ -1,5 +1,11 @@
 # @redrockfe/rrfe
 
+## 0.4.1
+
+### Patch Changes
+
+- add the vscode config for workspace
+
 ## 0.4.0
 
 ### Minor Changes
