@@ -1,5 +1,11 @@
 # @redrockfe/rrfe
 
+## 0.4.2
+
+### Patch Changes
+
+- biome use lefthook
+
 ## 0.4.1
 
 ### Patch Changes
