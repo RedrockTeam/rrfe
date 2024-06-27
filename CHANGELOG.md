@@ -1,5 +1,11 @@
 # @redrockfe/rrfe
 
+## 0.4.7
+
+### Patch Changes
+
+- add the license
+
 ## 0.4.3
 
 ### Patch Changes
