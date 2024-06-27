@@ -1,5 +1,11 @@
 # @redrockfe/rrfe
 
+## 0.4.8
+
+### Patch Changes
+
+- change the logo
+
 ## 0.4.7
 
 ### Patch Changes
