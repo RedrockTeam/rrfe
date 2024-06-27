@@ -34,7 +34,6 @@
     "sunsunmonkey (https://github.com/sunsunmonkey)"
   ],
   "private": false,
-  "license": "MIT",
   "devDependencies": {
     "@changesets/cli": "^2.27.1",
     "@types/node": "^20.11.0",
