@@ -1,5 +1,11 @@
 # @redrockfe/rrfe
 
+## 0.5.0
+
+### Minor Changes
+
+- add the create vue
+
 ## 0.4.8
 
 ### Patch Changes
