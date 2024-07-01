@@ -1,7 +1,6 @@
 import fs from "fs";
 import path from "path";
-import { red, yellow } from "picocolors";
-import { green } from "picocolors";
+import picocolors from "picocolors";
 
 import {
   deleteTemplate,
@@ -16,6 +15,7 @@ import { ApiParser, IResult } from "./paser";
 import { camelToIName, urlToKebab } from "./utils";
 
 const root = process.cwd();
+const { green, red, yellow } = picocolors;
 
 export async function apiGenerate(options) {
   const apiPath = fs.existsSync(path.resolve(root, "api.md"))
@@ -35,7 +35,7 @@ export async function apiGenerate(options) {
   if (options.type?.toLocaleLowerCase() === "apifox") {
     apiDocs = apiFox(apiDocs);
   }
-  
+
   const result = new ApiParser().parse(apiDocs);
 
   console.log(`${green("success:")} parse md

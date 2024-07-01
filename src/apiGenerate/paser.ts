@@ -1,6 +1,6 @@
-import { yellow } from "picocolors";
-import { red } from "picocolors";
+import picocolors from "picocolors";
 
+const { red, yellow } = picocolors;
 import { snakeToCamel, toCapitalize } from "./utils";
 
 export type IResult = Record<

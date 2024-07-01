@@ -1,9 +1,9 @@
 import { execSync } from "child_process";
+import spawn from "cross-spawn";
 import fs from "fs";
 import path from "path";
 import { dirname } from "path";
-import { cyan, green, magenta, yellow } from "picocolors";
-import { red } from "picocolors";
+import picocolors from "picocolors";
 import prompt from "prompts";
 import { fileURLToPath } from "url";
 
@@ -11,6 +11,7 @@ import { chooseTemplate } from "./chooseTemplate";
 import { copy, toValidPackageName, updateBaseUrl, updateCI } from "./fs";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
+const { cyan, green, magenta, red, yellow } = picocolors;
 
 export type IResPrompt =
   | prompt.Answers<
@@ -68,6 +69,7 @@ export async function init(
       }
     );
 
+    //TODO 重构
     toolChain = await prompt(
       {
         type: "select",
@@ -103,9 +105,21 @@ export async function init(
     console.log(cancelled.message);
     return;
   }
-  const { projectName } = result;
-  const { REPO_NAME } = result;
+
+  const { projectName, REPO_NAME } = result;
   const root = path.join(cwd, projectName);
+
+  if (frameWork?.framework === "vue") {
+    const { status } = spawn.sync(
+      "pnpm",
+      ["create", "vue@latest", projectName],
+      {
+        stdio: "inherit",
+      }
+    );
+
+    process.exit(status ?? 0);
+  }
 
   fs.mkdirSync(root, { recursive: true });
   const renameFiles: Record<string, string> = {
@@ -113,6 +127,7 @@ export async function init(
   };
 
   // 处理模板
+
   const templateType = chooseTemplate(result);
   const templateDir = path.resolve(__dirname, `../template/${templateType}`);
   const files = fs.readdirSync(templateDir);

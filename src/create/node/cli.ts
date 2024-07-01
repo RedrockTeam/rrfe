@@ -1,5 +1,5 @@
 import cac from "cac";
-import { blue, cyan, green, red, yellow } from "picocolors";
+import picocolors from "picocolors";
 import prompt from "prompts";
 
 import config from "../../../package.json";
@@ -8,6 +8,7 @@ import { entryTinyPng, tinifyImgs } from "../../tinypng";
 import { init } from "../init";
 import { test } from "../test";
 
+const { blue, cyan, green, red, yellow } = picocolors;
 const questions: prompt.PromptObject<string>[] = [
   {
     type: "select",
@@ -19,15 +20,11 @@ const questions: prompt.PromptObject<string>[] = [
         title: blue("react"),
         value: "react",
       },
-      { title: green("vue(选了也是react，希望大佬增加vue模板)"), value: "vue" },
-      {
-        title: red("svelte(选了也是react，希望大佬增加svelte模板)"),
-        value: "svelte",
-      },
+      { title: green("vue"), value: "vue" },
     ],
   },
   {
-    type: "select",
+    type: (_, { framework }) => (framework === "vue" ? null : "select"),
     name: "language",
     message: `Select a Language:`,
     choices: [
@@ -39,7 +36,7 @@ const questions: prompt.PromptObject<string>[] = [
     ],
   },
   {
-    type: "select",
+    type: (_, { framework }) => (framework === "vue" ? null : "select"),
     name: "styles",
     message: `Select a Styles Frameworks`,
     choices: [

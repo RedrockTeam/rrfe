@@ -4,6 +4,7 @@
   "description": "redrockfe utils",
   "main": "index.js",
   "type": "module",
+  "packageManager": "pnpm@8.9.0",
   "scripts": {
     "start": "tsup --watch",
     "build": "tsup --minify",
@@ -63,10 +64,11 @@
     "template"
   ],
   "dependencies": {
-    "json-to-ts": "^1.7.0",
-    "tinify": "^1.7.1",
     "cac": "^6.7.14",
+    "cross-spawn": "^7.0.3",
+    "json-to-ts": "^1.7.0",
+    "picocolors": "^1.0.0",
     "prompts": "^2.4.2",
-    "picocolors": "^1.0.0"
+    "tinify": "^1.7.1"
   }
 }
