@@ -30,9 +30,6 @@
   "devDependencies": {
     "@commitlint/cli": "^18.2.0",
     "@commitlint/config-conventional": "^18.1.0",
-    "@types/node": "20.11.16",
-    "@types/react": "18.2.55",
-    "@types/react-dom": "^18",
     "autoprefixer": "^10.0.1",
     "eslint": "^8",
     "eslint-config-prettier": "^9.0.0",
