@@ -1,5 +1,11 @@
 # @redrockfe/rrfe
 
+## 0.5.2
+
+### Patch Changes
+
+- fix some error about js template
+
 ## 0.5.0
 
 ### Minor Changes
