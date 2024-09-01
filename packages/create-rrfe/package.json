@@ -1,0 +1,47 @@
+{
+  "name": "create-rrfe",
+  "version": "0.1.0",
+  "description": "create redrockFE team template",
+  "main": "index.js",
+  "type": "module",
+  "private": false,
+  "scripts": {
+    "start": "tsup --watch",
+    "build": "tsup --minify"
+  },
+  "bin": {
+    "create-rrfe": "index.js",
+    "crrfe": "index.js"
+  },
+  "keywords": [
+    "redrockfe",
+    "cli",
+    "template",
+    "frontend",
+    "command",
+    "typescript"
+  ],
+  "author": "sunsunmonkey",
+  "contributors": [
+    "YYGod (https://github.com/YYGod0120)",
+    "sunsunmonkey (https://github.com/sunsunmonkey)"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RedrockTeam/rrfe.git"
+  },
+  "bugs": {
+    "url": "https://github.com/RedrockTeam/rrfe/issues"
+  },
+  "homepage": "https://github.com/RedrockTeam/rrfe#readme",
+  "files": [
+    "package.json",
+    "bin",
+    "build",
+    "template"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "cross-spawn": "^7.0.3"
+  }
+}

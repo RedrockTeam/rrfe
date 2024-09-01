@@ -3,7 +3,7 @@ import { defineConfig } from "tsup";
 export default defineConfig({
   outDir: "build",
   entry: {
-    index: "src/create/node/cli.ts",
+    index: "src/node/cli.ts",
   },
   // 产物格式，cjs 格式
   format: ["esm"],

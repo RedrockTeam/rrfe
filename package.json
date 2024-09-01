@@ -1,74 +1,29 @@
 {
-  "name": "@redrockfe/rrfe",
-  "version": "0.5.2",
-  "description": "redrockfe utils",
+  "name": "rrfe",
+  "version": "0.0.0",
+  "description": "monorepo",
   "main": "index.js",
-  "type": "module",
-  "packageManager": "pnpm@8.9.0",
   "scripts": {
-    "start": "tsup --watch",
-    "build": "tsup --minify",
-    "lint": "eslint src --ext .js,.ts --fix",
-    "prepare": "husky install",
-    "changeset": "changeset",
-    "version:changeset": "changeset version && git commit -am \"feat: update version\"",
-    "prepublish": "pnpm build",
-    "publish": "changeset publish",
-    "test": "vitest"
+    "build:create": "pnpm -F create-rrfe build",
+    "build:toolkit": "pnpm -F toolkit build"
   },
-  "license": "MIT",
-  "bin": {
-    "rrfe": "bin/index.js"
-  },
-  "keywords": [
-    "redrockfe",
-    "cli",
-    "template",
-    "frontend",
-    "command",
-    "mdToApiCode",
-    "mock",
-    "typescript"
-  ],
+  "keywords": ["rrfe"],
   "author": "sunsunmonkey",
-  "contributors": [
-    "YYGod (https://github.com/YYGod0120)",
-    "sunsunmonkey (https://github.com/sunsunmonkey)"
-  ],
-  "private": false,
+  "license": "MIT",
   "devDependencies": {
-    "@changesets/cli": "^2.27.1",
-    "@types/node": "^20.11.0",
-    "@types/prompts": "^2.4.8",
-    "@typescript-eslint/eslint-plugin": "^6.13.1",
-    "@typescript-eslint/parser": "^6.13.1",
-    "eslint": "^8",
-    "eslint-plugin-simple-import-sort": "^12.0.0",
-    "husky": "^8.0.3",
-    "tsup": "^8.0.1",
-    "typescript": "^5.2.2",
-    "vitest": "^1.3.1"
+    "@changesets/cli": "^2.27.7",
+    "@types/node": "^22.5.1",
+    "@types/prompts": "^2.4.9",
+    "@typescript-eslint/eslint-plugin": "^8.3.0",
+    "eslint": "^9.9.1",
+    "eslint-plugin-simple-import-sort": "^12.1.1",
+    "husky": "^9.1.5",
+    "tsup": "^8.2.4",
+    "typescript": "^5.5.4"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/RedrockTeam/rrfe.git"
-  },
-  "bugs": {
-    "url": "https://github.com/RedrockTeam/rrfe/issues"
-  },
-  "homepage": "https://github.com/RedrockTeam/rrfe#readme",
-  "files": [
-    "package.json",
-    "bin",
-    "build",
-    "template"
-  ],
   "dependencies": {
     "cac": "^6.7.14",
-    "cross-spawn": "^7.0.3",
-    "json-to-ts": "^1.7.0",
-    "picocolors": "^1.0.0",
-    "prompts": "^2.4.2",
-    "tinify": "^1.7.1"
+    "picocolors": "^1.0.1",
+    "prompts": "^2.4.2"
   }
 }

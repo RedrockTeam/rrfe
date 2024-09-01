@@ -1,7 +1,3 @@
 node_modules
-
 build
-test/*
-!test/package.json
-!test/pnpm-lock.yaml
 api.md
