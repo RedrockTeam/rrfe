@@ -43,7 +43,6 @@ pnpm publish
 
 ```shell
 rrfe create [name]
-rrfe test [name]
 ```
 
 **写完一个模板可以测试一下是否正常**
