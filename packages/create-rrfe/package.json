@@ -1,17 +1,21 @@
 {
   "name": "create-rrfe",
-  "version": "0.1.0",
+  "version": "0.0.1",
   "description": "create redrockFE team template",
   "main": "index.js",
   "type": "module",
   "private": false,
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "start": "tsup --watch",
     "build": "tsup --minify"
   },
   "bin": {
-    "create-rrfe": "index.js",
-    "crrfe": "index.js"
+    "create-rrfe": "bin/index.js",
+    "crrfe": "bin/index.js",
+    "prepublish": "pnpm build"
   },
   "keywords": [
     "redrockfe",
@@ -42,6 +46,10 @@
   ],
   "license": "MIT",
   "dependencies": {
-    "cross-spawn": "^7.0.3"
+    "cross-spawn": "^7.0.3",
+    "prompts": "^2.4.2"
+  },
+  "devDependencies": {
+    "@types/prompts": "^2.4.9"
   }
 }

@@ -1,12 +1,14 @@
-import fs from "fs";
+import fs, { write } from "fs";
 import path from "path";
 
 import { DEFAULT_CONFIG_FILES } from "./node/constant";
+import { IResPrompt } from "./init";
 
 export function isEmpty(path: string) {
   const files = fs.readdirSync(path);
   return files.length === 0 || (files.length === 1 && files[0] === ".git");
 }
+
 export function copy(src: string, dest: string) {
   const stat = fs.statSync(src);
   if (stat.isDirectory()) {
@@ -34,24 +36,6 @@ export function toValidPackageName(projectName: string) {
     .replace(/[^a-z\d\-~]+/g, "-");
 }
 
-export function updateCI(root: string, REPO_NAME: string) {
-  // 读取YAML文件
-  try {
-    const yamlPath = path.resolve(root, `.gitlab-ci.yml`);
-    let fileContent = fs.readFileSync(yamlPath, "utf8");
-
-    // 使用正则表达式进行替换
-    fileContent = fileContent.replace(
-      /REPO_NAME: \[\]/g,
-      `REPO_NAME: ${REPO_NAME}`
-    );
-    // 将更新后的内容写回文件
-    fs.writeFileSync(yamlPath, fileContent, "utf8");
-  } catch (e) {
-    console.error("读取或更新CI/CD文件时出错：", e.message);
-  }
-}
-
 export function updateBaseUrl(root: string, REPO_NAME: string) {
   try {
     let vitePath: string = "";
@@ -74,4 +58,36 @@ export function updateBaseUrl(root: string, REPO_NAME: string) {
   } catch (e) {
     console.error("读取或更新vite.config文件时出错：", e.message);
   }
+}
+
+export function assembleTemplate(templateDir: string, result: IResPrompt) {
+  const configPath = path.resolve(templateDir, "../baseConfig");
+  const diffConfig = ["index.html", ".eslintrc.cjs"];
+  const files = fs.readdirSync(configPath);
+  for (const file of files) {
+    let targetPath = path.join(process.cwd(), file);
+    if (file === "tsconfig" && result.language === "js") return;
+
+    if (diffConfig.includes(file)) {
+      targetPath = path.join(targetPath, file, result.language, file);
+    }
+    copy(path.join(templateDir, file), targetPath);
+  }
+}
+
+export function updateTailwind(projectName: string) {
+  const prettierPath = path.resolve(process.cwd(), projectName, ".prettierrc");
+  const prettier = JSON.parse(fs.readFileSync(prettierPath, "utf-8"));
+
+  prettier.plugins = ["prettier-plugin-tailwindcss"];
+  fs.writeFileSync(".prettierrc", JSON.stringify(prettier, null, 2) + "\n");
+}
+
+export function updateCi(projectName: string, repoName: string) {
+  const ciPath = path.resolve(process.cwd(), projectName, ".gitea");
+  fs.readdirSync(ciPath).map((item) => {
+    const content = fs.readFileSync(item, "utf8");
+    content.replace(/REPO_NAME: repo-name/g, `REPO_NAME: ${repoName}`);
+    fs.writeFileSync(item, content, "utf8");
+  });
 }

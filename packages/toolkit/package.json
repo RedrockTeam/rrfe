@@ -1,20 +1,32 @@
 {
   "name": "@rrfe/toolkit",
-  "version": "0.1.0",
-  "description": "",
+  "version": "0.0.1",
+  "description": "redrockFE toolkit",
   "main": "index.js",
+  "private": false,
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "start": "tsup --watch",
-    "build": "tsup --minify"
+    "build": "tsup --minify",
+    "test": "vitest",
+    "prepublish": "pnpm build"
+  },
+  "bin": {
+    "rrfe": "bin/index.js"
   },
   "keywords": [
     "mdToApiCode",
-    "mock"
+    "mock",
+    "cli",
+    "toolkit"
   ],
-  "author": "",
+  "author": "sunsunmonkey",
   "license": "ISC",
   "dependencies": {
     "json-to-ts": "^2.1.0",
-    "tinify": "^1.7.1"
+    "tinify": "^1.7.1",
+    "vitest": "^2.0.5"
   }
 }

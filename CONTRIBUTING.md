@@ -42,8 +42,7 @@ pnpm publish
 ### 新增模板测试
 
 ```shell
-rrfe-cli create [name]
-rrfe-cli test [name]
+rrfe create [name]
 ```
 
 **写完一个模板可以测试一下是否正常**

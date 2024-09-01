@@ -8,37 +8,41 @@ import prompt from "prompts";
 import { fileURLToPath } from "url";
 
 import { chooseTemplate } from "./chooseTemplate";
-import { copy, toValidPackageName, updateBaseUrl, updateCI } from "./fs";
+import {
+  assembleTemplate,
+  copy,
+  toValidPackageName,
+  updateBaseUrl,
+  updateCi,
+  updateTailwind,
+} from "./fs";
+import { blue } from "picocolors";
+import { initGit } from "./git";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const { cyan, green, magenta, red, yellow } = picocolors;
 
-export type IResPrompt =
-  | prompt.Answers<
-      | "projectName"
-      | "framework"
-      | "language"
-      | "styles"
-      | "template"
-      | "REPO_NAME"
-      | "toolChain"
-    >
-  | prompt.Answers<"projectName" | "REPO_NAME" | "toolChain">;
+export type IResPrompt = prompt.Answers<
+  | "projectName"
+  | "frameWork"
+  | "language"
+  | "styles"
+  | "template"
+  | "repoName"
+  | "toolChain"
+>;
 
 let result: IResPrompt;
 
-let toolChain: prompt.Answers<"toolChain">;
-let projectNamePrompt: prompt.Answers<"projectName" | "REPO_NAME">;
-let frameWork: prompt.Answers<"framework" | "language" | "styles" | "template">;
-
 const cwd = process.cwd();
 const defaultTargetDir = "redrock-project";
-export async function init(
-  project: string,
-  questions: prompt.PromptObject<string>[]
-) {
+
+export async function init(project: string) {
   try {
-    projectNamePrompt = await prompt(
+    const skipSelect = (_, res) =>
+      res.toolChain === "biome" || res?.frameWork === "vue" ? null : "select";
+
+    result = (await prompt(
       [
         {
           type: "text",
@@ -48,8 +52,8 @@ export async function init(
         },
         {
           type: "text",
-          name: "REPO_NAME",
-          message: "REPO_NAME:",
+          name: "repoName",
+          message: "Repo name",
           initial: (prev) => {
             if (fs.existsSync(path.join(cwd, prev))) {
               console.log(
@@ -57,9 +61,60 @@ export async function init(
               );
               process.exit(1);
             }
-
             return prev;
           },
+        },
+        {
+          type: "select",
+          name: "toolChain",
+          message: "Select a toolChain:",
+          choices: [
+            {
+              title: yellow("biome(尝鲜版)"),
+              value: "biome",
+            },
+            { title: magenta("eslint + prettier"), value: "eslint + prettier" },
+          ],
+        },
+        {
+          type: skipSelect,
+          name: "framework",
+          message: "Select a framework:",
+          choices: [
+            {
+              title: blue("react"),
+              value: "react",
+            },
+            { title: green("vue"), value: "vue" },
+          ],
+        },
+        {
+          type: skipSelect,
+          name: "language",
+          message: `Select a Language:`,
+          choices: [
+            {
+              title: blue("Typescript"),
+              value: "ts",
+            },
+            { title: yellow("Javascript"), value: "js" },
+          ],
+        },
+        {
+          type: skipSelect,
+          name: "styles",
+          message: `Select a Styles Frameworks`,
+          choices: [
+            {
+              title: blue("Tailwind"),
+              value: "tailwind",
+            },
+            { title: green("less"), value: "less" },
+            {
+              title: yellow("css"),
+              value: "css",
+            },
+          ],
         },
       ],
       {
@@ -67,52 +122,16 @@ export async function init(
           throw new Error("Operation cancelled");
         },
       }
-    );
-
-    //TODO 重构
-    toolChain = await prompt(
-      {
-        type: "select",
-        name: "toolChain",
-        message: "Select a framework:",
-        choices: [
-          {
-            title: yellow("biome(尝鲜版)"),
-            value: "biome",
-          },
-          { title: magenta("eslint + prettier"), value: "eslint + prettier" },
-        ],
-      },
-      {
-        onCancel: () => {
-          throw new Error("Operation cancelled");
-        },
-      }
-    );
-
-    if (toolChain.toolChain !== "biome") {
-      frameWork = await prompt([...questions], {
-        onCancel: () => {
-          throw new Error("Operation cancelled");
-        },
-      });
-
-      result = { ...frameWork, ...projectNamePrompt, ...toolChain };
-    } else {
-      result = { ...projectNamePrompt, ...toolChain };
-    }
+    )) as any as IResPrompt;
   } catch (cancelled) {
     console.log(cancelled.message);
     return;
   }
 
-  const { projectName, REPO_NAME } = result;
-  const root = path.join(cwd, projectName);
-
-  if (frameWork?.framework === "vue") {
+  if (result?.frameWork === "vue") {
     const { status } = spawn.sync(
       "pnpm",
-      ["create", "vue@latest", projectName],
+      ["create", "vue@latest", result.projectName],
       {
         stdio: "inherit",
       }
@@ -121,16 +140,20 @@ export async function init(
     process.exit(status ?? 0);
   }
 
+  const { projectName, repoName } = result;
+  const root = path.join(cwd, projectName);
+
   fs.mkdirSync(root, { recursive: true });
+
   const renameFiles: Record<string, string> = {
     _gitignore: ".gitignore",
   };
 
   // 处理模板
-
   const templateType = chooseTemplate(result);
   const templateDir = path.resolve(__dirname, `../template/${templateType}`);
   const files = fs.readdirSync(templateDir);
+
   //写入操作
   const write = (file: string, content?: string) => {
     const targetPath = path.join(root, renameFiles[file] ?? file);
@@ -142,7 +165,7 @@ export async function init(
     }
   };
 
-  //特殊处理package.json
+  //处理package.json
   const pkg = JSON.parse(
     fs.readFileSync(path.join(templateDir, `package.json`), "utf-8")
   );
@@ -153,20 +176,23 @@ export async function init(
   for (const file of files.filter((f) => f !== "package.json")) {
     write(file);
   }
-  //处理ci文件
 
-  updateCI(root, REPO_NAME);
+  // 组装操作
+  if (result.toolChain !== "biome") {
+    assembleTemplate(templateDir, result);
+  }
+  if (result.styles === "tailwind") {
+    updateTailwind(projectName);
+  }
 
-  //处理vite的base-url
-  updateBaseUrl(root, REPO_NAME);
+  //处理vite的base-url 和 ci 的REPO_NAME
 
-  //进行一次git提交
+  updateBaseUrl(root, repoName);
+  updateCi(projectName, repoName);
 
-  process.chdir(`./${projectName}`);
-  execSync("git init", { stdio: "ignore" });
-  execSync("git add .", { stdio: "ignore" });
-  execSync('git commit -m "feat: redrock-project init"', { stdio: "ignore" });
 
+  initGit(projectName)
+  
   console.log(`⚡ ${green("complete work")} 🚀`);
   console.log(`Your project ${cyan(projectName)}`);
 }
