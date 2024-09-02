@@ -7,8 +7,8 @@ import { init } from "../init";
 const cli = cac();
 
 cli.command("[project]", "create the new project").action(async (project) => {
-  if (project) console.log(`Your project name is ${cyan(project)}`);
-  await init(project);
+	if (project) console.log(`Your project name is ${cyan(project)}`);
+	await init(project);
 });
 
 cli.help();
