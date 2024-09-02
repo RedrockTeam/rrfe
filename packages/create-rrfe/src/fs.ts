@@ -65,13 +65,26 @@ export function assembleTemplate(templateDir: string, result: IResPrompt) {
   const diffConfig = ["index.html", ".eslintrc.cjs"];
   const files = fs.readdirSync(configPath);
   for (const file of files) {
-    let targetPath = path.join(process.cwd(), file);
-    if (file === "tsconfig" && result.language === "js") return;
+    let targetPath = path.join(process.cwd(), result.projectName, file);
+    let sourcePath = path.join(configPath, file);
+
+    if (file === "tsconfig") {
+      if (result.language === "ts") {
+        fs.readdirSync(sourcePath).map((item) => {
+          copy(
+            path.join(sourcePath, item),
+            path.join(process.cwd(), result.projectName, item)
+          );
+        });
+      }
+      continue;
+    }
 
     if (diffConfig.includes(file)) {
-      targetPath = path.join(targetPath, file, result.language, file);
+      sourcePath = path.join(sourcePath, result.language, file);
     }
-    copy(path.join(templateDir, file), targetPath);
+
+    copy(sourcePath, targetPath);
   }
 }
 
@@ -80,14 +93,19 @@ export function updateTailwind(projectName: string) {
   const prettier = JSON.parse(fs.readFileSync(prettierPath, "utf-8"));
 
   prettier.plugins = ["prettier-plugin-tailwindcss"];
-  fs.writeFileSync(".prettierrc", JSON.stringify(prettier, null, 2) + "\n");
+  fs.writeFileSync(prettierPath, JSON.stringify(prettier, null, 2) + "\n");
 }
 
 export function updateCi(projectName: string, repoName: string) {
   const ciPath = path.resolve(process.cwd(), projectName, ".gitea");
   fs.readdirSync(ciPath).map((item) => {
-    const content = fs.readFileSync(item, "utf8");
-    content.replace(/REPO_NAME: repo-name/g, `REPO_NAME: ${repoName}`);
-    fs.writeFileSync(item, content, "utf8");
+    const resolvedPath = path.resolve(ciPath, item);
+    let fileContent = fs.readFileSync(resolvedPath, "utf8");
+
+    fileContent = fileContent.replace(
+      /REPO_NAME:\s*repo-name/g,
+      `REPO_NAME: ${repoName}`
+    );
+    fs.writeFileSync(resolvedPath, fileContent, "utf8");
   });
 }

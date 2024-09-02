@@ -24,7 +24,7 @@ const { cyan, green, magenta, red, yellow } = picocolors;
 
 export type IResPrompt = prompt.Answers<
   | "projectName"
-  | "frameWork"
+  | "framework"
   | "language"
   | "styles"
   | "template"
@@ -40,7 +40,7 @@ const defaultTargetDir = "redrock-project";
 export async function init(project: string) {
   try {
     const skipSelect = (_, res) =>
-      res.toolChain === "biome" || res?.frameWork === "vue" ? null : "select";
+      res.toolChain === "biome" || res?.framework === "vue" ? null : "select";
 
     result = (await prompt(
       [
@@ -94,10 +94,10 @@ export async function init(project: string) {
           message: `Select a Language:`,
           choices: [
             {
-              title: blue("Typescript"),
+              title: blue("typescript"),
               value: "ts",
             },
-            { title: yellow("Javascript"), value: "js" },
+            { title: yellow("javascript"), value: "js" },
           ],
         },
         {
@@ -106,7 +106,7 @@ export async function init(project: string) {
           message: `Select a Styles Frameworks`,
           choices: [
             {
-              title: blue("Tailwind"),
+              title: blue("tailwind"),
               value: "tailwind",
             },
             { title: green("less"), value: "less" },
@@ -128,7 +128,7 @@ export async function init(project: string) {
     return;
   }
 
-  if (result?.frameWork === "vue") {
+  if (result?.framework === "vue") {
     const { status } = spawn.sync(
       "pnpm",
       ["create", "vue@latest", result.projectName],
@@ -190,9 +190,8 @@ export async function init(project: string) {
   updateBaseUrl(root, repoName);
   updateCi(projectName, repoName);
 
+  initGit(projectName);
 
-  initGit(projectName)
-  
   console.log(`⚡ ${green("complete work")} 🚀`);
   console.log(`Your project ${cyan(projectName)}`);
 }
