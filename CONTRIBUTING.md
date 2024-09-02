@@ -1,10 +1,12 @@
-# @redrockfe/rrfe Contributing Guide
+# Contributing Guide
 
 ## 开发测试指南
 
+拿create-rrfe举例子
 输入命令进入开发模式
 
 ```shell
+cd packages/create-rrfe
 pnpm link --global
 pnpm start
 ```
@@ -30,19 +32,19 @@ pnpm changeset
 将 changelog 消耗掉并生成版本
 
 ```shell
-pnpm version:changeset
+pnpm changeset:version
 ```
 
 发表到 npm
 
 ```shell
-pnpm publish
+pnpm changeset:publish
 ```
 
-### 新增模板测试
+### 测试
 
 ```shell
-rrfe create [name]
+create-rrfe [name]
 ```
 
 **写完一个模板可以测试一下是否正常**
