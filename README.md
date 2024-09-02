@@ -1,9 +1,10 @@
-<p align="center">
-    <h1 align="center">rrfe</h1>
+# rrfe
+
+<p align="left">
+    <img src="./assets/logo.png" alt="logo" width="20%"/>
 </p>
-<p align="center">
-    <img src="./assets/logo.png" alt="logo" width="50%"/>
-</p>
+
+## packages   
 
 | packages          | description       |
 | ----------------- | ----------------- |
