@@ -194,4 +194,11 @@ export async function init(project: string) {
 
   console.log(`⚡ ${green("complete work")} 🚀`);
   console.log(`Your project ${cyan(projectName)}`);
+  console.log(`you can run the following command to start your project`);
+  console.log(`
+  ${green("cd" + projectName)}
+  ${green("code .")}
+  ${green("pnpm i")}
+  ${green("pnpm dev")}
+  `);
 }
