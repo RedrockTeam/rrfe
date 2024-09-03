@@ -1,18 +1,16 @@
-# 接口文档
-
-## page: login
+# login
 
 ## 用户注册
 
 简要描述：
 
-        用户注册接口
+用户注册接口
 
 ### URL
 
 /user/register
 
-### 请求方式：
+### 请求方式
 
     POST
 
@@ -86,7 +84,7 @@ POST
 }
 ```
 
-## page:acount
+# page:acount
 
 ## 用户注册
 
