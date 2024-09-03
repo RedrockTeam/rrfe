@@ -140,14 +140,16 @@ test("parse", () => {
   ).toStrictEqual({
     login: {
       registerPost: {
-        method: 'post',
-        url: '/api/user/register',
-        req: '{\n' +
+        method: "post",
+        url: "/api/user/register",
+        req:
+          "{\n" +
           '              "username": "12154545",\n' +
           '              "name": "吴系挂",\n' +
           '              "password":"1436864169"\n' +
-          '            }',
-        res: '{\n' +
+          "            }",
+        res:
+          "{\n" +
           '    "error_code": 0,\n' +
           '    "data": {\n' +
           '        "uid": "1",\n' +
@@ -156,20 +158,22 @@ test("parse", () => {
           '        "groupid": 2,\n' +
           '        "reg_time": "1436864169",\n' +
           '        "last_login_time": "0",\n' +
-          '    }\n' +
-          '}'
-      }
+          "    }\n" +
+          "}",
+      },
     },
     acount: {
       registerPost: {
-        method: 'post',
-        url: '/api/user/register',
-        req: '{\n' +
+        method: "post",
+        url: "/api/user/register",
+        req:
+          "{\n" +
           '              "username": "12154545",\n' +
           '              "name": "吴系挂",\n' +
           '              "password":"1436864169"\n' +
-          '            }',
-        res: '{\n' +
+          "            }",
+        res:
+          "{\n" +
           '            "error_code": 0,\n' +
           '            "data": {\n' +
           '                "uid": "1",\n' +
@@ -178,9 +182,9 @@ test("parse", () => {
           '                "groupid": 2,\n' +
           '                "reg_time": "1436864169",\n' +
           '                "last_login_time": "0",\n' +
-          '            }\n' +
-          '        }'
-      }
-    }
+          "            }\n" +
+          "        }",
+      },
+    },
   });
 });

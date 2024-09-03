@@ -4,6 +4,7 @@ import picocolors from "picocolors";
 import config from "../../../../package.json";
 import { apiGenerate } from "../apiGenerate";
 import { entryTinyPng, tinifyImgs } from "../tinypng";
+import { showMDASR } from "../apiGenerate/remarkParse";
 
 const { red, yellow } = picocolors;
 
@@ -17,7 +18,10 @@ cli.command("tinypng [root]", "tiny your png").action(async (root) => {
   }
   tinifyImgs(entry);
 });
-
+//remark test
+cli.command("remark", "remark").action(() => {
+  showMDASR();
+});
 // 生成api和ts
 cli
   .command("api [root]")

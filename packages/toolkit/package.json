@@ -7,6 +7,7 @@
   "publishConfig": {
     "access": "public"
   },
+  "type": "module",
   "scripts": {
     "start": "tsup --watch",
     "build": "tsup --minify",
@@ -26,7 +27,12 @@
   "license": "ISC",
   "dependencies": {
     "json-to-ts": "^2.1.0",
+    "remark": "^15.0.1",
+    "remark-parse": "^11.0.0",
+    "remark-stringify": "^11.0.0",
     "tinify": "^1.7.1",
+    "unified": "^11.0.5",
+    "unist-util-visit": "^5.0.0",
     "vitest": "^2.0.5"
   }
 }

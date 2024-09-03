@@ -64,9 +64,9 @@ importers:
       remark-parse:
         specifier: ^11.0.0
         version: 11.0.0
-      remark-stringify:
-        specifier: ^11.0.0
-        version: 11.0.0
+      remark-squeeze-paragraphs:
+        specifier: ^5.0.1
+        version: 5.0.1
       tinify:
         specifier: ^1.7.1
         version: 1.7.1
@@ -991,6 +991,12 @@ packages:
   /@types/estree@1.0.5:
     resolution: {integrity: sha1-ps4+VW4A/ZiV3Yct0XKtDUvWh/Q=, tarball: http://r.npm.sankuai.com/@types/estree/download/@types/estree-1.0.5.tgz}
 
+  /@types/mdast@3.0.15:
+    resolution: {integrity: sha1-ScUkomPzD/ootxrigvgT7QAKufU=, tarball: http://r.npm.sankuai.com/@types/mdast/download/@types/mdast-3.0.15.tgz}
+    dependencies:
+      '@types/unist': 2.0.11
+    dev: false
+
   /@types/mdast@4.0.4:
     resolution: {integrity: sha1-fM9y7dLxqn3TQ34YDGQ3NYWATdY=, tarball: http://r.npm.sankuai.com/@types/mdast/download/@types/mdast-4.0.4.tgz}
     dependencies:
@@ -1020,6 +1026,10 @@ packages:
   /@types/semver@7.5.8:
     resolution: {integrity: sha1-gmioxXo+Sr0lwWXs02I323lIpV4=, tarball: http://r.npm.sankuai.com/@types/semver/download/@types/semver-7.5.8.tgz}
     dev: true
+
+  /@types/unist@2.0.11:
+    resolution: {integrity: sha1-Ea9XsSfjJId3SEH3pOVOqxZtA8Q=, tarball: http://r.npm.sankuai.com/@types/unist/download/@types/unist-2.0.11.tgz}
+    dev: false
 
   /@types/unist@3.0.3:
     resolution: {integrity: sha1-rKqw+RnOaczmKcLU7S60rcG2wgw=, tarball: http://r.npm.sankuai.com/@types/unist/download/@types/unist-3.0.3.tgz}
@@ -2354,6 +2364,11 @@ packages:
       has-tostringtag: 1.0.2
     dev: false
 
+  /is-buffer@2.0.5:
+    resolution: {integrity: sha1-68JS5ADSL/jXf6CYiIIaJKZYwZE=, tarball: http://r.npm.sankuai.com/is-buffer/download/is-buffer-2.0.5.tgz}
+    engines: {node: '>=4'}
+    dev: false
+
   /is-callable@1.2.7:
     resolution: {integrity: sha1-O8KoXqdC2eNiBdys3XLKH9xRsFU=, tarball: http://r.npm.sankuai.com/is-callable/download/is-callable-1.2.7.tgz}
     engines: {node: '>= 0.4'}
@@ -2635,6 +2650,13 @@ packages:
     resolution: {integrity: sha1-MBpvk7PowssTrBp6ZzSSwN/RKVQ=, tarball: http://r.npm.sankuai.com/magic-string/download/magic-string-0.30.11.tgz}
     dependencies:
       '@jridgewell/sourcemap-codec': 1.5.0
+    dev: false
+
+  /mdast-squeeze-paragraphs@5.2.0:
+    resolution: {integrity: sha1-I0QM6jWGoctwdx+Ylx1Pi/Hbs2s=, tarball: http://r.npm.sankuai.com/mdast-squeeze-paragraphs/download/mdast-squeeze-paragraphs-5.2.0.tgz}
+    dependencies:
+      '@types/mdast': 3.0.15
+      unist-util-remove: 3.1.1
     dev: false
 
   /mdast-util-from-markdown@2.0.1:
@@ -3291,6 +3313,14 @@ packages:
       - supports-color
     dev: false
 
+  /remark-squeeze-paragraphs@5.0.1:
+    resolution: {integrity: sha1-wVquVZxDzG4f6F4k1uw8yn7MT6k=, tarball: http://r.npm.sankuai.com/remark-squeeze-paragraphs/download/remark-squeeze-paragraphs-5.0.1.tgz}
+    dependencies:
+      '@types/mdast': 3.0.15
+      mdast-squeeze-paragraphs: 5.2.0
+      unified: 10.1.2
+    dev: false
+
   /remark-stringify@11.0.0:
     resolution: {integrity: sha1-TFsB3XEcJp3xqq4RdD634udjb9M=, tarball: http://r.npm.sankuai.com/remark-stringify/download/remark-stringify-11.0.0.tgz}
     dependencies:
@@ -3847,6 +3877,18 @@ packages:
   /undici-types@6.19.6:
     resolution: {integrity: sha1-4hjD3wmH9MDgAIygDWtkctm4mzY=, tarball: http://r.npm.sankuai.com/undici-types/download/undici-types-6.19.6.tgz}
 
+  /unified@10.1.2:
+    resolution: {integrity: sha1-sdZOVdr+HwuYu2xxmIEQPs9sht8=, tarball: http://r.npm.sankuai.com/unified/download/unified-10.1.2.tgz}
+    dependencies:
+      '@types/unist': 2.0.11
+      bail: 2.0.2
+      extend: 3.0.2
+      is-buffer: 2.0.5
+      is-plain-obj: 4.1.0
+      trough: 2.2.0
+      vfile: 5.3.7
+    dev: false
+
   /unified@11.0.5:
     resolution: {integrity: sha1-9mZ3YQpcCp7pDKsrjU1mA3Am2eE=, tarball: http://r.npm.sankuai.com/unified/download/unified-11.0.5.tgz}
     dependencies:
@@ -3859,16 +3901,43 @@ packages:
       vfile: 6.0.3
     dev: false
 
+  /unist-util-is@5.2.1:
+    resolution: {integrity: sha1-t0lg4UXBjctiJrxXkzWX9Uht6uk=, tarball: http://r.npm.sankuai.com/unist-util-is/download/unist-util-is-5.2.1.tgz}
+    dependencies:
+      '@types/unist': 2.0.11
+    dev: false
+
   /unist-util-is@6.0.0:
     resolution: {integrity: sha1-t3WVZIav8Qep3tlx2ZbBczdL5CQ=, tarball: http://r.npm.sankuai.com/unist-util-is/download/unist-util-is-6.0.0.tgz}
     dependencies:
       '@types/unist': 3.0.3
     dev: false
 
+  /unist-util-remove@3.1.1:
+    resolution: {integrity: sha1-i/oYGv+Ra9MqTtMLPtdtDCHAd98=, tarball: http://r.npm.sankuai.com/unist-util-remove/download/unist-util-remove-3.1.1.tgz}
+    dependencies:
+      '@types/unist': 2.0.11
+      unist-util-is: 5.2.1
+      unist-util-visit-parents: 5.1.3
+    dev: false
+
+  /unist-util-stringify-position@3.0.3:
+    resolution: {integrity: sha1-A60zSCEMLZMHctZLSJWAwTp9s50=, tarball: http://r.npm.sankuai.com/unist-util-stringify-position/download/unist-util-stringify-position-3.0.3.tgz}
+    dependencies:
+      '@types/unist': 2.0.11
+    dev: false
+
   /unist-util-stringify-position@4.0.0:
     resolution: {integrity: sha1-RJxuIaiA4IVb9aq63rOnQDFKusI=, tarball: http://r.npm.sankuai.com/unist-util-stringify-position/download/unist-util-stringify-position-4.0.0.tgz}
     dependencies:
       '@types/unist': 3.0.3
+    dev: false
+
+  /unist-util-visit-parents@5.1.3:
+    resolution: {integrity: sha1-tFIIEbDKNChWM3hQRd96jWd2z+s=, tarball: http://r.npm.sankuai.com/unist-util-visit-parents/download/unist-util-visit-parents-5.1.3.tgz}
+    dependencies:
+      '@types/unist': 2.0.11
+      unist-util-is: 5.2.1
     dev: false
 
   /unist-util-visit-parents@6.0.1:
@@ -3897,11 +3966,27 @@ packages:
       punycode: 2.3.1
     dev: true
 
+  /vfile-message@3.1.4:
+    resolution: {integrity: sha1-FaUIFq59fC0fqHCQp/n5ZhK1neo=, tarball: http://r.npm.sankuai.com/vfile-message/download/vfile-message-3.1.4.tgz}
+    dependencies:
+      '@types/unist': 2.0.11
+      unist-util-stringify-position: 3.0.3
+    dev: false
+
   /vfile-message@4.0.2:
     resolution: {integrity: sha1-yIPJ9nfHLBZjYv1jXyH8Flp9EYE=, tarball: http://r.npm.sankuai.com/vfile-message/download/vfile-message-4.0.2.tgz}
     dependencies:
       '@types/unist': 3.0.3
       unist-util-stringify-position: 4.0.0
+    dev: false
+
+  /vfile@5.3.7:
+    resolution: {integrity: sha1-3gZ35mg+M4D6/EZUTP5gMRiCarc=, tarball: http://r.npm.sankuai.com/vfile/download/vfile-5.3.7.tgz}
+    dependencies:
+      '@types/unist': 2.0.11
+      is-buffer: 2.0.5
+      unist-util-stringify-position: 3.0.3
+      vfile-message: 3.1.4
     dev: false
 
   /vfile@6.0.3:
