@@ -1,0 +1,74 @@
+name: dev for fe
+env:
+  REPO_NAME: repo-name
+
+on:
+  push:
+    branches:
+      - dev
+      - dev/test
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: https://${{ secrets.ACCESS_TOKEN }}@git.redrock.team/actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: https://${{ secrets.ACCESS_TOKEN }}@git.redrock.team/fe/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Set up pnpm
+        uses: https://${{ secrets.ACCESS_TOKEN }}@git.redrock.team/fe/pnpm-action-setup@v4
+        with:
+          version: 9
+
+
+      - name: Install and build
+        run: |
+          pnpm i --registry=https://registry.npmmirror.com
+          pnpm run build          
+
+      - name: Log in to Redrock Registry
+        uses: https://${{ secrets.ACCESS_TOKEN }}@git.redrock.team/actions/login-action@v3
+        with:
+          registry: reg.redrock.team
+          username: ${{ vars.REG_FE_USERNAME }}
+          password: ${{ secrets.REG_FE_PASSWORD }}
+
+      - name: Build image for dev
+        run: |
+          echo $REPO_NAME
+          git submodule add https://${{ secrets.ACCESS_TOKEN }}@git.redrock.team/fe/dockerfile.git
+          docker buildx build --build-arg "$REPO_NAME" -f dockerfile/Dockerfile \
+             . -t  reg.redrock.team/fe-dev-artifacts/"$REPO_NAME":${{ github.sha }} 
+          docker image push reg.redrock.team/fe-dev-artifacts/"$REPO_NAME":${{ github.sha }}
+          docker image rm reg.redrock.team/fe-dev-artifacts/"$REPO_NAME":${{ github.sha }}          
+
+      - name: Setup helm
+        id: helm
+        uses: https://${{ secrets.ACCESS_TOKEN }}@git.redrock.team/actions/setup-helm@v4
+      - name: Set up kubeconfig
+        env:
+          KUBECONFIG_CONTENT: ${{ secrets.KUBE_CONFIG }}
+        run: |
+          mkdir -p $HOME/.kube && touch $HOME/.kube/config
+          echo "$KUBECONFIG_CONTENT" > $HOME/.kube/config && chmod 600 $HOME/.kube/config          
+
+      - name: Deploy to Kubernetes dev
+        env:
+          REDROCK_NAMESPACE: fe-dev
+        run: |
+          # helm repo add fe-base https://${{ secrets.ACCESS_TOKEN }}@git.redrock.team/api/packages/fe/helm && helm repo update fe-base
+          # echo "$REPO_NAME"  
+          # echo "$REDROCK_NAMESPACE"
+          helm upgrade --install $REPO_NAME https://${{ secrets.ACCESS_TOKEN }}@git.redrock.team/api/packages/fe/helm/local-app-1.1.1.tgz -n $REDROCK_NAMESPACE \
+             --set image.image=reg.redrock.team/fe-dev-artifacts/$REPO_NAME:${{ github.sha }} \
+             --set version=${{ github.sha }} \
+             --set domain=$REDROCK_NAMESPACE.redrock.cqupt.edu.cn \
+             --set service[0].name=port0 \
+             --set service[0].protocol=http \
+             --set service[0].port=8080    

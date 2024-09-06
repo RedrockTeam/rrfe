@@ -1,33 +1,39 @@
 {
-  "name": "rrfe",
-  "version": "0.0.0",
-  "description": "monorepo",
-  "main": "index.js",
-  "scripts": {
-    "build:create": "pnpm -F create-rrfe build",
-    "build:toolkit": "pnpm -F toolkit build",
-    "build": "pnpm build:create && pnpm build:toolkit",
-    "changeset": "changeset",
-    "changeset:version": "changeset version",
-    "changeset:publish": "changeset publish"
-  },
-  "keywords": [
-    "rrfe"
-  ],
-  "author": "sunsunmonkey",
-  "license": "MIT",
-  "devDependencies": {
-    "@changesets/cli": "^2.27.7",
-    "@types/node": "^22.5.1",
-    "@typescript-eslint/eslint-plugin": "^8.3.0",
-    "eslint": "^9.9.1",
-    "eslint-plugin-simple-import-sort": "^12.1.1",
-    "husky": "^9.1.5",
-    "tsup": "^8.2.4",
-    "typescript": "^5.5.4"
-  },
-  "dependencies": {
-    "cac": "^6.7.14",
-    "picocolors": "^1.0.1"
-  }
+	"name": "rrfe",
+	"version": "0.0.0",
+	"description": "monorepo",
+	"main": "index.js",
+	"scripts": {
+		"build:create": "pnpm -F create-rrfe build",
+		"build:toolkit": "pnpm -F toolkit build",
+		"build": "pnpm build:create && pnpm build:toolkit",
+		"changeset": "changeset",
+		"changeset:version": "changeset version",
+		"changeset:publish": "pnpm build && changeset publish",
+		"prepare": "lefthook install"
+	},
+	"keywords": ["rrfe"],
+	"lint-staged": {
+		"*.{js,jsx,ts,tsx}": ["biome check --apply --no-errors-on-unmatched"],
+		"*.{json,md,html,css,scss,sass,less,styl}": [
+			"biome check --no-errors-on-unmatched --files-ignore-unknown=true"
+		]
+	},
+	"author": "sunsunmonkey",
+	"license": "MIT",
+	"devDependencies": {
+		"@biomejs/biome": "^1.8.3",
+		"@changesets/cli": "^2.27.7",
+		"@types/node": "^22.5.1",
+		"@commitlint/cli": "^18.2.0",
+		"@commitlint/config-conventional": "^18.1.0",
+		"lefthook": "^1.7.15",
+		"tsup": "^8.2.4",
+		"typescript": "^5.5.4"
+	},
+	"dependencies": {
+		"cac": "^6.7.14",
+		"picocolors": "^1.0.1"
+	},
+	"packageManager": "pnpm@8.15.9+sha512.499434c9d8fdd1a2794ebf4552b3b25c0a633abcee5bb15e7b5de90f32f47b513aca98cd5cfd001c31f0db454bc3804edccd578501e4ca293a6816166bbd9f81"
 }
