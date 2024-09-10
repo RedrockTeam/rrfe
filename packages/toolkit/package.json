@@ -32,6 +32,8 @@
     "remark-stringify": "^11.0.0",
     "tinify": "^1.7.1",
     "unified": "^11.0.5",
+    "unist-util-find": "^3.0.0",
+    "unist-util-find-all-between": "2.1.0",
     "unist-util-visit": "^5.0.0",
     "vitest": "^2.0.5"
   }
