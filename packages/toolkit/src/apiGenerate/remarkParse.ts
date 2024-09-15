@@ -124,7 +124,6 @@ function parseMd(option: apiOptions | apiTitle, tree: Root, json: IResult) {
 					for (const [key1, value] of Object.entries(json)) {
 						for (const key2 of Object.keys(value)) {
 							if (node.type === "heading") {
-								console.log(123);
 								if (
 									node.children[0].value === "请求参数" &&
 									treeIndex === index + 1
@@ -170,18 +169,13 @@ function remarkGenerateApi(
 ) {
 	return (tree: Root) => {
 		for (const option of options) {
-			console.log(option);
 			parseMd(option, tree, json);
 		}
 		return tree;
 	};
 }
-export function showMDASR() {
+export function showMDASR(data: string) {
 	const finalJson = {};
-	const filePath = path.resolve(
-		process.cwd(),
-		"./src/apiGenerate/__test__/test.md",
-	);
 	// 创建处理器
 	const processor = unified()
 		.use(remarkParse)
@@ -191,15 +185,10 @@ export function showMDASR() {
 			["pageTitle", "functionTitle", "method", "url", "req", "res"],
 			finalJson,
 		);
-
-	fs.readFile(filePath, "utf8", async (err, data) => {
-		if (err) {
-			return console.error("Error reading file:", err);
-		}
-		//处理缩进
-		const mdData = data.replace(/\n\s+/g, "\n");
-		// 使用解析器解析文件内容
-		processor.process(mdData);
-		console.log("finalJson", finalJson);
-	});
+	//处理缩进
+	const mdData = data.replace(/\n\s+/g, "\n");
+	// 使用解析器解析文件内容
+	processor.process(mdData);
+	console.log("finalJson", finalJson);
+	return finalJson;
 }
