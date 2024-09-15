@@ -1,21 +1,27 @@
 import fs from "node:fs";
 import path from "node:path";
+
 import type { Root } from "mdast";
+
 import remarkParse from "remark-parse";
 import remarkStringify from "remark-stringify";
 import { unified } from "unified";
+
 import type { Node } from "unist";
+
 import between from "unist-util-find-all-between";
 import { visit } from "unist-util-visit";
 type apiOptions = "method" | "url" | "req" | "res";
 type apiTitle = "pageTitle" | "functionTitle";
 type apiNameMap = Record<string, Record<apiOptions, string>>;
 type IResult = Record<string, apiNameMap | object>;
+
 interface MdAstNode extends Node {
 	depth: number;
 	children: MdAstNode;
 	value: string;
 }
+
 function inspectAst() {
 	return (tree) => {
 		console.log(JSON.stringify(tree, null, 1));
@@ -24,27 +30,22 @@ function inspectAst() {
 
 // 对mdast切割,不同层级tree
 function divideMdast(tree: Root, level: "1" | "2" | "3"): MdAstNode[][] {
-	const dividedNumberArray: Array<number> = [0];
-	if (level === "1") return [tree.children] as MdAstNode[][]; //如果是一级标题，直接返回
+	if (level === "1") return [tree.children] as MdAstNode[][];
+
+	const targetDepth = level === "2" ? 1 : 2;
+	const dividedNumberArray = [0];
+
 	visit(tree, "heading", (node, index) => {
-		if (level === "2")
-			if (node.depth === 1) dividedNumberArray.push(index as number);
-		if (level === "3")
-			if (node.depth === 2) dividedNumberArray.push(index as number);
+		if (node.depth === targetDepth) {
+			dividedNumberArray.push(index as number);
+		}
 	});
+	dividedNumberArray.push(tree.children.length);
 
-	dividedNumberArray.push(tree.children.length + 1);
-
-	const processArray = dividedNumberArray.map((i, index, array) => {
-		return [i, array[index + 1] ? array[index + 1] : i];
-	});
-	// 通过切割数组，切割mdast
-	const dividedMdast = processArray.map((item) => {
-		const mdNode = between(tree, item[0], item[1]);
-		return mdNode;
-	});
-
-	return dividedMdast as MdAstNode[][];
+	return dividedNumberArray.slice(0, -1).map((start, index) => {
+		const end = dividedNumberArray[index + 1];
+		return between(tree, start, end);
+	}) as MdAstNode[][];
 }
 // 解析mdast
 function parseMd(option: apiOptions | apiTitle, tree: Root, json: IResult) {

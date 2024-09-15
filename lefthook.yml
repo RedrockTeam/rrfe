@@ -45,4 +45,4 @@ pre-commit:
 commit-msg:
   commands:
     "message-check":
-      run: 
+      run: npx --no -- commitlint --edit 

@@ -3,7 +3,6 @@ import picocolors from "picocolors";
 
 import config from "../../../../package.json";
 import { apiGenerate } from "../apiGenerate";
-import { showMDASR } from "../apiGenerate/remarkParse";
 import { entryTinyPng, tinifyImgs } from "../tinypng";
 
 const { red, yellow } = picocolors;
