@@ -7,6 +7,7 @@
 	"publishConfig": {
 		"access": "public"
 	},
+	"type": "module",
 	"scripts": {
 		"start": "tsup --watch",
 		"build": "tsup --minify",
@@ -20,8 +21,17 @@
 	"author": "sunsunmonkey",
 	"license": "ISC",
 	"dependencies": {
+		"@types/mdast": "^4.0.4",
+		"@types/unist": "^3.0.3",
 		"json-to-ts": "^2.1.0",
+		"remark": "^15.0.1",
+		"remark-parse": "^11.0.0",
+		"remark-stringify": "^11.0.0",
 		"tinify": "^1.7.1",
+		"unified": "^11.0.5",
+		"unist-util-find": "^3.0.0",
+		"unist-util-find-all-between": "2.1.0",
+		"unist-util-visit": "^5.0.0",
 		"vitest": "^2.0.5"
 	}
 }
