@@ -47,120 +47,90 @@ function divideMdast(tree: Root, level: "1" | "2" | "3"): MdAstNode[][] {
 		return between(tree, start, end);
 	}) as MdAstNode[][];
 }
+
 // 解析mdast
 function parseMd(option: apiOptions | apiTitle, tree: Root, json: IResult) {
-	let dividedTree: MdAstNode[][];
-	let callback: (
-		arg0: number,
-	) => (node: MdAstNode, nodeIndex: number, arr: MdAstNode[]) => void;
-	switch (option) {
-		case "pageTitle":
-			dividedTree = divideMdast(tree, "1");
-			callback = (treeIndex) => {
-				return (node) => {
-					if (node.depth === 1) {
-						json[node.children[0].value] = {};
-					}
-				};
-			};
-			break;
-		case "functionTitle":
-			dividedTree = divideMdast(tree, "2");
-			callback = (treeIndex) => {
-				return (node) => {
-					Object.keys(json).forEach((key, index) => {
-						if (node.depth === 2 && treeIndex === index + 1) {
-							json[key][node.children[0].value] = {};
-						}
-					});
-				};
-			};
-			break;
-		case "method":
-			dividedTree = divideMdast(tree, "3");
-			callback = (treeIndex) => {
-				return (node, nodeIndex, arr) => {
-					const index = 0;
-					for (const [key1, value] of Object.entries(json)) {
-						for (const key2 of Object.keys(value)) {
-							if (node.type === "heading") {
-								if (
-									node.children[0].value === "请求方式" &&
-									treeIndex === index + 1
-								) {
-									json[key1][key2].method =
-										arr[nodeIndex + 1].children[0].value;
-								}
-							}
-						}
-					}
-				};
-			};
-			break;
-		case "url":
-			dividedTree = divideMdast(tree, "3");
-			callback = (treeIndex) => {
-				return (node, nodeIndex, arr) => {
-					const index = 0;
-					for (const [key1, value] of Object.entries(json)) {
-						for (const key2 of Object.keys(value)) {
-							if (node.type === "heading") {
-								if (
-									node.children[0].value === "URL" &&
-									treeIndex === index + 1
-								) {
-									json[key1][key2].url = arr[nodeIndex + 1].children[0].value;
-								}
-							}
-						}
-					}
-				};
-			};
-			break;
-		case "req":
-			dividedTree = divideMdast(tree, "3");
-			callback = (treeIndex) => {
-				return (node, nodeIndex, arr) => {
-					const index = 0;
-					for (const [key1, value] of Object.entries(json)) {
-						for (const key2 of Object.keys(value)) {
-							if (node.type === "heading") {
-								if (
-									node.children[0].value === "请求参数" &&
-									treeIndex === index + 1
-								) {
-									json[key1][key2].req = arr[nodeIndex + 1].value;
-								}
-							}
-						}
-					}
-				};
-			};
-			break;
-		case "res":
-			dividedTree = divideMdast(tree, "3");
-			callback = (treeIndex) => {
-				return (node, nodeIndex, arr) => {
-					const index = 0;
-					for (const [key1, value] of Object.entries(json)) {
-						for (const key2 of Object.keys(value)) {
-							if (node.type === "heading") {
-								if (
-									node.children[0].value === "返回参数" &&
-									treeIndex === index + 1
-								) {
-									json[key1][key2].res = arr[nodeIndex + 1].value;
-								}
-							}
-						}
-					}
-				};
-			};
-			break;
+	const optionHandlers = {
+		pageTitle: handlePageTitle,
+		functionTitle: handleFunctionTitle,
+		method: handleMethod,
+		url: handleUrl,
+		req: handleReq,
+		res: handleRes,
+	};
+
+	const handler = optionHandlers[option];
+	if (handler) {
+		handler(tree, json);
+	} else {
+		console.error(`未知的选项: ${option}`);
 	}
-	dividedTree.forEach((item, index) => {
-		item.forEach(callback(index));
+}
+
+function handlePageTitle(tree: Root, json: IResult) {
+	const dividedTree = divideMdast(tree, "1");
+	for (const item of dividedTree) {
+		for (const node of item) {
+			if (node.depth === 1) {
+				json[node.children[0].value] = {};
+			}
+		}
+	}
+}
+
+function handleFunctionTitle(tree: Root, json: IResult) {
+	const dividedTree = divideMdast(tree, "2");
+	for (const [treeIndex, item] of dividedTree.entries()) {
+		for (const node of item) {
+			for (const [index, key] of Object.keys(json).entries()) {
+				if (node.depth === 2 && treeIndex === index + 1) {
+					json[key][node.children[0].value] = {};
+				}
+			}
+		}
+	}
+}
+
+function handleApiProperty(
+	tree: Root,
+	json: IResult,
+	heading: string,
+	property: string,
+) {
+	const dividedTree = divideMdast(tree, "3");
+	dividedTree.forEach((item, treeIndex) => {
+		item.forEach((node, nodeIndex, arr) => {
+			if (
+				node.type === "heading" &&
+				node.children[0].value === heading &&
+				treeIndex === 1
+			) {
+				for (const [key1, value] of Object.entries(json)) {
+					for (const key2 of Object.keys(value)) {
+						json[key1][key2][property] =
+							arr[nodeIndex + 1].children?.[0]?.value ||
+							arr[nodeIndex + 1].value;
+					}
+				}
+			}
+		});
 	});
+}
+
+function handleMethod(tree: Root, json: IResult) {
+	handleApiProperty(tree, json, "请求方式", "method");
+}
+
+function handleUrl(tree: Root, json: IResult) {
+	handleApiProperty(tree, json, "URL", "url");
+}
+
+function handleReq(tree: Root, json: IResult) {
+	handleApiProperty(tree, json, "请求参数", "req");
+}
+
+function handleRes(tree: Root, json: IResult) {
+	handleApiProperty(tree, json, "返回参数", "res");
 }
 
 //插件
