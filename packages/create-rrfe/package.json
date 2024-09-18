@@ -1,6 +1,6 @@
 {
 	"name": "create-rrfe",
-	"version": "0.1.2",
+	"version": "0.1.3",
 	"description": "create redrockFE team template",
 	"main": "index.js",
 	"type": "module",
@@ -38,7 +38,12 @@
 		"url": "https://github.com/RedrockTeam/rrfe/issues"
 	},
 	"homepage": "https://github.com/RedrockTeam/rrfe#readme",
-	"files": ["package.json", "bin", "build", "template"],
+	"files": [
+		"package.json",
+		"bin",
+		"build",
+		"template"
+	],
 	"license": "MIT",
 	"dependencies": {
 		"cross-spawn": "^7.0.3",

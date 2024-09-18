@@ -1,5 +1,11 @@
 # create-rrfe
 
+## 0.1.3
+
+### Patch Changes
+
+- fix the gitea ci
+
 ## 0.1.2
 
 ### Patch Changes
