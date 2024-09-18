@@ -97,7 +97,7 @@ export function updateTailwind(projectName: string) {
 }
 
 export function updateCi(projectName: string, repoName: string) {
-	const ciPath = path.resolve(process.cwd(), projectName, ".gitea");
+	const ciPath = path.resolve(process.cwd(), projectName, ".gitea/workflows");
 	fs.readdirSync(ciPath).map((item) => {
 		const resolvedPath = path.resolve(ciPath, item);
 		let fileContent = fs.readFileSync(resolvedPath, "utf8");
