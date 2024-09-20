@@ -9,7 +9,7 @@
 		"build": "pnpm build:create && pnpm build:toolkit",
 		"changeset": "changeset",
 		"changeset:version": "changeset version",
-		"changeset:publish": "pnpm build && changeset publish",
+		"changeset:publish": "pnpm build z&& changeset publish",
 		"prepare": "lefthook install"
 	},
 	"keywords": ["rrfe"],

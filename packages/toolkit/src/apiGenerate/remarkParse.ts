@@ -11,6 +11,7 @@ import type { Node } from "unist";
 
 import between from "unist-util-find-all-between";
 import { visit } from "unist-util-visit";
+
 type apiOptions = "method" | "url" | "req" | "res";
 type apiTitle = "pageTitle" | "functionTitle";
 type apiNameMap = Record<string, Record<apiOptions, string>>;
