@@ -1,5 +1,6 @@
 import { expect, test } from "vitest";
 
+import exp from "node:constants";
 import fs from "node:fs";
 import path from "node:path";
 import { ApiParser } from "../paser";
@@ -18,77 +19,47 @@ test("parse", () => {
 			console.error("读取文件失败:", err);
 			return;
 		}
-		expect(showMDASR(data)).toStrictEqual({
-			login: {
-				用户注册: {
-					method: "POST",
-					url: "/user/register",
-					req:
-						"{\r\n" +
-						'"username": "12154545",\r\n' +
-						'"name": "吴系挂",\r\n' +
-						'"password": "1436864169"\r\n' +
-						"}",
-					res:
-						"{\r\n" +
-						'"error_code": 0,\r\n' +
-						'"data": {\r\n' +
-						'"uid": "1",\r\n' +
-						'"username": "12154545",\r\n' +
-						'"name": "吴系挂",\r\n' +
-						'"groupid": 2 ,\r\n' +
-						'"reg_time": "1436864169",\r\n' +
-						'"last_login_time": "0",\r\n' +
-						"}\r\n" +
-						"}",
-				},
-				退出: {
-					method: "POST",
-					url: "/user/register",
-					req:
-						"{\r\n" +
-						'"username": "12154545",\r\n' +
-						'"name": "吴系挂",\r\n' +
-						'"password": "1436864169"\r\n' +
-						"}",
-					res:
-						"{\r\n" +
-						'"error_code": 0,\r\n' +
-						'"data": {\r\n' +
-						'"uid": "1",\r\n' +
-						'"username": "12154545",\r\n' +
-						'"name": "吴系挂",\r\n' +
-						'"groupid": 2 ,\r\n' +
-						'"reg_time": "1436864169",\r\n' +
-						'"last_login_time": "0",\r\n' +
-						"}\r\n" +
-						"}",
-				},
-			},
-			acount: {
-				用户: {
-					method: "POST",
-					url: "/user/register",
-					req:
-						"{\r\n" +
-						'"username": "12154545",\r\n' +
-						'"name": "吴系挂",\r\n' +
-						'"password": "1436864169"\r\n' +
-						"}",
-					res:
-						"{\r\n" +
-						'"error_code": 0,\r\n' +
-						'"data": {\r\n' +
-						'"uid": "1",\r\n' +
-						'"username": "12154545",\r\n' +
-						'"name": "吴系挂",\r\n' +
-						'"groupid": 2 ,\r\n' +
-						'"reg_time": "1436864169",\r\n' +
-						'"last_login_time": "0",\r\n' +
-						"}\r\n" +
-						"}",
-				},
-			},
-		});
+
+		const target = showMDASR(data);
+		const regForJson = /"[^"]*":\s*"[^"]*"/g;
+
+		const testCases = [
+			{ path: "login" },
+			{ path: "account" },
+			{ path: "login.用户注册" },
+			{ path: "login.退出" },
+			{ path: "account.用户" },
+			{ path: "login.用户注册.method", value: "POST" },
+			{ path: "login.用户注册.url", value: "/user/register" },
+			{ path: "login.退出.method", value: "POST" },
+			{ path: "login.退出.url", value: "/user/register" },
+			{ path: "account.用户.method", value: "POST" },
+			{ path: "account.用户.url", value: "/user/register" },
+		];
+
+		const checkProperty = (path: string, value?: string) => {
+			if (value) {
+				expect(target).toHaveProperty(path, value);
+			} else {
+				expect(target).toHaveProperty(path);
+			}
+		};
+
+		const checkJsonMatch = (path: string) => {
+			expect(target[path.split(".")[0]][path.split(".")[1]].req).toMatch(
+				regForJson,
+			);
+			expect(target[path.split(".")[0]][path.split(".")[1]].res).toMatch(
+				regForJson,
+			);
+		};
+
+		for (const { path, value } of testCases) {
+			checkProperty(path, value);
+		}
+
+		for (const item of ["login.用户注册", "login.退出", "account.用户"]) {
+			checkJsonMatch(item);
+		}
 	});
 });

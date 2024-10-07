@@ -84,7 +84,7 @@ POST
 }
 ```
 
-# acount
+# account
 
 ## 用户
 
