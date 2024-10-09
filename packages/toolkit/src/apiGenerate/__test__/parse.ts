@@ -21,8 +21,13 @@ test("parse", () => {
 		}
 
 		const target = showMDASR(data);
-		const regForJson = /"[^"]*":\s*"[^"]*"/g;
 
+		function stringToRegex(str: string) {
+			// 用 \s+ 替换掉所有空格
+			const escapedStr = str.replace(/\s+/g, "\\s+");
+			// 构建正则对象，使用 new RegExp
+			return new RegExp(escapedStr);
+		}
 		const testCases = [
 			{ path: "login" },
 			{ path: "account" },
@@ -46,12 +51,10 @@ test("parse", () => {
 		};
 
 		const checkJsonMatch = (path: string) => {
-			expect(target[path.split(".")[0]][path.split(".")[1]].req).toMatch(
-				regForJson,
-			);
-			expect(target[path.split(".")[0]][path.split(".")[1]].res).toMatch(
-				regForJson,
-			);
+			const reqPath = target[path.split(".")[0]][path.split(".")[1]].req;
+			expect(reqPath).toMatch(stringToRegex(reqPath));
+			const resPath = target[path.split(".")[0]][path.split(".")[1]].res;
+			expect(resPath).toMatch(stringToRegex(resPath));
 		};
 
 		for (const { path, value } of testCases) {
